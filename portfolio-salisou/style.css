@@ -333,6 +333,28 @@ footer {
   .hero-visual {
     min-height: 320px;
   }
+
+  /* Riduci dimensione immagine logo su mobile */
+  .logo img {
+    height: 20px !important;
+    margin-right: 6px !important;
+  }
+
+  /* Riduci font-size del logo su mobile */
+  .logo h4 {
+    font-size: 18px !important;
+  }
+
+  /* Riduci padding del bottone */
+  .cssbuttons-io-button {
+    font-size: 14px !important;
+    padding: 0.3em 1em !important;
+  }
+
+  /* Riduci hero title */
+  .hero-title {
+    font-size: clamp(2rem, 5vw, 3rem) !important;
+  }
 }
 
 

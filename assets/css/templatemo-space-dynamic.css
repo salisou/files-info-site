@@ -1681,6 +1681,23 @@ responsive
 }
 
 @media (max-width: 767px) {
+  .main-banner {
+    padding-top: 120px;
+  }
+
+  .main-banner .left-content h2 {
+    font-size: 2rem;
+  }
+
+  .main-banner .left-content p {
+    font-size: 0.9rem;
+  }
+
+  .main-banner .right-image img {
+    max-width: 100%;
+    height: auto;
+  }
+
   .about-us .left-image {
     bottom: -280px;
   }

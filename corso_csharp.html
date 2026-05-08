@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corso C# – Portfolio Salisou</title>
+    <link rel="stylesheet" href="../corso_style.css">
+</head>
+
+<body>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <nav class="top-nav">
+        <div class="top-nav-left">
+            <button class="hamburger" id="hamburger" title="Menu"><span></span><span></span><span></span></button>
+            <a href="../index.html#piattaforma" class="nav-home-btn" title="Homepage"><svg width="14" height="14"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                    <polyline points="9 22 9 12 15 12 15 22" />
+                </svg><span>Home</span></a>
+            <div class="top-nav-logo"><span>Corso C#</span></div>
+        </div>
+        <div class="top-nav-search"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff"
+                stroke-width="2.5">
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.35-4.35" />
+            </svg><input type="text" placeholder="Cerca nel corso..." id="searchInput"></div>
+        <div class="top-nav-right">
+            <div class="theme-picker" id="themePicker"><button class="theme-toggle-btn" id="themeToggleBtn"
+                    title="Cambia tema"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5" />
+                        <line x1="12" y1="1" x2="12" y2="3" />
+                        <line x1="12" y1="21" x2="12" y2="23" />
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                        <line x1="1" y1="12" x2="3" y2="12" />
+                        <line x1="21" y1="12" x2="23" y2="12" />
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                    </svg><span>Tema</span></button>
+                <div class="theme-dropdown" id="themeDropdown">
+                    <div class="theme-dropdown-title">Scegli il tema</div><button class="theme-opt active"
+                        data-theme="light"><span class="theme-swatch"
+                            style="background:linear-gradient(135deg,#f0f2f5,#fff)"></span>☀️ Chiaro</button><button
+                        class="theme-opt" data-theme="dark"><span class="theme-swatch"
+                            style="background:linear-gradient(135deg,#1e1e2e,#313244)"></span>🌙 Scuro</button>
+                </div>
+            </div>
+            <button class="nav-pill active" id="btnPrev" disabled>← Prec</button>
+            <button class="nav-pill" id="btnNext">Prossima →</button>
+            <div class="progress-pill">
+                <div class="progress-circle" id="progressCircle">0%</div><span id="progressPillLabel">0/10</span>
+            </div>
+        </div>
+    </nav>
+    <div class="layout">
+        <aside class="left-sidebar card" id="leftSidebar">
+            <div class="sidebar-profile">
+                <div class="profile-body">
+                    <div class="profile-header">
+                        <div class="profile-logo"
+                            style="background:linear-gradient(135deg,#4f46e5,#38bdf8);width:50px;height:50px;border-radius:18px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;">
+                            C#</div>
+                        <div>
+                            <div class="profile-name">Corso C#</div>
+                            <div class="profile-role">Core .NET · 10 Lezioni</div>
+                        </div>
+                    </div>
+                    <div class="profile-bio">Sintassi C# · OOP · LINQ · Async</div>
+                </div>
+                <div class="profile-stats">
+                    <div class="stat-box">
+                        <div class="stat-num">10</div>
+                        <div class="stat-lbl">Lezioni</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-num">2</div>
+                        <div class="stat-lbl">Risorse</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-num">10</div>
+                        <div class="stat-lbl">Argomenti</div>
+                    </div>
+                </div>
+            </div>
+            <div class="sidebar-scroll">
+                <div class="nav-menu">
+                    <div class="nav-menu-title">Principiante</div>
+                    <div class="nav-menu-item active" id="nav-0">
+                        <div class="nav-icon ni-blue">⚙️</div>Primi passi con C#<span class="nav-num">01</span>
+                    </div>
+                    <div class="nav-menu-item" id="nav-1">
+                        <div class="nav-icon ni-teal">🧱</div>Strutture e tipi<span class="nav-num">02</span>
+                    </div>
+                    <div class="nav-menu-item" id="nav-2">
+                        <div class="nav-icon ni-orange">💡</div>OOP in C#<span class="nav-num">03</span>
+                    </div>
+                    <div class="nav-menu-item" id="nav-3">
+                        <div class="nav-icon ni-green">📦</div>Collezioni e LINQ<span class="nav-num">04</span>
+                    </div>
+                    <div class="nav-menu-item" id="nav-4">
+                        <div class="nav-icon ni-purple">⚡</div>Async e Task<span class="nav-num">05</span>
+                    </div>
+                    <div class="nav-menu-item" id="nav-5">
+                        <div class="nav-icon ni-pink">🧠</div>Pattern e architetture<span class="nav-num">06</span>
+                    </div>
+                    <div class="nav-menu-item" id="nav-6">
+                        <div class="nav-icon ni-blue">🕸️</div>Web API con ASP.NET<span class="nav-num">07</span>
+                    </div>
+                    <div class="nav-menu-item" id="nav-7">
+                        <div class="nav-icon ni-teal">🧩</div>Testing e debug<span class="nav-num">08</span>
+                    </div>
+                    <div class="nav-menu-item" id="nav-8">
+                        <div class="nav-icon ni-orange">🚀</div>Deploy e distribuzione<span class="nav-num">09</span>
+                    </div>
+                    <div class="nav-menu-item" id="nav-9">
+                        <div class="nav-icon ni-green">🏁</div>Progetto finale<span class="nav-num">10</span>
+                    </div>
+                </div>
+                <div class="sidebar-progress">
+                    <div class="sp-label">📊 Progresso Studente</div>
+                    <div class="sp-bar-wrap">
+                        <div class="sp-bar" id="sidebarProgressBar"></div>
+                    </div>
+                    <div class="sp-info"><span id="sidebarProgressLabel">0 / 10 completate</span><span
+                            id="sidebarProgressPct">0%</span></div>
+                </div>
+            </div>
+        </aside>
+        <div class="center-col">
+            <div class="lesson-header-card">
+                <div class="lh-meta">
+                    <div class="lh-title" id="lhTitle">Lezione 01 — Introduzione a C#</div>
+                    <div class="lh-sub">corso / <span id="topTitle"
+                            style="color:var(--accent);font-weight:700;">lezione-01</span> · C#</div>
+                </div>
+                <div class="lh-actions"><button class="lh-btn lh-btn-outline" id="btnPrev" disabled>←
+                        Prec</button><button class="lh-btn lh-btn-primary" id="btnNext">Avanti →</button></div>
+            </div>
+            <div class="lesson-card">
+                <div class="lesson-card-top">
+                    <div class="lesson-badge">📚 Lezione 01 · Fondamenti</div>
+                    <h1>Setup ambiente e primi progetti</h1>
+                    <div class="lesson-meta"><span>~15 min</span><span>Principianti</span><span>C#</span></div>
+                </div>
+                <div class="lesson-body">
+                    <div class="prose">
+                        <h2>Introduzione a C#</h2>
+                        <p>Questo primo modulo ti guida all’installazione di .NET e alla creazione della tua prima app
+                            C#.</p>
+                        <h3>Cosa vedremo</h3>
+                        <ul>
+                            <li>Installazione di .NET SDK</li>
+                            <li>Sintassi di base e tipi</li>
+                            <li>Progetto console iniziale</li>
+                            <li>Struttura di un’app C#</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="lesson-footer">
+                    <div class="lf-left" id="lfLeft">Lezione 1 di 10</div>
+                    <div class="lf-btns"><button class="lf-btn lf-btn-prev" id="btnPrev3" disabled>←
+                            Precedente</button><button class="lf-btn lf-btn-next" id="btnNext3">Prossima lezione
+                            →</button></div>
+                </div>
+            </div>
+            <div class="card course-outline">
+                <div class="lesson-card-top">
+                    <div class="lesson-badge">🗂️ Programma completo</div>
+                    <h2>Lezioni del corso</h2>
+                    <div class="lesson-meta"><span>10 lezioni totali</span><span>Core .NET</span></div>
+                </div>
+                <div class="lesson-summary">
+                    <h3>01. Introduzione a C#</h3>
+                    <p>Installazione, sintassi di base, progetto console e struttura di un’app.</p>
+                </div>
+                <div class="lesson-summary">
+                    <h3>02. Strutture e tipi</h3>
+                    <p>Variabili, array, tuple, stringhe e conversioni in C#.</p>
+                </div>
+                <div class="lesson-summary">
+                    <h3>03. Programmazione orientata agli oggetti</h3>
+                    <p>Classi, metodi, ereditarietà e polimorfismo in C#.</p>
+                </div>
+                <div class="lesson-summary">
+                    <h3>04. Collezioni e LINQ</h3>
+                    <p>Collezioni .NET e query LINQ per elaborare dataset.</p>
+                </div>
+                <div class="lesson-summary">
+                    <h3>05. Async e Task</h3>
+                    <p>Async/await, gestione dei Task e I/O asincrono.</p>
+                </div>
+                <div class="lesson-summary">
+                    <h3>06. Pattern e architetture</h3>
+                    <p>Dependency Injection, repository e SOLID in C#.</p>
+                </div>
+                <div class="lesson-summary">
+                    <h3>07. Web API con ASP.NET</h3>
+                    <p>Creazione di API REST con ASP.NET Core.</p>
+                </div>
+                <div class="lesson-summary">
+                    <h3>08. Testing e debug</h3>
+                    <p>Unit test, debug e qualità del codice in C#.</p>
+                </div>
+                <div class="lesson-summary">
+                    <h3>09. Deploy e distribuzione</h3>
+                    <p>Pubblicazione e gestione di app .NET.</p>
+                </div>
+                <div class="lesson-summary">
+                    <h3>10. Progetto finale</h3>
+                    <p>Progetto pratico completo con tutte le competenze.</p>
+                </div>
+            </div>
+        </div>
+        <aside class="right-sidebar">
+            <div class="card">
+                <div class="rp-section">
+                    <div class="rp-title">📊 Progresso del Corso</div>
+                    <div style="display:flex;align-items:center;gap:14px;">
+                        <div class="rp-pct-ring" id="rpRing">0%</div>
+                        <div style="flex:1;">
+                            <div style="font-size:13px;font-weight:700;color:var(--text);" id="rpProgressLabel">0 / 10
+                                completate</div>
+                            <div style="font-size:11px;color:var(--muted);margin-top:2px;" id="rpCurrentLesson">
+                                Introduzione a C#</div>
+                            <div class="rp-progress-wrap" style="margin-top:6px;">
+                                <div class="rp-progress-bar" id="rpProgressBar"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card" style="margin-top:16px;">
+                <div class="rp-section">
+                    <div class="rp-title">🔧 Risorse utili</div><a class="rp-item"
+                        href="https://learn.microsoft.com/it-it/dotnet/csharp/" target="_blank">
+                        <div class="rp-item-icon ico-blue">⬇️</div>
+                        <div class="rp-item-body">
+                            <div class="rp-item-label">Documentazione C#</div>
+                            <div class="rp-item-sub">learn.microsoft.com</div>
+                        </div><span class="rp-badge badge-free">↗</span>
+                    </a>
+                    <a class="rp-item" href="https://dotnet.microsoft.com/" target="_blank">
+                        <div class="rp-item-icon ico-blue">⬇️</div>
+                        <div class="rp-item-body">
+                            <div class="rp-item-label">Scarica .NET SDK</div>
+                            <div class="rp-item-sub">dotnet.microsoft.com</div>
+                        </div><span class="rp-badge badge-free">↗</span>
+                    </a>
+                </div>
+            </div>
+        </aside>
+    </div>
+</body>
+
+</html>

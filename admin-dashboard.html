@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard — LearnCode Academy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="site.css">
+</head>
+
+<body>
+    <div class="page">
+        <nav>
+            <a href="index.html" class="nav-brand">LearnCode <span>Academy</span></a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="courses.html" class="nav-link">Corsi</a>
+                <a href="student-dashboard.html" class="nav-link">Studenti</a>
+                <a href="login.html" class="nav-link">Logout</a>
+            </div>
+        </nav>
+        <main class="main">
+            <section class="section">
+                <div class="page-hero">
+                    <div class="hero-copy">
+                        <span class="hero-tag">Pannello Admin</span>
+                        <h1 class="hero-title">Gestisci corsi, studenti e certificazioni</h1>
+                        <p class="hero-text">Monitora le iscrizioni, verifica le performance dei corsi e approva i nuovi
+                            contenuti dalla dashboard amministrativa.</p>
+                    </div>
+                    <div class="card">
+                        <div class="metric-card">
+                            <h3>42</h3>
+                            <p>Corsi attivi</p>
+                        </div>
+                        <div class="metric-card" style="margin-top:18px;">
+                            <h3>1.280</h3>
+                            <p>Studenti registrati</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="section">
+                <div class="grid-3">
+                    <article class="metric-card">
+                        <h3>320</h3>
+                        <p>Quiz pubblicati</p>
+                    </article>
+                    <article class="metric-card">
+                        <h3>58</h3>
+                        <p>Certificati emessi</p>
+                    </article>
+                    <article class="metric-card">
+                        <h3>124</h3>
+                        <p>Abbonamenti attivi</p>
+                    </article>
+                </div>
+            </section>
+            <section class="section">
+                <div class="section-head">
+                    <div class="section-kicker">Controllo contenuti</div>
+                    <h2 class="section-title">Corsi e iscrizioni in evidenza</h2>
+                    <p class="section-copy">Tieni sotto controllo le lezioni più popolari, approva nuove proposte e
+                        valuta il feedback degli studenti.</p>
+                </div>
+                <div class="card" style="margin-top:22px;overflow-x:auto;">
+                    <table class="card-table">
+                        <thead>
+                            <tr>
+                                <th>Corso</th>
+                                <th>Iscritti</th>
+                                <th>Progresso medio</th>
+                                <th>Stato</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>C# & .NET Completo</td>
+                                <td>410</td>
+                                <td>68%</td>
+                                <td><span class="badge">Attivo</span></td>
+                            </tr>
+                            <tr>
+                                <td>Blazor</td>
+                                <td>260</td>
+                                <td>57%</td>
+                                <td><span class="badge">Attivo</span></td>
+                            </tr>
+                            <tr>
+                                <td>Python & Tkinter</td>
+                                <td>150</td>
+                                <td>49%</td>
+                                <td><span class="badge">Attivo</span></td>
+                            </tr>
+                            <tr>
+                                <td>SQL Server Completo</td>
+                                <td>215</td>
+                                <td>61%</td>
+                                <td><span class="badge">Attivo</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+        <footer class="footer">
+            <div class="footer-grid">
+                <div class="footer-copy">© 2026 LearnCode Academy • Pannello amministrativo.</div>
+                <div class="footer-links"><a href="index.html">Home</a><a href="courses.html">Corsi</a></div>
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>

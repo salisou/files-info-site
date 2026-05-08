@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corso Python Data – Portfolio Salisou</title>
+    <link rel="stylesheet" href="../corso_style.css">
+</head>
+
+<body>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <nav class="top-nav">
+        <div class="top-nav-left">
+            <button class="hamburger" id="hamburger" title="Menu"><span></span><span></span><span></span></button>
+            <a href="../index.html#piattaforma" class="nav-home-btn" title="Homepage"><svg width="14" height="14"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                    <polyline points="9 22 9 12 15 12 15 22" />
+                </svg><span>Home</span></a>
+            <div class="top-nav-logo"><span>Corso Python Data</span></div>
+        </div>
+        <div class="top-nav-search"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff"
+                stroke-width="2.5">
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.35-4.35" />
+            </svg><input type="text" placeholder="Cerca nel corso..." id="searchInput"></div>
+        <div class="top-nav-right">
+            <div class="theme-picker" id="themePicker"><button class="theme-toggle-btn" id="themeToggleBtn"
+                    title="Cambia tema"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5" />
+                        <line x1="12" y1="1" x2="12" y2="3" />
+                        <line x1="12" y1="21" x2="12" y2="23" />
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                        <line x1="1" y1="12" x2="3" y2="12" />
+                        <line x1="21" y1="12" x2="23" y2="12" />
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                    </svg><span>Tema</span></button>
+                <div class="theme-dropdown" id="themeDropdown">
+                    <div class="theme-dropdown-title">Scegli il tema</div><button class="theme-opt active"
+                        data-theme="light"><span class="theme-swatch"
+                            style="background:linear-gradient(135deg,#f0f2f5,#fff)"></span>☀️ Chiaro</button><button
+                        class="theme-opt" data-theme="dark"><span class="theme-swatch"
+                            style="background:linear-gradient(135deg,#1e1e2e,#313244)"></span>🌙 Scuro</button>
+                </div>
+            </div>
+            <button class="nav-pill active" id="btnPrev" disabled>← Prec</button>
+            <button class="nav-pill" id="btnNext">Prossima →</button>
+            <div class="progress-pill">
+                <div class="progress-circle" id="progressCircle">0%</div><span id="progressPillLabel">0/8</span>
+            </div>
+        </div>
+    </nav>
+    <div class="layout">
+        <aside class="left-sidebar card" id="leftSidebar">
+            <div class="sidebar-profile">
+                <div class="profile-body">
+                    <div class="profile-header">
+                        <div class="profile-logo"
+                            style="background:linear-gradient(135deg,#22d3ee,#0f766e);width:50px;height:50px;border-radius:18px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;">
+                            D</div>
+                        <div>
+                            <div class="profile-name">Corso Python Data</div>
+                            <div class="profile-role">Data Science · 8 Lezioni</div>
+                        </div>
+                    </div>
+                    <div class="profile-bio">pandas · Visualizzazione · Data Cleaning</div>
+                </div>
+                <div class="profile-stats">
+                    <div class="stat-box">
+                        <div class="stat-num">8</div>
+                        <div class="stat-lbl">Lezioni</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-num">2</div>
+                        <div class="stat-lbl">Risorse</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-num">8</div>
+                        <div class="stat-lbl">Argomenti</div>
+                    </div>
+                </div>
+            </div>
+            <div class="sidebar-scroll">
+                <div class="nav-menu">
+                    <div class="nav-menu-title">Base</div>
+                    <div class="nav-menu-item active" id="nav-0">
+                        <div class="nav-icon ni-blue">⚙️</div>Introduzione ai dati<span class="nav-num">01</span>
+                    </div>
+                    <div class="nav-menu-item" id="nav-1">
+                        <div class="nav-icon ni-teal">🧱</div>Pulizia dei dati<span class="nav-num">02</span>
+                    </div>
+                    <div class="nav-menu-item" id="nav-2">
+                        <div class="nav-icon ni-orange">💡</div>Analisi esplorativa<span class="nav-num">03</span>
+                    </div>
+                    <div class="nav-menu-item" id="nav-3">
+                        <div class="nav-icon ni-green">📦</div>Visualizzazione<span class="nav-num">04</span>
+                    </div>
+                    <div class="nav-menu-item" id="nav-4">
+                        <div class="nav-icon ni-purple">⚡</div>Machine Learning<span class="nav-num">05</span>
+                    </div>
+                    <div class="nav-menu-item" id="nav-5">
+                        <div class="nav-icon ni-pink">🧠</div>SQL in Python<span class="nav-num">06</span>
+                    </div>
+                    <div class="nav-menu-item" id="nav-6">
+                        <div class="nav-icon ni-blue">🕸️</div>Esportazione dati<span class="nav-num">07</span>
+                    </div>
+                    <div class="nav-menu-item" id="nav-7">
+                        <div class="nav-icon ni-teal">🧩</div>Progetto finale<span class="nav-num">08</span>
+                    </div>
+                </div>
+                <div class="sidebar-progress">
+                    <div class="sp-label">📊 Progresso Studente</div>
+                    <div class="sp-bar-wrap">
+                        <div class="sp-bar" id="sidebarProgressBar"></div>
+                    </div>
+                    <div class="sp-info"><span id="sidebarProgressLabel">0 / 8 completate</span><span
+                            id="sidebarProgressPct">0%</span></div>
+                </div>
+            </div>
+        </aside>
+        <div class="center-col">
+            <div class="lesson-header-card">
+                <div class="lh-meta">
+                    <div class="lh-title" id="lhTitle">Lezione 01 — Introduzione ai dati</div>
+                    <div class="lh-sub">corso / <span id="topTitle"
+                            style="color:var(--accent);font-weight:700;">lezione-01</span> · Python Data</div>
+                </div>
+                <div class="lh-actions"><button class="lh-btn lh-btn-outline" id="btnPrev" disabled>←
+                        Prec</button><button class="lh-btn lh-btn-primary" id="btnNext">Avanti →</button></div>
+            </div>
+            <div class="lesson-card">
+                <div class="lesson-card-top">
+                    <div class="lesson-badge">📚 Lezione 01 · Fondamenti</div>
+                    <h1>Panoramica Data Science con Python</h1>
+                    <div class="lesson-meta"><span>~20 min</span><span>Principianti</span><span>Python Data</span></div>
+                </div>
+                <div class="lesson-body">
+                    <div class="prose">
+                        <h2>Introduzione ai dati</h2>
+                        <p>Impara i fondamenti della manipolazione dei dati con Python.</p>
+                        <h3>Cosa vedremo</h3>
+                        <ul>
+                            <li>Introduzione a pandas</li>
+                            <li>Caricamento CSV</li>
+                            <li>Pulizia preliminare</li>
+                            <li>Analisi esplorativa</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="lesson-footer">
+                    <div class="lf-left" id="lfLeft">Lezione 1 di 8</div>
+                    <div class="lf-btns"><button class="lf-btn lf-btn-prev" id="btnPrev3" disabled>←
+                            Precedente</button><button class="lf-btn lf-btn-next" id="btnNext3">Prossima lezione
+                            →</button></div>
+                </div>
+            </div>
+            <div class="card course-outline">
+                <div class="lesson-card-top">
+                    <div class="lesson-badge">🗂️ Programma completo</div>
+                    <h2>Lezioni del corso</h2>
+                    <div class="lesson-meta"><span>8 lezioni totali</span><span>Data Science</span></div>
+                </div>
+                <div class="lesson-summary">
+                    <h3>01. Introduzione ai dati</h3>
+                    <p>Introduzione ai dati e preparazione del dataset.</p>
+                </div>
+                <div class="lesson-summary">
+                    <h3>02. Pulizia dei dati</h3>
+                    <p>Pulizia, formattazione e gestione dei dati mancanti.</p>
+                </div>
+                <div class="lesson-summary">
+                    <h3>03. Analisi esplorativa</h3>
+                    <p>Statistiche descrittive, gruppi e outlier.</p>
+                </div>
+                <div class="lesson-summary">
+                    <h3>04. Visualizzazione</h3>
+                    <p>Grafici con Matplotlib e Seaborn.</p>
+                </div>
+                <div class="lesson-summary">
+                    <h3>05. Machine Learning</h3>
+                    <p>Modelli ML base, training e valutazione.</p>
+                </div>
+                <div class="lesson-summary">
+                    <h3>06. SQL in Python</h3>
+                    <p>Query SQL con Python e pandas.</p>
+                </div>
+                <div class="lesson-summary">
+                    <h3>07. Esportazione dati</h3>
+                    <p>Esportare dati e report finali.</p>
+                </div>
+                <div class="lesson-summary">
+                    <h3>08. Progetto finale</h3>
+                    <p>Progetto finale di analisi dati completo.</p>
+                </div>
+            </div>
+        </div>
+        <aside class="right-sidebar">
+            <div class="card">
+                <div class="rp-section">
+                    <div class="rp-title">📊 Progresso del Corso</div>
+                    <div style="display:flex;align-items:center;gap:14px;">
+                        <div class="rp-pct-ring" id="rpRing">0%</div>
+                        <div style="flex:1;">
+                            <div style="font-size:13px;font-weight:700;color:var(--text);" id="rpProgressLabel">0 / 8
+                                completate</div>
+                            <div style="font-size:11px;color:var(--muted);margin-top:2px;" id="rpCurrentLesson">
+                                Introduzione ai dati</div>
+                            <div class="rp-progress-wrap" style="margin-top:6px;">
+                                <div class="rp-progress-bar" id="rpProgressBar"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card" style="margin-top:16px;">
+                <div class="rp-section">
+                    <div class="rp-title">🔧 Risorse utili</div><a class="rp-item"
+                        href="https://pandas.pydata.org/docs/" target="_blank">
+                        <div class="rp-item-icon ico-blue">📘</div>
+                        <div class="rp-item-body">
+                            <div class="rp-item-label">Documentazione pandas</div>
+                            <div class="rp-item-sub">pandas.pydata.org</div>
+                        </div><span class="rp-badge badge-free">↗</span>
+                    </a>
+                    <a class="rp-item" href="https://matplotlib.org/stable/contents.html" target="_blank">
+                        <div class="rp-item-icon ico-blue">⬇️</div>
+                        <div class="rp-item-body">
+                            <div class="rp-item-label">Matplotlib</div>
+                            <div class="rp-item-sub">matplotlib.org</div>
+                        </div><span class="rp-badge badge-free">↗</span>
+                    </a>
+                </div>
+            </div>
+        </aside>
+    </div>
+</body>
+
+</html>

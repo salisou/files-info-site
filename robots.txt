@@ -1,5 +1,11 @@
 User-agent: *
 Allow: /
+Disallow: /admin-dashboard
+Disallow: /student-dashboard
+Disallow: /login
+Disallow: /register
+Disallow: /logout
+Disallow: /monitoraggio
 Disallow: /admin-dashboard.html
 Disallow: /student-dashboard.html
 Disallow: /login.html

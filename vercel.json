@@ -1,0 +1,18 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/courses", "destination": "/courses/index.html" },
+    { "source": "/courses/", "destination": "/courses/index.html" },
+    { "source": "/contact", "destination": "/contact.html" },
+    { "source": "/risorse", "destination": "/risorse.html" },
+    { "source": "/corso_csharp", "destination": "/corso_csharp.html" },
+    { "source": "/corso_blazor", "destination": "/corso_blazor.html" },
+    { "source": "/corso_maui", "destination": "/corso_maui.html" },
+    { "source": "/corso_aspnet", "destination": "/corso_aspnet.html" },
+    { "source": "/corso_python_data", "destination": "/corso_python_data.html" },
+    { "source": "/corso_tkinter", "destination": "/corso_tkinter.html" },
+    { "source": "/corso_sqlserver", "destination": "/corso_sqlserver.html" },
+    { "source": "/corso_php", "destination": "/corso_php.html" }
+  ]
+}

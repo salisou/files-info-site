@@ -1,0 +1,7 @@
+title: "Moussa Salisou — Docente e sviluppatore"
+url: "https://www.moussasalisou.com"
+baseurl: ""
+permalink: pretty
+exclude:
+  - dausare
+  - vendor

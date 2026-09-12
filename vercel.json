@@ -14,6 +14,8 @@
     {"source":"/corso_tkinter","destination":"/corso_tkinter.html"},
     {"source":"/corso_sqlserver","destination":"/corso_sqlserver.html"},
     {"source":"/corso_php","destination":"/corso_php.html"},
+    {"source":"/corso_dotnet","destination":"/corso_language.html"},
+    {"source":"/corso_php_fullstack","destination":"/corso_language.html"},
     {"source":"/corso_html","destination":"/corso_language.html"},
     {"source":"/corso_css","destination":"/corso_language.html"},
     {"source":"/corso_javascript","destination":"/corso_language.html"},

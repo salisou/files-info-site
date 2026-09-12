@@ -1,98 +1,277 @@
 window.MOUSSA_COURSE_CONTENT = (() => {
-  const snippets = {
-    html: {
-      intro:['<!doctype html>\n<html lang="it">\n<head><meta charset="utf-8"><title>Pagina</title></head>\n<body><h1>Ciao</h1></body>\n</html>','<main><h1>Corso HTML</h1><p>Una pagina semantica.</p></main>'],
-      structure:['<!doctype html>\n<html lang="it">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="width=device-width, initial-scale=1">\n</head>\n<body></body>\n</html>','<header><nav><a href="/">Home</a></nav></header>'],
-      links:['<a href="/courses">Tutti i corsi</a>','<a href="mailto:info@example.com">Contattaci</a>'],
-      images:['<img src="foto.jpg" alt="Studente che programma" width="320">','<figure><img src="corso.jpg" alt="Lezione di programmazione"><figcaption>Laboratorio</figcaption></figure>'],
-      forms:['<form>\n  <label for="email">Email</label>\n  <input id="email" name="email" type="email" required>\n  <button type="submit">Invia</button>\n</form>','<label for="corso">Corso</label><select id="corso"><option>Python</option><option>C#</option></select>'],
-      semantics:['<header>Testata</header><nav>Menu</nav><main><article>Contenuto</article></main><footer>Footer</footer>','<section aria-labelledby="titolo"><h2 id="titolo">Corsi</h2></section>'],
-      seo:['<title>Corso Python | Docente Moussa</title>\n<meta name="description" content="Impara Python da zero con esercizi pratici.">','<link rel="canonical" href="https://www.moussasalisou.com/corso_python">'],
-      advanced:['<details><summary>Leggi di più</summary><p>Contenuto aggiuntivo.</p></details>','<dialog id="info"><p>Dettagli corso</p><button onclick="info.close()">Chiudi</button></dialog>']
-    },
-    css: {
-      selectors:['.card { padding: 1rem; }','main > h1 { margin-bottom: 1rem; }'],
-      box:['.card { width: 300px; padding: 20px; border: 1px solid #ddd; box-sizing: border-box; }','.card { margin: 20px; overflow: auto; }'],
-      flex:['.menu { display:flex; align-items:center; justify-content:space-between; gap:1rem; }','.actions { display:flex; flex-wrap:wrap; gap:.75rem; }'],
-      grid:['.cards { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; }','.layout { display:grid; grid-template-columns:240px 1fr; gap:2rem; }'],
-      responsive:['.cards { display:grid; grid-template-columns:repeat(3,1fr); }\n@media (max-width:700px){ .cards{grid-template-columns:1fr;} }','img { max-width:100%; height:auto; }'],
-      variables:[':root { --primary:#173b63; --space:1rem; }\n.card { color:var(--primary); padding:var(--space); }','h1 { font-size:clamp(1.8rem,4vw,3rem); }'],
-      animation:['.button { transition:transform .2s ease; }\n.button:hover { transform:translateY(-2px); }','@keyframes fadeIn { from{opacity:0} to{opacity:1} }\n.card { animation:fadeIn .4s ease; }']
-    },
-    javascript: {
-      basics:['const nome = "Moussa";\nlet eta = 30;\nconsole.log(nome, eta);','const corso = { nome:"Python", ore:40 };\nconsole.log(corso.nome);'],
-      control:['const voto=27;\nconst esito=voto>=18 ? "Superato" : "Non superato";\nconsole.log(esito);','for(let i=1;i<=5;i++){ console.log(i); }'],
-      functions:['function somma(a,b){ return a+b; }\nconsole.log(somma(12,8));','const doppio = n => n * 2;\nconsole.log(doppio(6));'],
-      arrays:['const voti=[18,24,30];\nconst alti=voti.filter(v=>v>=24);\nconsole.log(alti);','const nomi=["Amina","Luca"];\nnomi.push("Sara");\nconsole.log(nomi);'],
-      dom:['const titolo=document.querySelector("#titolo");\nif(titolo) titolo.textContent="Benvenuto";','const button=document.querySelector("#saluta");\nbutton?.addEventListener("click",()=>alert("Ciao!"));'],
-      async:['async function carica(){\n  const response=await fetch("/api/corsi");\n  return response.json();\n}\ncarica().then(console.log);','fetch("/api/corsi").then(r=>r.json()).then(console.log).catch(console.error);']
-    },
-    python: {
-      basics:['nome="Moussa"\neta=30\nprint(f"{nome} ha {eta} anni")','corso={"nome":"Python","ore":40}\nprint(corso["nome"])'],
-      control:['voto=27\nif voto >= 18:\n    print("Superato")\nelse:\n    print("Non superato")','for i in range(1,6):\n    print(i)'],
-      functions:['def somma(a, b):\n    return a + b\n\nprint(somma(12, 8))','def saluta(nome="Studente"):\n    return f"Ciao {nome}!"\n\nprint(saluta("Amina"))'],
-      collections:['voti=[18,24,30]\nvalidi=[v for v in voti if v >= 18]\nprint(validi)','studenti={"Amina":28,"Luca":24}\nfor nome,voto in studenti.items():\n    print(nome,voto)'],
-      files:['from pathlib import Path\nPath("note.txt").write_text("Corso Python", encoding="utf-8")\nprint(Path("note.txt").read_text(encoding="utf-8"))','import json\ndata={"corso":"Python","ore":40}\nprint(json.dumps(data, indent=2))'],
-      oop:['class Studente:\n    def __init__(self, nome, voto):\n        self.nome=nome\n        self.voto=voto\n\ns=Studente("Amina",28)\nprint(s.nome)','class Corso:\n    def __init__(self,nome):\n        self.nome=nome\n']
-    },
-    sql: {
-      select:['SELECT Nome, Voto FROM Studenti;','SELECT Nome, Voto AS Media FROM Studenti WHERE Voto >= 18 ORDER BY Voto DESC;'],
-      aggregate:['SELECT CorsoId, COUNT(*) AS Totale, AVG(Voto) AS Media\nFROM Studenti\nGROUP BY CorsoId;','SELECT MAX(Voto) AS Massimo, MIN(Voto) AS Minimo FROM Studenti;'],
-      join:['SELECT s.Nome, c.Nome AS Corso\nFROM Studenti s\nINNER JOIN Corsi c ON c.Id=s.CorsoId;','SELECT c.Nome, s.Nome\nFROM Corsi c\nLEFT JOIN Studenti s ON s.CorsoId=c.Id;'],
-      write:['INSERT INTO Studenti(Nome,Voto,CorsoId) VALUES (\'Amina\',28,1);','UPDATE Studenti SET Voto=30 WHERE Id=1;\nDELETE FROM Studenti WHERE Id=10;'],
-      design:['CREATE TABLE Corsi(\n  Id INT PRIMARY KEY,\n  Nome VARCHAR(100) NOT NULL UNIQUE\n);','CREATE TABLE Iscrizioni(\n  StudenteId INT NOT NULL,\n  CorsoId INT NOT NULL,\n  PRIMARY KEY(StudenteId,CorsoId),\n  FOREIGN KEY(StudenteId) REFERENCES Studenti(Id)\n);'],
-      advanced:['WITH Medie AS (SELECT CorsoId,AVG(Voto) Media FROM Studenti GROUP BY CorsoId) SELECT * FROM Medie;','SELECT Nome, CASE WHEN Voto>=27 THEN \'Ottimo\' WHEN Voto>=18 THEN \'Superato\' ELSE \'Da recuperare\' END AS Esito FROM Studenti;']
-    },
-    csharp: {
-      basics:['int eta=30;\nstring nome="Moussa";\nConsole.WriteLine($"{nome}: {eta}");','int[] voti={18,25,30};\nConsole.WriteLine(voti.Length);'],
-      control:['int voto=27;\nstring esito=voto switch { >=18=>"Superato", _=>"Non superato" };\nConsole.WriteLine(esito);','for(int i=1;i<=5;i++) Console.WriteLine(i);'],
-      oop:['public class Studente\n{\n    public string Nome { get; set; } = "Amina";\n    public int Voto { get; set; }\n}','public interface INotifica { void Invia(); }\npublic class Email : INotifica { public void Invia()=>Console.WriteLine("Inviata"); }'],
-      linq:['var voti=new[]{18,24,30};\nvar alti=voti.Where(v=>v>=24).ToList();\nConsole.WriteLine(string.Join(", ",alti));','var studenti=new[]{new {Nome="Amina",Voto=28},new {Nome="Luca",Voto=24}};\nvar ordinati=studenti.OrderByDescending(s=>s.Voto);'],
-      async:['async Task<string> CaricaAsync(HttpClient client)\n{\n    return await client.GetStringAsync("https://example.com");\n}','await Task.Delay(100);\nConsole.WriteLine("Operazione completata");']
-    },
-    java: { basics:['public class Main { public static void main(String[] args) { System.out.println("Ciao Java"); } }','int[] voti={18,25,30}; System.out.println(voti.length);'], control:['int voto=27; System.out.println(voto>=18 ? "Superato" : "Non superato");','for(int i=1;i<=5;i++) System.out.println(i);'], oop:['class Studente { String nome; int voto; Studente(String n,int v){nome=n;voto=v;} }','interface Notifica { void invia(); }'] },
-    php: { basics:['<?php $nome="Moussa"; $eta=30; echo "$nome: $eta";','<?php $voti=[18,25,30]; echo count($voti);'], control:['<?php $voto=27; echo $voto>=18 ? "Superato" : "Non superato";','<?php for($i=1;$i<=5;$i++){ echo $i."\\n"; }'], web:['<?php $email=filter_input(INPUT_POST,"email",FILTER_VALIDATE_EMAIL); if($email===false){ echo "Email non valida"; }','<?php $pdo=new PDO($dsn,$user,$password); $stmt=$pdo->prepare("SELECT * FROM utenti WHERE email=?"); $stmt->execute([$email]);'], oop:['<?php class Studente { public function __construct(public string $nome, public int $voto) {} }','<?php interface Notifica { public function invia(): void; }'] },
-    go: { basics:['package main\nimport "fmt"\nfunc main(){fmt.Println("Ciao Go")}','package main\nimport "fmt"\nfunc main(){nome:="Moussa";fmt.Println(nome)}'], control:['package main\nimport "fmt"\nfunc main(){voto:=27;if voto>=18{fmt.Println("Superato")}}','for i:=1;i<=5;i++{fmt.Println(i)}'], types:['voti:=[]int{18,25,30}\nstudenti:=map[string]int{"Amina":28}\nfmt.Println(voti,studenti)','type Studente struct { Nome string; Voto int }'] },
-    rust: { basics:['fn main(){ println!("Ciao Rust"); }','let nome="Moussa"; let mut eta=30; eta+=1; println!("{} {}",nome,eta);'], control:['let voto=27; if voto>=18 { println!("Superato"); }','for i in 1..=5 { println!("{}",i); }'], ownership:['let testo=String::from("Ciao"); let riferimento=&testo; println!("{}",riferimento);','let numeri=vec![18,25,30]; println!("{}",numeri.len());'], types:['enum Stato { Attivo, Sospeso }','struct Studente { nome:String, voto:u8 }'] },
-    kotlin: { basics:['fun main(){ val nome="Moussa"; val eta=30; println("$nome: $eta") }','val voti=listOf(18,25,30); println(voti.size)'], control:['val voto=27; println(if(voto>=18) "Superato" else "Non superato")','for(i in 1..5) println(i)'], oop:['data class Studente(val nome:String,val voto:Int)','interface Notifica { fun invia() }'] },
-    swift: { basics:['import Foundation\nlet nome="Moussa"\nlet eta=30\nprint("\\(nome): \\(eta)")','let voti=[18,25,30]\nprint(voti.count)'], control:['let voto=27\nprint(voto >= 18 ? "Superato" : "Non superato")','for i in 1...5 { print(i) }'], oop:['struct Studente { let nome:String; let voto:Int }','protocol Notifica { func invia() }'] }
+  const banks = {
+    html: [
+      '<!doctype html>\n<html lang="it">\n<head><meta charset="utf-8"><title>Pagina</title></head>\n<body><h1>Benvenuto</h1></body>\n</html>',
+      '<main><h1>Corsi</h1><p>Impara con esempi pratici.</p></main>',
+      '<h1>Titolo principale</h1><h2>Sezione</h2><p>Testo informativo.</p>',
+      '<p>Testo <strong>importante</strong> e <em>in evidenza</em>.</p>',
+      '<a href="/courses/">Scopri i corsi</a>',
+      '<img src="corso.jpg" alt="Studente durante una lezione" width="320">',
+      '<audio controls src="lezione.mp3"></audio>',
+      '<ul><li>Python</li><li>C#</li><li>SQL</li></ul>',
+      '<ol><li>Studia</li><li>Esercitati</li><li>Verifica</li></ol>',
+      '<table><thead><tr><th>Corso</th><th>Ore</th></tr></thead><tbody><tr><td>Python</td><td>40</td></tr></tbody></table>',
+      '<form><label for="email">Email</label><input id="email" type="email" required><button type="submit">Invia</button></form>',
+      '<input type="number" min="0" max="30" step="1">',
+      '<header><nav><a href="/">Home</a></nav></header><main><article>Contenuto</article></main><footer>Footer</footer>',
+      '<figure><img src="grafico.png" alt="Grafico dei risultati"><figcaption>Risultati</figcaption></figure>',
+      '<meta name="viewport" content="width=device-width, initial-scale=1">',
+      '<title>Corso Python | Docente Moussa</title>\n<meta name="description" content="Percorso pratico per imparare Python.">',
+      '<section aria-labelledby="titolo"><h2 id="titolo">Corsi</h2></section>',
+      '<iframe title="Video del corso" src="https://example.com"></iframe>',
+      '<button data-course-id="python">Apri corso</button>',
+      '<details><summary>Dettagli</summary><p>Contenuto aggiuntivo.</p></details>',
+      '<dialog id="info"><p>Informazioni</p><button onclick="info.close()">Chiudi</button></dialog>',
+      '<template id="card-template"><article class="card"><h2></h2></article></template>',
+      '<div itemscope itemtype="https://schema.org/Course"><span itemprop="name">Corso Python</span></div>',
+      '<main class="responsive-content"><h1>Layout adattabile</h1><p>La struttura resta semantica.</p></main>',
+      '<button id="saluta">Saluta</button><script>document.querySelector("#saluta").onclick=()=>alert("Ciao");</script>',
+      '<link rel="stylesheet" href="assets/css/modern.css">',
+      '<form novalidate><label for="nome">Nome</label><input id="nome" name="nome" minlength="2" required></form>',
+      '<main><h1>Pagina valida</h1><p>Markup ordinato e semantico.</p></main>',
+      '<!doctype html>\n<html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body><header>MS Academy</header><main><h1>Corso</h1><p>Progetto finale.</p></main><footer>Docente Moussa Salisou</footer></body></html>'
+    ],
+    css: [
+      'body { margin: 0; font-family: system-ui, sans-serif; }',
+      '.card { padding: 1rem; border: 1px solid #ddd; }',
+      'main > h1 { margin-bottom: 1rem; }',
+      '.card { width: 300px; padding: 20px; box-sizing: border-box; overflow: auto; }',
+      '.card { margin: 1rem; padding: 1rem; }',
+      '.hero { background: #173b63; color: white; padding: 2rem; }',
+      '.menu { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }',
+      '.actions { display: flex; flex-wrap: wrap; gap: .75rem; }',
+      '.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }',
+      '.layout { display: grid; grid-template-columns: 240px 1fr; gap: 2rem; }',
+      '@media (max-width: 700px) { .grid { grid-template-columns: 1fr; } }',
+      'img { max-width: 100%; height: auto; }',
+      ':root { --primary: #173b63; --space: 1rem; } .title { color: var(--primary); padding: var(--space); }',
+      '.title { font-size: 2rem; font-weight: 700; }',
+      '.button:focus-visible { outline: 3px solid currentColor; outline-offset: 3px; }',
+      '.card:hover { box-shadow: 0 8px 24px rgba(0,0,0,.12); }',
+      '.sidebar { position: sticky; top: 1rem; }',
+      '.badge { display: inline-block; padding: .25rem .6rem; border-radius: 999px; }',
+      '.container { width: min(1100px, 100% - 2rem); margin-inline: auto; }',
+      '.stack > * + * { margin-top: 1rem; }',
+      '.two-col { columns: 2 260px; column-gap: 2rem; }',
+      '.avatar { width: 64px; aspect-ratio: 1; border-radius: 50%; object-fit: cover; }',
+      '.modal { position: fixed; inset: 0; display: grid; place-items: center; }',
+      '.button { transition: transform .2s ease, box-shadow .2s ease; }',
+      '.button:hover { transform: translateY(-2px); }',
+      '@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }',
+      '.card { animation: fadeIn .4s ease; }',
+      '@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }',
+      '.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }',
+      '.price { font-size: clamp(1.5rem, 4vw, 2.5rem); }',
+      '.footer { border-top: 1px solid #ddd; padding-block: 2rem; }',
+      '.course-page { min-height: 100vh; display: grid; grid-template-rows: auto 1fr auto; }'
+    ],
+    javascript: [
+      'const nome = "Moussa"; const eta = 30; console.log(nome, eta);',
+      'let totale = 120; totale += 30; console.log(totale);',
+      'const attivo = true; console.log(typeof attivo);',
+      'const risultato = 12 + 8 * 2; console.log(risultato);',
+      'const voto = 27; console.log(voto >= 18 ? "Superato" : "Non superato");',
+      'const ruolo = "admin"; switch (ruolo) { case "admin": console.log("Admin"); break; default: console.log("User"); }',
+      'for (let i = 1; i <= 5; i++) console.log(i);',
+      'function somma(a, b) { return a + b; } console.log(somma(12, 8));',
+      'const doppio = n => n * 2; console.log(doppio(6));',
+      'function creaContatore() { let n = 0; return () => ++n; } const next = creaContatore(); console.log(next(), next());',
+      'const voti = [18, 24, 30]; console.log(voti.map(v => v + 1));',
+      'const validi = [18, 24, 30].filter(v => v >= 24); console.log(validi);',
+      'const studente = { nome: "Amina", voto: 28 }; console.log(studente.nome);',
+      'const { nome, voto } = { nome: "Amina", voto: 28 }; console.log(nome, voto);',
+      'const corso = "Python"; console.log(`Corso: ${corso}`);',
+      'console.log(Math.max(18, 25, 30));',
+      'const ruoli = new Map([["Amina", "admin"], ["Luca", "student"]]); console.log(ruoli.get("Amina"));',
+      'const titolo = document.querySelector("#titolo"); console.log(titolo);',
+      'const p = document.createElement("p"); p.textContent = "Creato da JavaScript"; document.body.append(p);',
+      'document.querySelector("#saluta")?.addEventListener("click", () => alert("Ciao"));',
+      'document.querySelector("form")?.addEventListener("submit", e => { e.preventDefault(); console.log("Form inviato"); });',
+      'localStorage.setItem("theme", "light"); console.log(localStorage.getItem("theme"));',
+      'const json = JSON.stringify({ nome: "Amina", voto: 28 }); console.log(JSON.parse(json));',
+      'fetch("/api/corsi").then(r => r.json()).then(console.log).catch(console.error);',
+      'Promise.resolve("completato").then(console.log);',
+      'async function carica() { const r = await fetch("/api/corsi"); return r.json(); }',
+      'try { JSON.parse("non json"); } catch (error) { console.error(error.message); }',
+      'export const somma = (a, b) => a + b;',
+      'class Studente { constructor(nome, voto) { this.nome = nome; this.voto = voto; } } console.log(new Studente("Amina", 28));',
+      'const app = { nome: "Registro", versione: "1.0" }; console.log(app);'
+    ],
+    typescript: [
+      'const nome: string = "Moussa"; const eta: number = 30; console.log(nome, eta);',
+      'const attivo: boolean = true; console.log(attivo);',
+      'const ore = 40; console.log(ore.toFixed(0));',
+      'type Stato = "attivo" | "sospeso"; const stato: Stato = "attivo";',
+      'type Studente = { nome: string; voto: number }; const s: Studente = { nome: "Amina", voto: 28 };',
+      'function somma(a: number, b: number): number { return a + b; }',
+      'function saluta(nome: string = "Studente"): string { return `Ciao ${nome}`; }',
+      'const voti: number[] = [24, 28, 30]; const coppia: [string, number] = ["Amina", 28];',
+      'interface Corso { nome: string; ore: number } const corso: Corso = { nome: "Python", ore: 40 };',
+      'type Identificativo = string | number; const id: Identificativo = 10;',
+      'interface Admin { ruolo: "admin" } interface Utente { nome: string } type Profilo = Admin & Utente;',
+      'enum StatoCorso { Attivo, Sospeso } console.log(StatoCorso.Attivo);',
+      'function mostra(v: string | number) { if (typeof v === "string") console.log(v.toUpperCase()); else console.log(v.toFixed()); }',
+      'function primo<T>(items: T[]): T { return items[0]; }',
+      'function lengthOf<T extends { length: number }>(x: T) { return x.length; }',
+      'type Utente = { id: number; nome: string }; type Pubblico = Readonly<Utente>;',
+      'const dati: ReadonlyArray<number> = [1, 2, 3]; console.log(dati);',
+      'class Studente { constructor(public nome: string, public voto: number) {} }',
+      'abstract class Persona { constructor(public nome: string) {} abstract descrivi(): string; }',
+      'class Docente extends Persona { descrivi() { return `Docente: ${this.nome}`; } }',
+      'class Corso { private ore = 40; public getOre() { return this.ore; } }',
+      'export interface Config { apiUrl: string }',
+      'import { Config } from "./config"; const config: Config = { apiUrl: "/api" };',
+      'function parse(value: string): unknown { return JSON.parse(value); }',
+      'async function carica(): Promise<unknown> { const r = await fetch("/api/corsi"); return r.json(); }',
+      'type ApiResponse = { id: number; nome: string }; async function get(): Promise<ApiResponse> { const r = await fetch("/api/corso"); return r.json() as Promise<ApiResponse>; }',
+      'const button = document.querySelector("#saluta") as HTMLButtonElement | null; button?.click();',
+      '// tsconfig.json definisce target, module, strict e altre regole di compilazione.',
+      'const risultato: number = somma(2, 3); console.log(risultato);',
+      'type Result<T> = { data: T | null; error: string | null }; const result: Result<string> = { data: "ok", error: null };'
+    ],
+    python: [
+      'nome = "Moussa"; eta = 30; print(f"{nome} ha {eta} anni")',
+      'corso = {"nome": "Python", "ore": 40}; print(corso["nome"])',
+      'nome = input("Nome: "); print("Ciao", nome)',
+      'totale = 120 + 30; print(totale)',
+      'voto = 27\nprint("Superato" if voto >= 18 else "Non superato")',
+      'ruolo = "admin"\nmatch ruolo:\n    case "admin": print("Accesso completo")\n    case _: print("Accesso base")',
+      'for i in range(1, 6): print(i)',
+      'n = 3\nwhile n > 0:\n    print(n)\n    n -= 1',
+      'def somma(a, b):\n    return a + b\n\nprint(somma(12, 8))',
+      'def saluta(nome="Studente"):\n    return f"Ciao {nome}"\nprint(saluta("Amina"))',
+      'contatore = 0\ndef incrementa():\n    global contatore\n    contatore += 1',
+      'voti = [18, 24, 30]; print(voti)',
+      'punto = (10, 20); print(punto[0])',
+      'studenti = {"Amina": 28, "Luca": 24}; print(studenti["Amina"])',
+      'voti = {18, 24, 30}; print(24 in voti)',
+      'nome = "Moussa"; print(nome[0:3])',
+      'pari = [x for x in range(10) if x % 2 == 0]; print(pari)',
+      'from math import sqrt\nprint(sqrt(25))',
+      'import json\ndata = {"corso": "Python"}\nprint(json.dumps(data))',
+      'print(".venv è l ambiente virtuale consigliato per il progetto")',
+      'from pathlib import Path\nPath("note.txt").write_text("Corso Python", encoding="utf-8")',
+      'import csv\nprint("Usa csv.reader o csv.DictReader per dati tabellari")',
+      'import json\ndata = json.loads("{\\"nome\\":\\"Amina\\"}")\nprint(data["nome"])',
+      'try:\n    valore = int("abc")\nexcept ValueError:\n    valore = 0\nprint(valore)',
+      'print("Durante il debugging osserva variabili, call stack e breakpoint")',
+      'class Studente:\n    def __init__(self, nome, voto):\n        self.nome = nome\n        self.voto = voto\ns = Studente("Amina", 28)\nprint(s.nome)',
+      'class Persona:\n    def __init__(self, nome): self.nome = nome\nclass Docente(Persona): pass',
+      'numeri = (x * x for x in range(5)); print(list(numeri))',
+      'def traccia(funzione):\n    def wrapper(*args, **kwargs): return funzione(*args, **kwargs)\n    return wrapper',
+      'from contextlib import contextmanager\nprint("Un context manager garantisce gestione ordinata della risorsa")'
+    ],
+    sql: [
+      'SELECT Id, Nome FROM Studenti;',
+      'SELECT Nome, Voto AS Valutazione FROM Studenti;',
+      'SELECT Nome, Voto, Voto + 1 AS VotoSuccessivo FROM Studenti;',
+      'SELECT * FROM Studenti WHERE Voto >= 18;',
+      'SELECT * FROM Studenti WHERE Voto IS NOT NULL;',
+      'SELECT Nome, Voto FROM Studenti ORDER BY Voto DESC;',
+      'SELECT DISTINCT CorsoId FROM Studenti;',
+      'SELECT COUNT(*) AS Totale, AVG(Voto) AS Media FROM Studenti;',
+      'SELECT CorsoId, COUNT(*) AS Totale FROM Studenti GROUP BY CorsoId;',
+      'SELECT CorsoId, AVG(Voto) AS Media FROM Studenti GROUP BY CorsoId HAVING AVG(Voto) >= 18;',
+      'SELECT s.Nome, c.Nome AS Corso FROM Studenti s INNER JOIN Corsi c ON c.Id = s.CorsoId;',
+      'SELECT c.Nome, s.Nome FROM Corsi c LEFT JOIN Studenti s ON s.CorsoId = c.Id;',
+      'SELECT a.Nome, b.Nome FROM Studenti a JOIN Studenti b ON a.CorsoId=b.CorsoId WHERE a.Id<>b.Id;',
+      'SELECT Nome FROM Studenti WHERE Voto > (SELECT AVG(Voto) FROM Studenti);',
+      'WITH Medie AS (SELECT CorsoId, AVG(Voto) Media FROM Studenti GROUP BY CorsoId) SELECT * FROM Medie;',
+      'INSERT INTO Studenti(Nome,Voto,CorsoId) VALUES (\'Amina\',28,1);',
+      'UPDATE Studenti SET Voto = 30 WHERE Id = 1;',
+      'DELETE FROM Studenti WHERE Id = 10;',
+      'CREATE TABLE Corsi(Id INT PRIMARY KEY, Nome VARCHAR(100) NOT NULL UNIQUE);',
+      'CREATE TABLE Studenti(Id INT PRIMARY KEY, Nome VARCHAR(100) NOT NULL, Voto INT);',
+      'CREATE TABLE Iscrizioni(StudenteId INT, CorsoId INT, PRIMARY KEY(StudenteId,CorsoId));',
+      'ALTER TABLE Studenti ADD Email VARCHAR(150);',
+      'CREATE INDEX IX_Studenti_Voto ON Studenti(Voto);',
+      'CREATE VIEW V_StudentiMeritevoli AS SELECT Nome,Voto FROM Studenti WHERE Voto>=27;',
+      'CREATE PROCEDURE CercaStudente AS SELECT Id,Nome,Voto FROM Studenti;',
+      'CREATE FUNCTION MediaVoti(@CorsoId INT) RETURNS DECIMAL(5,2) AS BEGIN RETURN (SELECT AVG(Voto) FROM Studenti WHERE CorsoId=@CorsoId); END;',
+      'BEGIN TRANSACTION; UPDATE Studenti SET Voto=Voto+1 WHERE CorsoId=1; COMMIT;',
+      'SELECT Nome, CASE WHEN Voto>=27 THEN \'Ottimo\' WHEN Voto>=18 THEN \'Superato\' ELSE \'Recupero\' END AS Esito FROM Studenti;',
+      'SELECT TOP 10 Nome,Voto FROM Studenti ORDER BY Voto DESC;',
+      '-- Progetto finale: schema, CRUD, join, aggregazioni, vincoli e performance'
+    ],
+    csharp: [
+      'string nome = "Moussa"; int eta = 30; Console.WriteLine($"{nome}: {eta}");',
+      'int voto = 27; Console.WriteLine(voto >= 18 ? "Superato" : "Non superato");',
+      'string testo = "C#"; Console.WriteLine(testo.Length);',
+      'int totale = 100; totale += 20; Console.WriteLine(totale);',
+      'string esito = voto switch { >= 18 => "Superato", _ => "Non superato" }; Console.WriteLine(esito);',
+      'for (int i = 1; i <= 5; i++) Console.WriteLine(i);',
+      'int Somma(int a, int b) => a + b; Console.WriteLine(Somma(2,3));',
+      'int[] voti = {18,25,30}; Console.WriteLine(voti.Length);',
+      'var voti = new List<int> {18,25,30}; voti.Add(28);',
+      'var studenti = new Dictionary<string,int> {{"Amina",28}}; Console.WriteLine(studenti["Amina"]);',
+      'public class Studente { public string Nome { get; set; } = ""; public int Voto { get; set; } }',
+      'public class Corso { public Corso(string nome,int ore){Nome=nome;Ore=ore;} public string Nome{get;} public int Ore{get;} }',
+      'public class Conto { private decimal saldo; public decimal Saldo => saldo; }',
+      'public interface INotifica { void Invia(); } public class Email : INotifica { public void Invia()=>Console.WriteLine("Inviata"); }',
+      'public abstract class Persona { public string Nome{get;} protected Persona(string nome)=>Nome=nome; public abstract string Descrivi(); }',
+      'var alti = new[]{18,24,30}.Where(v=>v>=24).ToList(); Console.WriteLine(string.Join(",",alti));',
+      'try { throw new InvalidOperationException("Errore"); } catch(Exception ex) { Console.WriteLine(ex.Message); }',
+      'File.WriteAllText("note.txt","Corso C#");',
+      'var json = System.Text.Json.JsonSerializer.Serialize(new {Nome="Amina",Voto=28}); Console.WriteLine(json);',
+      'public delegate void Notifica(string messaggio);',
+      'Action<string> log = m => Console.WriteLine(m); log("ok");',
+      'await Task.Delay(100); Console.WriteLine("Completato");',
+      'using var client = new HttpClient(); var response = await client.GetAsync("https://example.com");',
+      'record StudenteDto(int Id,string Nome,int Voto);',
+      'var risultato = studenti.OrderByDescending(s=>s.Voto).Take(3);',
+      '// Dependency Injection separa la costruzione delle dipendenze dal loro utilizzo',
+      '// dotnet new console; dotnet build; dotnet run',
+      '// Un servizio applicativo dovrebbe avere una responsabilità chiara e testabile',
+      '// Le API devono validare input e restituire status code coerenti',
+      '// Progetto finale: applicazione .NET con servizi, DTO, LINQ, persistenza e test'
+    ]
   };
 
-  const keyFor = (lang, topic) => {
-    const t=topic.toLowerCase();
-    if(lang==='html') return /form|input|validazione/.test(t)?'forms':/link/.test(t)?'links':/immagini|figure/.test(t)?'images':/seo|meta/.test(t)?'seo':/semantic|header|nav|main|section|article|footer/.test(t)?'semantics':/details|dialog|template|microdata/.test(t)?'advanced':/struttura/.test(t)?'structure':'intro';
-    if(lang==='css') return /flex/.test(t)?'flex':/grid/.test(t)?'grid':/responsive|media/.test(t)?'responsive':/box|margin|padding|overflow|width|height/.test(t)?'box':/variabili|calc|clamp/.test(t)?'variables':/transition|transform|animation|keyframes/.test(t)?'animation':'selectors';
-    if(lang==='javascript') return /array|map|set|object|destructuring/.test(t)?'arrays':/dom|event|form/.test(t)?'dom':/async|promise|fetch|http/.test(t)?'async':/funzion|arrow|scope|closure/.test(t)?'functions':/ciclo|condizion|switch/.test(t)?'control':'basics';
-    if(lang==='python') return /lista|tuple|set|dizion|comprehension/.test(t)?'collections':/file|csv|json/.test(t)?'files':/class|oop|ereditar/.test(t)?'oop':/funzion|parametri|lambda/.test(t)?'functions':/ciclo|condizion|operatori/.test(t)?'control':'basics';
-    if(lang==='sql'||lang==='sqlserver') return /join/.test(t)?'join':/group|aggregate|having/.test(t)?'aggregate':/insert|update|delete|merge/.test(t)?'write':/create|primary|foreign|constraint|index|view/.test(t)?'design':/cte|subquery|case|transaction|procedure|function/.test(t)?'advanced':'select';
-    if(['csharp','java','go','rust','kotlin','swift'].includes(lang)) return /class|interface|inheritance|polymorph|constructor|struct|protocol|oop/.test(t)?'oop':/async|http|api/.test(t)?'async':/if|switch|cicl|loop|condition|for|while|match/.test(t)?'control':/ownership|borrow|reference/.test(t)?'ownership':/array|list|collection|map|set|slice|vector|dictionary/.test(t)?'types':'basics';
-    if(lang==='php') return /pdo|form|post|get|security|api|authentication/.test(t)?'web':/class|oop|inheritance|interface/.test(t)?'oop':/if|switch|cicl|loop/.test(t)?'control':'basics';
-    return 'basics';
-  };
+  function bank(lang){
+    if (banks[lang]) return banks[lang];
+    if (lang === 'c' || lang === 'cpp') return banks.csharp;
+    if (lang === 'java') return banks.csharp;
+    if (lang === 'php') return banks.python;
+    if (lang === 'go' || lang === 'rust' || lang === 'kotlin' || lang === 'swift') return banks.python;
+    if (lang === 'sqlserver') return banks.sql;
+    return banks.python;
+  }
 
-  function build(course,key){
-    if(!course?.topics) return [];
-    const lang=course.lang==='sqlserver'?'sql':course.lang;
-    const bank=snippets[lang]||snippets.csharp;
-    return course.topics.map((topic,index)=>{
-      const bucket=keyFor(lang,topic); const arr=bank[bucket]||bank.basics||Object.values(bank)[0];
-      const code=arr[index%arr.length]; const second=arr[(index+1)%arr.length];
+  function explanation(lang, topic, index){
+    const names = {
+      html:'HTML', css:'CSS', javascript:'JavaScript', typescript:'TypeScript', python:'Python', sql:'SQL', sqlserver:'SQL Server', c:'C', cpp:'C++', csharp:'C#', java:'Java', php:'PHP', go:'Go', rust:'Rust', kotlin:'Kotlin', swift:'Swift'
+    };
+    const name = names[lang] || lang;
+    return `${name} — ${topic}: questa lezione introduce il concetto con un esempio concreto. Studia la sintassi, esegui l’esempio, modifica un valore e verifica nuovamente il risultato. L’obiettivo è trasformare la teoria in una competenza utilizzabile in un progetto reale.`;
+  }
+
+  function build(course){
+    const topics = course.topics || [];
+    const list = bank(course.lang);
+    return topics.map((topic,index)=>{
+      const code = list[index % list.length];
+      const second = list[(index + 1) % list.length];
       return {
-        title:topic,
-        explain:`In questa lezione impari ${topic.toLowerCase()}. L'obiettivo è capire il concetto, riconoscere la sintassi corretta e applicarlo in un caso reale. Non limitarti a copiare: modifica l'esempio e verifica il comportamento.`,
-        syntax:`Studia la forma generale di ${topic.toLowerCase()}, poi confrontala con l'esempio. Mantieni separati concetto, sintassi e applicazione pratica.`,
-        goals:[`Capire ${topic.toLowerCase()}`,'Leggere e modificare un esempio funzionante','Applicare il concetto a un piccolo caso reale'],
-        code,second,
-        lineByLine:`1. Individua la struttura principale del codice.\n2. Identifica dati, istruzioni e risultato.\n3. Modifica un valore alla volta e riesegui.\n4. Controlla eventuali errori di sintassi o di esecuzione.`,
-        realExample:`Caso reale: applica ${topic.toLowerCase()} a una piccola funzionalità di un progetto didattico, ad esempio gestione di studenti, corsi, utenti o dati. Parti dall'esempio e adattalo al tuo scenario.`,
-        exercise:`Crea una variante autonoma sull'argomento “${topic}”. Cambia almeno due elementi dell'esempio, aggiungi una funzionalità e verifica il risultato.`,
-        solution:second,
-        mistakes:['Copiare il codice senza capire perché funziona','Cambiare molte cose contemporaneamente durante il debug','Ignorare gli errori del compilatore, interprete o browser'],
-        quiz:[{q:`Qual è il risultato atteso dopo aver studiato “${topic}”?`,opts:[`Saper spiegare e applicare il concetto`,`Memorizzare il codice senza provarlo`,`Evitare di modificare gli esempi`],a:0,why:'Una competenza pratica richiede comprensione, modifica ed esecuzione.'},{q:'Qual è un buon metodo per imparare?',opts:['Leggere, provare, modificare e correggere','Copiare sempre lo stesso esempio','Saltare gli errori'],a:0,why:'Il ciclo prova-modifica-correzione consolida la comprensione.'}],
-        challenge:`Mini challenge: usa ${topic.toLowerCase()} per migliorare una funzionalità del tuo progetto finale. Scrivi prima una soluzione, poi confrontala con una seconda possibile implementazione.`,
-        difficulty:index<8?'Base':index<20?'Intermedio':'Avanzato'
+        title: topic,
+        explain: explanation(course.lang, topic, index),
+        syntax: `Sintassi di riferimento:\n${code}\n\nProcedura: esegui → osserva → modifica → riesegui → correggi.`,
+        goals:[`Comprendere ${topic}`,`Applicare ${topic} con codice reale`,`Saper riconoscere e correggere gli errori principali`],
+        code,
+        second,
+        lineByLine:`1. Individua la struttura principale del codice.\n2. Identifica dati, istruzioni e risultato.\n3. Esegui l’esempio senza modificarlo.\n4. Cambia una sola parte.\n5. Confronta il nuovo output con quello atteso.\n6. Spiega con parole tue perché il risultato è cambiato.`,
+        realExample:`Caso reale: ${topic} entra in gioco quando si costruisce una funzionalità di un applicativo. Mantieni l’esempio piccolo, valida i dati, gestisci gli errori prevedibili e separa la logica quando cresce.`,
+        exercise:`Esercizio ${index+1}: modifica l’esempio principale in almeno due punti e trasformalo in un caso pratico. Aggiungi una verifica coerente con “${topic}”, esegui il codice e annota il risultato.`,
+        solution: second,
+        mistakes:['Non modificare molte parti contemporaneamente: rende difficile capire quale cambiamento ha causato l’errore.','Leggi sempre il messaggio di errore prima di correggere.','Non considerare completato l’esercizio finché non hai eseguito e verificato il codice.'],
+        quiz:[
+          {q:`Qual è lo scopo della lezione “${topic}”?`,opts:['Comprendere e applicare il concetto','Memorizzare senza provare','Evitare gli esercizi','Copiare il codice'],answer:0},
+          {q:'Quale metodo consolida meglio l’apprendimento?',opts:['Modificare, eseguire e verificare','Saltare il codice','Cambiare tutto insieme','Ignorare gli errori'],answer:0}
+        ],
+        challenge:`Mini challenge: crea una seconda variante dell’esercizio con un input diverso e una condizione reale collegata a “${topic}”.`,
+        difficulty:index<5?'Fondamentale':index<15?'Intermedio':'Avanzato'
       };
     });
   }
-  return {build};
+
+  return { build };
 })();

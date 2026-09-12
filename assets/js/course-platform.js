@@ -32,33 +32,65 @@
   function makeLessons(course){
     if(Array.isArray(course.lessons)&&course.lessons.length) return course.lessons;
     if(content&&typeof content.build==='function') return content.build(course,course.key);
-    return (course.topics||[]).map(topic=>({title:topic,explain:`Lezione dedicata a ${topic}.`,syntax:'Studia il concetto e prova l’esempio.',goals:[`Comprendere ${topic}`,`Applicare ${topic}`],code:'',second:'',lineByLine:'Esegui e osserva il risultato.',realExample:'Trasforma il concetto in una piccola funzionalità.',exercise:`Crea un esempio su ${topic}.`,solution:'',mistakes:['Leggi il messaggio di errore.'],quiz:[],challenge:`Estendi l’esercizio su ${topic}.`,difficulty:'Fondamentale'}));
+    return (course.topics||[]).map(topic=>({title:topic,explain:`In questa lezione impari ${topic}.`,syntax:`Studia la sintassi e applica ${topic} nell'esempio.`,goals:[`Comprendere ${topic}`,`Applicare ${topic}`],code:'',second:'',lineByLine:'Esegui l’esempio, osserva ogni istruzione e modifica un valore.',realExample:`Applica ${topic} a studenti, clienti, prodotti o dati reali.`,exercise:`Crea un piccolo programma che utilizzi ${topic}.`,solution:'',mistakes:['Leggi il messaggio di errore prima di modificare il codice.'],quiz:[],challenge:`Estendi l’esercizio aggiungendo una funzionalità collegata a ${topic}.`,difficulty:'Fondamentale'}));
   }
 
-  function online(course){return course.labMode==='online'||(!course.labMode&&runnable.has(course.lang));}
+  function groupFor(index,total){
+    if(index===total-1) return 'Progetto finale';
+    if(index<5) return 'Introduzione';
+    if(index<12) return 'Fondamenti';
+    if(index<20) return 'Strutture e programmazione';
+    return 'Avanzato';
+  }
+
+  function online(course){return course.lang==='css'||course.labMode==='online'||(!course.labMode&&runnable.has(course.lang));}
   function compilerLanguage(course){
-    const aliases={js:'javascript',py:'python',csharp:'csharp',cpp:'cpp'};
-    return aliases[course.lang]||course.lang;
+    if(course.lang==='css') return 'html';
+    return ({js:'javascript',py:'python',csharp:'csharp',cpp:'cpp'}[course.lang]||course.lang);
   }
   function labCode(course,code){
-    if(course.lang==='css') return `<!doctype html><html><head><style>${code}</style></head><body><main><h1>CSS Lab</h1><p>Modifica il CSS nell’editor e premi Run.</p><div class="card">Anteprima</div></main></body></html>`;
+    if(course.lang==='css') return `<!doctype html><html lang="it"><head><meta charset="utf-8"><style>${code}</style></head><body><main class="preview"><h1>Anteprima CSS</h1><p>Modifica le regole CSS e premi Run.</p><div class="card">Elemento di esempio</div><button>Prova</button></main></body></html>`;
     return code;
   }
   function labFileName(lang){
     return ({python:'main.py',javascript:'main.js',typescript:'main.ts',php:'index.php',csharp:'Program.cs',java:'Main.java',go:'main.go',rust:'main.rs',kotlin:'Main.kt',swift:'main.swift',c:'main.c',cpp:'main.cpp',html:'index.html'})[lang]||'main.txt';
   }
 
+  function exerciseSet(lesson){
+    const topic=lesson.title||'questo argomento';
+    return [
+      `Esercizio 1 — Riproduci: ricrea l’esempio principale su ${topic} senza copiarlo riga per riga.`,
+      `Esercizio 2 — Modifica: cambia almeno due valori dell’esempio e aggiungi una nuova istruzione collegata a ${topic}.`,
+      `Esercizio 3 — Applicazione reale: usa ${topic} per gestire un piccolo caso di scuola, clienti, prodotti, ordini o dati.`
+    ];
+  }
+
+  function quizSet(lesson){
+    const base=Array.isArray(lesson.quiz)?lesson.quiz:[];
+    const extra=[
+      {q:`Qual è il concetto centrale della lezione “${lesson.title}”?`,opts:[lesson.title,'Un argomento completamente diverso','Solo la formattazione del codice','Nessuna delle precedenti'],answer:0},
+      {q:`Dopo aver studiato l’esempio di “${lesson.title}”, qual è il passo migliore?`,opts:['Eseguirlo, modificarlo e verificare il risultato','Saltare l’esercizio','Cancellare il codice','Cambiare tecnologia'],answer:0},
+      {q:'Quale comportamento aiuta maggiormente a imparare programmazione?',opts:['Capire e modificare gli esempi','Copiare senza eseguire','Ignorare gli errori','Evitare la pratica'],answer:0}
+    ];
+    return [...base,...extra].slice(0,5);
+  }
+
+  function referenceFor(course){
+    const map={html:'HTML Elements / Attributes / Forms',css:'CSS Selectors / Properties / Layout',javascript:'JavaScript Reference / DOM / Web APIs',typescript:'TypeScript Handbook / Type System',python:'Python Built-in Functions / Standard Library',sql:'SQL SELECT / JOIN / Aggregate Functions',c:'C standard library / language basics',cpp:'C++ standard library / language basics',csharp:'C# language reference / .NET API',java:'Java API / language documentation',php:'PHP manual / language reference',go:'Go specification / standard library',rust:'Rust Book / standard library',kotlin:'Kotlin language documentation',swift:'Swift language guide'};
+    return map[course.lang]||`${course.title} — riferimenti tecnici`;
+  }
+
   function labMarkup(course,lesson,index){
-    if(!online(course)) return `<section class="lab lab-reference"><div class="lab-head"><div><span class="lab-kicker">Laboratorio</span><h3>Ambiente locale</h3><p>Questa tecnologia richiede il proprio runtime o framework. Usa il codice come base e segui la configurazione indicata nel corso.</p></div></div><pre><code>${escapeHtml(lesson.code||'')}</code></pre></section>`;
+    if(!online(course)) return `<section class="lab lab-reference"><div class="section-kicker">Laboratorio</div><h3>Ambiente locale</h3><p>Questa tecnologia richiede il proprio runtime o framework. Usa l’esempio come base e segui le istruzioni di installazione del corso.</p><pre><code>${escapeHtml(lesson.code||'')}</code></pre></section>`;
     const lang=compilerLanguage(course);
     const src=`https://onecompiler.com/embed/${encodeURIComponent(lang)}?listenToEvents=true&codeChangeEvent=true&hideTitle=true`;
-    return `<section class="lab"><div class="lab-head"><div><span class="lab-kicker">Laboratorio interattivo</span><h3>Scrivi, modifica ed esegui</h3><p>Puoi modificare l’esempio direttamente nell’editor e usare Run per vedere l’output.</p></div><div class="lab-actions"><button type="button" class="lab-load" data-index="${index}">Carica esempio</button><button type="button" class="lab-run" data-index="${index}">Esegui codice</button></div></div><iframe id="oc-editor" title="Editor online ${escapeHtml(course.title)}" src="${src}" loading="lazy" allow="clipboard-read; clipboard-write"></iframe><p class="lab-status" id="labStatus" aria-live="polite">Editor pronto.</p></section>`;
+    return `<section class="lab"><div class="lab-head"><div><div class="section-kicker">Try it yourself</div><h3>Modifica ed esegui il codice</h3><p>Prova prima l’esempio, poi cambia una parte del programma e osserva il risultato.</p></div><div class="lab-actions"><button type="button" class="lab-load" data-index="${index}">Carica esempio</button><button type="button" class="lab-run" data-index="${index}">Esegui</button></div></div><iframe id="oc-editor" title="Editor online ${escapeHtml(course.title)}" src="${src}" loading="lazy" allow="clipboard-read; clipboard-write"></iframe><p class="lab-status" id="labStatus" aria-live="polite">Editor pronto.</p></section>`;
   }
 
   function start(){
     const base=getCourse(); if(!base) return;
     const course={...base,lessons:makeLessons(base)};
-    document.body.innerHTML=`<div class="course-shell"><header class="course-header"><a href="/courses/" class="brand">MS Academy</a><div class="course-heading"><span class="eyebrow">Percorso di studio</span><h1>${escapeHtml(course.title)}</h1><p id="courseSummary"></p></div><a href="/courses/" class="back">Tutti i corsi</a></header><div class="course-grid"><aside class="course-sidebar"><div class="sidebar-progress"><strong>Il tuo progresso</strong><span id="sidebarProgress">0%</span><div class="progress"><i id="sidebarProgressBar" style="width:0%"></i></div></div><label for="courseSearch" class="sr-only">Cerca una lezione</label><input id="courseSearch" placeholder="Cerca una lezione..." autocomplete="off"><div id="lessonList"></div></aside><main id="lesson" tabindex="-1"></main></div></div>`;
+    document.body.innerHTML=`<div class="course-shell"><header class="course-header"><a href="/courses/" class="brand">MS Academy</a><div class="course-heading"><span class="eyebrow">Corso completo</span><h1>${escapeHtml(course.title)}</h1><p id="courseSummary"></p></div><a href="/courses/" class="back">Tutti i corsi</a></header><div class="course-grid"><aside class="course-sidebar"><div class="sidebar-progress"><div><strong>Il tuo progresso</strong><span id="sidebarProgress">0%</span></div><div class="progress"><i id="sidebarProgressBar" style="width:0%"></i></div></div><label for="courseSearch" class="sr-only">Cerca nel corso</label><input id="courseSearch" placeholder="Cerca nel corso..." autocomplete="off"><nav id="lessonList" aria-label="Indice del corso"></nav></aside><main id="lesson" tabindex="-1"></main></div></div>`;
 
     const stateKey=`course:${course.key}:current`,completedKey=`course:${course.key}:completed`,notesKey=`course:${course.key}:notes`;
     let index=Number(localStorage.getItem(stateKey)||0);
@@ -67,37 +99,48 @@
     if(!Number.isInteger(index)||index<0||index>=course.lessons.length) index=0;
     if(!Array.isArray(completed)) completed=[];
     if(!notes||typeof notes!=='object'||Array.isArray(notes)) notes={};
-    const list=document.querySelector('#lessonList'),main=document.querySelector('#lesson');
+    const list=document.querySelector('#lessonList'),main=document.querySelector('#lesson'),search=document.querySelector('#courseSearch');
 
     function save(){localStorage.setItem(stateKey,String(index));localStorage.setItem(completedKey,JSON.stringify(completed));localStorage.setItem(notesKey,JSON.stringify(notes));}
-    function progress(){const p=course.lessons.length?Math.round(completed.length/course.lessons.length*100):0;document.querySelector('#sidebarProgress').textContent=`${p}%`;document.querySelector('#sidebarProgressBar').style.width=`${p}%`;document.querySelector('#courseSummary').textContent=`${course.lessons.length} lezioni · teoria · esempi · esercizi · soluzioni · quiz · ${online(course)?'esecuzione online':'laboratorio locale'}`;}
+    function progress(){const p=course.lessons.length?Math.round(completed.length/course.lessons.length*100):0;document.querySelector('#sidebarProgress').textContent=`${p}%`;document.querySelector('#sidebarProgressBar').style.width=`${p}%`;document.querySelector('#courseSummary').textContent=`${course.lessons.length} lezioni · esempi · Try it · esercizi · quiz · challenge · ${online(course)?'editor online':'laboratorio locale'}`;}
     function complete(){if(!completed.includes(index)) completed.push(index);completed.sort((a,b)=>a-b);save();render();}
-    function choose(i){index=i;save();render();main.focus();}
+    function choose(i){index=i;save();render();window.scrollTo({top:0,behavior:'smooth'});main.focus();}
+
+    function renderSidebar(filter=''){
+      const groups={};
+      course.lessons.forEach((lesson,i)=>{const group=groupFor(i,course.lessons.length);if(!groups[group])groups[group]=[];groups[group].push({lesson,i});});
+      list.innerHTML=Object.entries(groups).map(([group,items])=>{const filtered=items.filter(x=>!filter||x.lesson.title.toLowerCase().includes(filter.toLowerCase()));if(!filtered.length)return '';return `<details class="topic-group" open><summary>${escapeHtml(group)} <span>${filtered.length}</span></summary>${filtered.map(({lesson,i})=>`<button class="lesson-link ${i===index?'active':''} ${completed.includes(i)?'completed':''}" data-i="${i}"><span>${completed.includes(i)?'✓':String(i+1).padStart(2,'0')}</span><em>${escapeHtml(lesson.title)}</em></button>`).join('')}</details>`;}).join('');
+      list.querySelectorAll('.lesson-link').forEach(b=>b.onclick=()=>choose(Number(b.dataset.i)));
+    }
 
     function render(){
-      const lesson=course.lessons[index]||{}; const done=completed.includes(index); const p=Math.round((index+1)/course.lessons.length*100);
-      list.innerHTML=course.lessons.map((x,i)=>`<button class="lesson-link ${i===index?'active':''} ${completed.includes(i)?'completed':''}" data-i="${i}" aria-current="${i===index?'step':'false'}"><span>${completed.includes(i)?'✓':String(i+1).padStart(2,'0')}</span>${escapeHtml(x.title)}</button>`).join('');
-      const quiz=(lesson.quiz||[]).map((q,qi)=>`<div class="q" data-q="${qi}"><p><strong>${qi+1}. ${escapeHtml(q.q||'')}</strong></p><div class="quiz-options">${(q.opts||[]).map((o,oi)=>`<button type="button" data-a="${oi}">${escapeHtml(o)}</button>`).join('')}</div><p class="quiz-feedback" aria-live="polite"></p></div>`).join('');
-      main.innerHTML=`<div class="lesson-head"><span>Lezione ${index+1} di ${course.lessons.length} · ${escapeHtml(lesson.difficulty||'Percorso')}</span><div class="progress"><i style="width:${p}%"></i></div></div><article class="lesson-card"><div class="lesson-status"><span class="lesson-badge">${done?'Completata':'In corso'}</span><button type="button" id="completeLesson" class="complete-btn" ${done?'disabled':''}>${done?'Lezione completata':'Segna lezione come completata'}</button></div><h2>${escapeHtml(lesson.title)}</h2><p class="lead">${escapeHtml(lesson.explain||'')}</p><section><h3>Sintassi e concetto</h3><p>${escapeHtml(lesson.syntax||'')}</p></section><section><h3>Obiettivi</h3><ul>${(lesson.goals||[]).map(x=>`<li>${escapeHtml(x)}</li>`).join('')}</ul></section><section class="example-grid"><div><h3>Esempio principale</h3><pre><code>${escapeHtml(lesson.code||'')}</code></pre></div><div><h3>Esempio aggiuntivo</h3><pre><code>${escapeHtml(lesson.second||lesson.code||'')}</code></pre></div></section><section><h3>Spiegazione operativa</h3><pre class="explanation-block">${escapeHtml(lesson.lineByLine||'')}</pre></section><section><h3>Caso reale</h3><p>${escapeHtml(lesson.realExample||'')}</p></section><section class="exercise"><div><span class="lab-kicker">Esercizio pratico</span><h3>Metti in pratica</h3></div><p>${escapeHtml(lesson.exercise||'')}</p><label for="exerciseNotes">La mia soluzione / note</label><textarea id="exerciseNotes" rows="6" placeholder="Scrivi qui la tua soluzione o le tue note...">${escapeHtml(notes[index]||'')}</textarea><div class="exercise-actions"><button type="button" id="saveNotes">Salva esercizio</button><button type="button" id="finishExercise" class="primary">Ho completato l’esercizio</button></div><p id="exerciseStatus" class="exercise-status" aria-live="polite"></p></section><details class="solution"><summary>Mostra soluzione di riferimento</summary><p>Prova prima da solo, poi confronta il risultato.</p><pre><code>${escapeHtml(lesson.solution||lesson.second||lesson.code||'')}</code></pre></details><section class="mistakes"><h3>Errori comuni</h3><ul>${(lesson.mistakes||[]).map(x=>`<li>${escapeHtml(x)}</li>`).join('')}</ul></section><section class="challenge"><span class="lab-kicker">Mini challenge</span><h3>Vai oltre l’esempio</h3><p>${escapeHtml(lesson.challenge||'')}</p></section>${labMarkup(course,lesson,index)}<section class="quiz"><h3>Verifica rapida</h3>${quiz||'<p>Quiz in preparazione.</p>'}</section><div class="lesson-nav"><button id="prev" ${index===0?'disabled':''}>← Precedente</button><button id="next" ${index===course.lessons.length-1?'disabled':''}>Successiva →</button></div></article>`;
+      const lesson=course.lessons[index]||{}; const done=completed.includes(index); const p=Math.round((index+1)/course.lessons.length*100); const exercises=exerciseSet(lesson); const quiz=quizSet(lesson);
+      renderSidebar(search.value||'');
+      const quizMarkup=quiz.map((q,qi)=>`<div class="q" data-q="${qi}"><p><strong>${qi+1}. ${escapeHtml(q.q||'')}</strong></p><div class="quiz-options">${(q.opts||[]).map((o,oi)=>`<button type="button" data-a="${oi}">${escapeHtml(o)}</button>`).join('')}</div><p class="quiz-feedback" aria-live="polite"></p></div>`).join('');
+      const exerciseMarkup=exercises.map(x=>`<li>${escapeHtml(x)}</li>`).join('');
+      main.innerHTML=`<div class="lesson-head"><div><span>Lezione ${index+1} di ${course.lessons.length}</span><strong>${escapeHtml(groupFor(index,course.lessons.length))}</strong></div><div class="progress"><i style="width:${p}%"></i></div></div><article class="lesson-card"><div class="lesson-status"><span class="lesson-badge">${done?'Completata':'In corso'}</span><button type="button" id="completeLesson" class="complete-btn" ${done?'disabled':''}>${done?'Lezione completata':'Segna come completata'}</button></div><h2>${escapeHtml(lesson.title)}</h2><p class="lead">${escapeHtml(lesson.explain||'')}</p><section class="learning-box"><h3>Cosa imparerai</h3><ul>${(lesson.goals||[]).map(x=>`<li>${escapeHtml(x)}</li>`).join('')}</ul></section><section><h3>Concetto e sintassi</h3><p>${escapeHtml(lesson.syntax||'')}</p></section><section class="example-grid"><div><div class="example-label">Esempio</div><pre><code>${escapeHtml(lesson.code||'')}</code></pre></div><div><div class="example-label">Esempio aggiuntivo</div><pre><code>${escapeHtml(lesson.second||lesson.code||'')}</code></pre></div></section><section class="try-panel"><div class="section-kicker">Prova tu</div><h3>Non limitarti a leggere</h3><p>Modifica l’esempio, cambia i dati e verifica come cambia il risultato.</p></section><section><h3>Spiegazione passo per passo</h3><pre class="explanation-block">${escapeHtml(lesson.lineByLine||'')}</pre></section><section><h3>Esempio nel mondo reale</h3><p>${escapeHtml(lesson.realExample||'')}</p></section><section class="exercise"><div class="section-kicker">Esercizi</div><h3>Metti alla prova quello che hai imparato</h3><ol>${exerciseMarkup}</ol><label for="exerciseNotes">La tua soluzione / note</label><textarea id="exerciseNotes" rows="7" placeholder="Scrivi qui il codice o la soluzione..."></textarea><div class="exercise-actions"><button type="button" id="saveNotes">Salva</button><button type="button" id="finishExercise" class="primary">Completa esercizio</button></div><p id="exerciseStatus" class="exercise-status" aria-live="polite"></p></section><details class="solution"><summary>Mostra soluzione di riferimento</summary><p>Prova prima da solo. Poi confronta la tua soluzione con questa.</p><pre><code>${escapeHtml(lesson.solution||lesson.second||lesson.code||'')}</code></pre></details><section class="mistakes"><h3>Errori comuni</h3><ul>${(lesson.mistakes||[]).map(x=>`<li>${escapeHtml(x)}</li>`).join('')}</ul></section><section class="challenge"><div class="section-kicker">Challenge</div><h3>Vai oltre l’esempio</h3><p>${escapeHtml(lesson.challenge||'')}</p></section>${labMarkup(course,lesson,index)}<section class="quiz"><div class="section-kicker">Quiz</div><h3>Verifica la comprensione</h3>${quizMarkup}</section><section class="reference-box"><div class="section-kicker">Reference</div><h3>Continua a studiare</h3><p>${escapeHtml(referenceFor(course))}</p><p class="reference-note">La reference serve per approfondire sintassi, proprietà, metodi, API e casi avanzati dopo aver completato la lezione.</p></section><div class="lesson-nav"><button id="prev" ${index===0?'disabled':''}>← Precedente</button><button id="next" ${index===course.lessons.length-1?'disabled':''}>Successiva →</button></div></article>`;
 
-      document.querySelectorAll('.lesson-link').forEach(b=>b.onclick=()=>choose(Number(b.dataset.i)));
+      document.querySelector('#exerciseNotes').value=notes[index]||'';
       document.querySelector('#completeLesson')?.addEventListener('click',complete);
       document.querySelector('#prev')?.addEventListener('click',()=>{if(index>0)choose(index-1);});
       document.querySelector('#next')?.addEventListener('click',()=>{if(index<course.lessons.length-1)choose(index+1);});
-      document.querySelector('#saveNotes')?.addEventListener('click',()=>{notes[index]=document.querySelector('#exerciseNotes').value;save();document.querySelector('#exerciseStatus').textContent='Esercizio salvato nel browser.';});
-      document.querySelector('#finishExercise')?.addEventListener('click',()=>{notes[index]=document.querySelector('#exerciseNotes').value;complete();});
-      document.querySelectorAll('.quiz-options button').forEach(btn=>btn.onclick=()=>{const q=btn.closest('.q');const qi=Number(q.dataset.q);const answer=(lesson.quiz||[])[qi]?.answer;const chosen=Number(btn.dataset.a);q.querySelectorAll('button').forEach(x=>x.disabled=true);q.querySelector('.quiz-feedback').textContent=chosen===answer?'Risposta corretta.':'Risposta non corretta. Rileggi la spiegazione e riprova la domanda.';});
+      document.querySelector('#saveNotes')?.addEventListener('click',()=>{notes[index]=document.querySelector('#exerciseNotes').value;save();document.querySelector('#exerciseStatus').textContent='Salvato nel browser.';});
+      document.querySelector('#finishExercise')?.addEventListener('click',()=>{notes[index]=document.querySelector('#exerciseNotes').value;save();complete();});
+      document.querySelectorAll('.quiz-options button').forEach(btn=>btn.onclick=()=>{const q=btn.closest('.q');const qi=Number(q.dataset.q);const answer=quiz[qi]?.answer;const chosen=Number(btn.dataset.a);q.querySelectorAll('button').forEach(x=>x.disabled=true);btn.classList.add(chosen===answer?'correct':'wrong');const feedback=q.querySelector('.quiz-feedback');feedback.textContent=chosen===answer?'Risposta corretta.':'Risposta non corretta. Rileggi la lezione e riprova.';if(chosen!==answer&&q.querySelectorAll('button')[answer])q.querySelectorAll('button')[answer].classList.add('correct');});
 
-      const iframe=document.querySelector('#oc-editor');
-      function post(type){if(!iframe?.contentWindow)return;const payload=type==='run'?{eventType:'triggerRun'}:{eventType:'populateCode',language:compilerLanguage(course),files:[{name:labFileName(course.lang),content:labCode(course,lesson.code||'')}]};iframe.contentWindow.postMessage(payload,'*');}
-      document.querySelector('.lab-load')?.addEventListener('click',()=>{post('load');const s=document.querySelector('#labStatus');if(s)s.textContent='Esempio caricato nell’editor.';});
-      document.querySelector('.lab-run')?.addEventListener('click',()=>{post('run');const s=document.querySelector('#labStatus');if(s)s.textContent='Esecuzione richiesta all’editor.';});
-      iframe?.addEventListener('load',()=>post('load'));
+      const frame=document.querySelector('#oc-editor');
+      if(frame){
+        const load=()=>{try{frame.contentWindow.postMessage({eventType:'populateCode',language:compilerLanguage(course),files:[{name:labFileName(course.lang),content:labCode(course,lesson.code||'')}]},'*');}catch(e){}};
+        frame.addEventListener('load',load);
+        document.querySelector('.lab-load')?.addEventListener('click',()=>{load();document.querySelector('#labStatus').textContent='Esempio caricato nell’editor.';});
+        document.querySelector('.lab-run')?.addEventListener('click',()=>{try{frame.contentWindow.postMessage({eventType:'triggerRun'},'*');document.querySelector('#labStatus').textContent='Esecuzione richiesta.';}catch(e){}});
+      }
       progress();
     }
 
-    document.querySelector('#courseSearch').addEventListener('input',e=>{const term=e.target.value.trim().toLowerCase();document.querySelectorAll('.lesson-link').forEach(b=>{b.hidden=term&&!b.textContent.toLowerCase().includes(term);});});
+    search.addEventListener('input',()=>renderSidebar(search.value));
     render();
   }
+
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',start); else start();
 })();

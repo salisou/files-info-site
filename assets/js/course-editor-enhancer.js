@@ -6,6 +6,16 @@
 (function(){
   'use strict';
 
+  function editorFile(){
+    const path = location.pathname.toLowerCase();
+    if(path.includes('sqlserver')) return 'main.sql';
+    if(path.includes('python')) return 'main.py';
+    if(path.includes('blazor')) return 'Main.razor';
+    if(path.includes('maui')) return 'MainPage.xaml';
+    if(path.includes('aspnet')) return 'Program.cs';
+    return 'main.txt';
+  }
+
   function enhance(root){
     root.querySelectorAll('.lab-reference').forEach(lab => {
       if(lab.dataset.editorEnhanced === '1') return;
@@ -15,12 +25,13 @@
       if(!code) return;
 
       const initial = code.textContent || '';
+      const fileName = editorFile();
       const editor = document.createElement('div');
       editor.className = 'local-editor';
       editor.innerHTML = `
         <div class="local-editor-toolbar">
           <span class="local-editor-title">Editor locale</span>
-          <span class="local-editor-file">main.sql</span>
+          <span class="local-editor-file">${fileName}</span>
           <button type="button" data-editor-action="copy">Copia</button>
           <button type="button" data-editor-action="save">Salva</button>
           <button type="button" data-editor-action="download">Scarica</button>
@@ -61,7 +72,7 @@
           const url = URL.createObjectURL(blob);
           const a = document.createElement('a');
           a.href = url;
-          a.download = isSql ? 'esercizio.sql' : 'esercizio.txt';
+          a.download = isSql ? 'esercizio.sql' : `esercizio-${fileName.replace(/[^a-z0-9.]/gi,'_')}`;
           a.click();
           URL.revokeObjectURL(url);
           setStatus(`File ${ext.toUpperCase()} scaricato.`);

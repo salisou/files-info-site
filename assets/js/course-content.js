@@ -1,104 +1,207 @@
 window.MOUSSA_COURSE_CONTENT = (() => {
-  const py = {
-    "Introduzione a Python": ['print("Benvenuto nel corso Python")', 'import sys\nprint("Versione:", sys.version.split()[0])'],
-    "Installazione e ambiente": ['import sys\nprint("Python:", sys.version)', 'print("Crea un ambiente con: python -m venv .venv")'],
-    "Variabili": ['nome="Moussa"\neta=30\nmedia=28.5\nprint(nome,eta,media)', 'attivo=True\nprint(type(attivo).__name__)'],
-    "Tipi di dati": ['nome="Amina"\nvoto=28\nprezzo=19.90\nattivo=True\nprint(type(nome),type(voto),type(prezzo),type(attivo))', 'valore="30"\nprint(int(valore)+5)'],
-    "Output print": ['nome="Moussa"\nprint("Ciao",nome)', 'voti=[24,28,30]\nprint("Voti:",voti)'],
-    "Input validation": ['try:\n    voto=float(input("Voto: "))\n    print("Superato" if voto>=18 else "Non superato")\nexcept ValueError:\n    print("Inserisci un numero")', 'nome=input("Nome: ").strip()\nif nome:\n    print("Ciao",nome)'],
-    "if": ['voto=27\nif voto>=18:\n    print("Esame superato")\nelse:\n    print("Esame non superato")', 'eta=20\nif eta>=18:\n    print("Maggiorenne")'],
-    "elif": ['voto=27\nif voto>=28:\n    print("Ottimo")\nelif voto>=18:\n    print("Superato")\nelse:\n    print("Da ripetere")', 'temperatura=15\nif temperatura>25:\n    print("Caldo")\nelif temperatura<10:\n    print("Freddo")\nelse:\n    print("Mite")'],
-    "else": ['saldo=50\nif saldo>=100:\n    print("Acquisto possibile")\nelse:\n    print("Saldo insufficiente")', 'eta=16\nprint("Accesso" if eta>=18 else "Negato")'],
-    "match": ['scelta=2\nmatch scelta:\n    case 1: print("Nuovo")\n    case 2: print("Apri")\n    case _: print("Esci")', 'ruolo="docente"\nmatch ruolo:\n    case "admin": print("Amministratore")\n    case "docente": print("Docente")\n    case _: print("Studente")'],
-    "while": ['numero=3\nwhile numero>0:\n    print(numero)\n    numero-=1', 'while True:\n    scelta=input("Scrivi esci: ")\n    if scelta.lower()=="esci":\n        break'],
-    "for": ['for i in range(1,6):\n    print("Numero:",i)', 'studenti=["Amina","Luca","Sara"]\nfor studente in studenti:\n    print(studente)'],
-    "range": ['for i in range(1,6):\n    print(i)', 'for i in range(0,10,2):\n    print(i)'],
-    "Liste": ['studenti=["Amina","Luca"]\nstudenti.append("Sara")\nprint(studenti)', 'voti=[24,28,30]\nprint(voti[0],len(voti))'],
-    "List comprehension": ['voti=[12,18,24,30]\nsufficienti=[v for v in voti if v>=18]\nprint(sufficienti)', 'quadrati=[n*n for n in range(1,6)]\nprint(quadrati)'],
-    "Tuple": ['studente=("Amina",28)\nnome,voto=studente\nprint(nome,voto)', 'coordinate=(44.84,11.62)\nprint(coordinate[0])'],
-    "Set": ['linguaggi={"Python","C#","Python"}\nprint(linguaggi)', 'numeri={1,2,3}\nnumeri.add(4)\nprint(numeri)'],
-    "Dizionari": ['studente={"nome":"Amina","voto":28}\nprint(studente["nome"])\nstudente["voto"]=30\nprint(studente)', 'corso={"nome":"Python","ore":40}\nfor k,v in corso.items():\n    print(k,v)'],
-    "Stringhe": ['nome="Moussa Salisou"\nprint(nome.upper())\nprint(nome.lower())', 'email="moussa@example.com"\nprint(email.split("@")[1])'],
-    "Slicing": ['nome="Moussa Salisou"\nprint(nome[:6])\nprint(nome[7:])', 'testo="Python"\nprint(testo[::-1])'],
-    "Funzioni": ['def saluta(nome):\n    print(f"Ciao {nome}")\nsaluta("Moussa")', 'def somma(a,b):\n    return a+b\nprint(somma(12,8))'],
-    "Parametri": ['def media(a,b):\n    return (a+b)/2\nprint(media(28,30))', 'def saluta(nome="Studente"):\n    print("Ciao",nome)\nsaluta()'],
-    "Args e kwargs": ['def somma(*numeri):\n    return sum(numeri)\nprint(somma(2,3,5))', 'def mostra(**dati):\n    print(dati)\nmostra(nome="Amina",voto=28)'],
-    "Lambda": ['numeri=[1,2,3,4]\ndoppi=list(map(lambda x:x*2,numeri))\nprint(doppi)', 'voti=[12,18,24]\nprint(list(filter(lambda v:v>=18,voti)))'],
-    "OOP e classi": ['class Studente:\n    def __init__(self,nome,voto):\n        self.nome=nome\n        self.voto=voto\n    def presenta(self):\n        print(self.nome,self.voto)\ns=Studente("Amina",28)\ns.presenta()', 'class Conto:\n    def __init__(self,saldo): self.saldo=saldo\n    def deposita(self,importo): self.saldo+=importo\nc=Conto(100)\nc.deposita(50)\nprint(c.saldo)'],
-    "Inheritance": ['class Persona:\n    def saluta(self): print("Ciao")\nclass Docente(Persona):\n    def insegna(self): print("Python")\nd=Docente()\nd.saluta()\nd.insegna()', 'class Animale:\n    def parla(self): print("Verso")\nclass Cane(Animale):\n    def parla(self): print("Bau")\nCane().parla()'],
-    "File handling": ['with open("studenti.txt","w",encoding="utf-8") as f:\n    f.write("Amina - 28\\nLuca - 24")\nwith open("studenti.txt",encoding="utf-8") as f:\n    print(f.read())', 'with open("note.txt","a",encoding="utf-8") as f:\n    f.write("Nuova nota\\n")'],
-    "CSV": ['import csv\nrighe=[["Nome","Voto"],["Amina",28],["Luca",24]]\nwith open("voti.csv","w",newline="",encoding="utf-8") as f:\n    csv.writer(f).writerows(righe)', 'import csv\nwith open("voti.csv",encoding="utf-8") as f:\n    for riga in csv.reader(f): print(riga)'],
-    "JSON": ['import json\ndati={"nome":"Amina","voto":28}\nprint(json.dumps(dati,ensure_ascii=False))', 'import json\nprint(json.loads(\'{"nome":"Amina","voto":28}\'))'],
-    "Eccezioni try except": ['try:\n    numero=float(input("Numero: "))\n    print(numero*2)\nexcept ValueError:\n    print("Valore non valido")', 'try:\n    print(10/0)\nexcept ZeroDivisionError:\n    print("Divisione per zero")'],
-    "API e requests": ['import requests\nr=requests.get("https://jsonplaceholder.typicode.com/users/1",timeout=10)\nr.raise_for_status()\nprint(r.json()["name"])', 'import requests\nr=requests.get("https://jsonplaceholder.typicode.com/todos/1",timeout=10)\nprint(r.status_code)'],
-    "Progetto finale: applicazione Python": ['import os\ndef somma():\n    try:\n        a=float(input("Primo numero: "))\n        b=float(input("Secondo numero: "))\n        print("Somma:",a+b)\n    except ValueError:\n        print("Inserisci numeri validi")\ndef menu():\n    print("1. Somma")\n    print("2. Pulisci")\n    print("3. Esci")\ndef main():\n    while True:\n        menu()\n        try:\n            scelta=int(input("Scelta: "))\n            if scelta==1: somma()\n            elif scelta==2: os.system("cls" if os.name=="nt" else "clear")\n            elif scelta==3: break\n            else: print("Scelta non valida")\n        except ValueError:\n            print("Inserisci un numero")\nmain()', 'def valida_voto(voto):\n    return 0<=voto<=30\nprint(valida_voto(28))']
+  'use strict';
+
+  const banks = {
+    python: {
+      variables: ['nome = "Amina"\neta = 16\nprint(nome)\nprint(eta)', 'prezzo = 19.90\nquantita = 3\ntotale = prezzo * quantita\nprint("Totale:", totale)', 'iscrizione_attiva = True\nprint("Attivo:", iscrizione_attiva)'],
+      print: ['nome = "Moussa"\nprint("Ciao", nome)', 'voti = [24, 28, 30]\nprint("Voti:", voti)', 'print("Benvenuto nel corso Python!")'],
+      input: ['nome = input("Come ti chiami? ")\nprint("Ciao", nome)', 'eta = int(input("Quanti anni hai? "))\nprint("L\'anno prossimo avrai", eta + 1)', 'numero = float(input("Inserisci un numero: "))\nprint("Doppio:", numero * 2)'],
+      if: ['eta = 16\nif eta >= 18:\n    print("Sei maggiorenne")\nelse:\n    print("Sei minorenne")', 'voto = 27\nif voto >= 18:\n    print("Esame superato")\nelse:\n    print("Esame non superato")', 'saldo = 120\nif saldo >= 100:\n    print("Acquisto possibile")'],
+      switch: ['scelta = 2\nmatch scelta:\n    case 1:\n        print("Nuovo")\n    case 2:\n        print("Apri")\n    case _:\n        print("Scelta non riconosciuta")', 'giorno = "sabato"\nmatch giorno:\n    case "sabato" | "domenica":\n        print("Weekend")\n    case _:\n        print("Giorno lavorativo")'],
+      loops: ['for numero in range(1, 6):\n    print("Numero:", numero)', 'numero = 1\nwhile numero <= 5:\n    print(numero)\n    numero += 1', 'for studente in ["Amina", "Luca", "Sara"]:\n    print("Studente:", studente)'],
+      lists: ['studenti = ["Amina", "Luca"]\nstudenti.append("Sara")\nprint(studenti)', 'voti = [24, 28, 30]\nprint("Primo voto:", voti[0])\nprint("Numero voti:", len(voti))', 'numeri = [10, 20, 30]\nnumeri[1] = 25\nprint(numeri)'],
+      dict: ['studente = {"nome": "Amina", "voto": 28}\nprint(studente["nome"])\nstudente["voto"] = 30\nprint(studente)', 'corso = {"nome": "Python", "ore": 40}\nfor chiave, valore in corso.items():\n    print(chiave, valore)'],
+      functions: ['def saluta(nome):\n    print("Ciao", nome)\n\nsaluta("Amina")', 'def somma(a, b):\n    return a + b\n\nrisultato = somma(10, 5)\nprint("Risultato:", risultato)', 'def area_rettangolo(base, altezza):\n    return base * altezza\n\nprint(area_rettangolo(5, 3))'],
+      classes: ['class Studente:\n    def __init__(self, nome, voto):\n        self.nome = nome\n        self.voto = voto\n\n    def presenta(self):\n        print(self.nome, "ha preso", self.voto)\n\nstudente = Studente("Amina", 28)\nstudente.presenta()', 'class Conto:\n    def __init__(self, saldo):\n        self.saldo = saldo\n\n    def deposita(self, importo):\n        self.saldo += importo\n\nconto = Conto(100)\nconto.deposita(50)\nprint(conto.saldo)'],
+      files: ['with open("studenti.txt", "w", encoding="utf-8") as file:\n    file.write("Amina - 28\\nLuca - 24")\n\nwith open("studenti.txt", encoding="utf-8") as file:\n    print(file.read())', 'with open("note.txt", "a", encoding="utf-8") as file:\n    file.write("Nuova nota\\n")'],
+      errors: ['try:\n    numero = float(input("Numero: "))\n    print("Doppio:", numero * 2)\nexcept ValueError:\n    print("Devi inserire un numero")', 'try:\n    risultato = 10 / 0\nexcept ZeroDivisionError:\n    print("Non puoi dividere per zero")'],
+      final: ['def somma():\n    print("\\n--- SOMMA TRA 2 NUMERI ---")\n    try:\n        num1 = float(input("Inserisci il primo numero: "))\n        num2 = float(input("Inserisci il secondo numero: "))\n        print("La somma:", num1 + num2)\n    except ValueError:\n        print("Errore: devi inserire solo numeri")\n\ndef mostra_menu():\n    print("\\n=== MENU DI SCELTA ===")\n    print("1. SOMMA")\n    print("2. ESCI")\n\ndef main():\n    while True:\n        mostra_menu()\n        scelta = input("Scegli un\'opzione: ")\n        if scelta == "1":\n            somma()\n        elif scelta == "2":\n            print("Programma terminato")\n            break\n\nmain()', 'def concatena():\n    prima = input("Prima parola: ")\n    seconda = input("Seconda parola: ")\n    print("Risultato:", prima + " " + seconda)\n\nconcatena()']
+    },
+    html: {
+      document: ['<!doctype html>\n<html lang="it">\n<head>\n  <meta charset="utf-8">\n  <title>La mia prima pagina</title>\n</head>\n<body>\n  <h1>Ciao mondo!</h1>\n  <p>Sto imparando HTML.</p>\n</body>\n</html>', '<h1>Il mio profilo</h1>\n<p>Mi chiamo Amina e ho 16 anni.</p>\n<p>Il mio obiettivo è imparare a programmare.</p>'],
+      links: ['<a href="https://example.com">Apri il sito</a>', '<nav>\n  <a href="/">Home</a>\n  <a href="/courses/">Corsi</a>\n  <a href="/contact/">Contatti</a>\n</nav>'],
+      images: ['<img src="foto.jpg" alt="Studente che programma" width="320">', '<figure>\n  <img src="computer.jpg" alt="Computer su una scrivania">\n  <figcaption>La mia postazione.</figcaption>\n</figure>'],
+      lists: ['<ul>\n  <li>Python</li>\n  <li>C#</li>\n  <li>SQL</li>\n</ul>', '<ol>\n  <li>Imparo</li>\n  <li>Pratico</li>\n  <li>Creo un progetto</li>\n</ol>'],
+      forms: ['<form>\n  <label for="nome">Nome</label>\n  <input id="nome" name="nome" type="text" required>\n  <button type="submit">Invia</button>\n</form>', '<form>\n  <label for="email">Email</label>\n  <input id="email" type="email" required>\n  <label for="messaggio">Messaggio</label>\n  <textarea id="messaggio"></textarea>\n</form>'],
+      table: ['<table>\n  <tr><th>Nome</th><th>Voto</th></tr>\n  <tr><td>Amina</td><td>28</td></tr>\n  <tr><td>Luca</td><td>24</td></tr>\n</table>'],
+      semantic: ['<header>MS Academy</header>\n<nav>Menu</nav>\n<main>\n  <section>\n    <h1>Corso Python</h1>\n    <p>Impara passo dopo passo.</p>\n  </section>\n</main>\n<footer>© 2025 Docente Moussa Salisou</footer>']
+    },
+    css: {
+      selectors: ['body { font-family: Arial, sans-serif; }\nh1 { font-size: 2rem; }\np { line-height: 1.6; }', '.card { padding: 20px; border: 1px solid #ddd; }'],
+      box: ['.card {\n  width: 300px;\n  padding: 20px;\n  border: 2px solid #173b63;\n  margin: 20px;\n  box-sizing: border-box;\n}', '.box { margin: 10px; padding: 16px; border: 1px solid #ccc; }'],
+      flex: ['.menu {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  gap: 16px;\n}', '.cards { display: flex; flex-wrap: wrap; gap: 20px; }'],
+      grid: ['.grid {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 20px;\n}', '.layout { display: grid; grid-template-columns: 240px 1fr; gap: 24px; }'],
+      responsive: ['.card { width: 100%; }\n\n@media (min-width: 700px) {\n  .card { width: 50%; }\n}', '@media (max-width: 700px) {\n  .menu { flex-direction: column; }\n}'],
+      variables: [':root {\n  --primary: #173b63;\n  --space: 20px;\n}\n\n.card {\n  color: var(--primary);\n  padding: var(--space);\n}', '.button { background: var(--primary); }'],
+      animation: ['@keyframes entra {\n  from { opacity: 0; transform: translateY(10px); }\n  to { opacity: 1; transform: translateY(0); }\n}\n\n.card { animation: entra .4s ease; }']
+    },
+    javascript: {
+      variables: ['const nome = "Amina";\nlet eta = 16;\nconsole.log(nome, eta);', 'const prodotto = { nome: "Mouse", prezzo: 25 };\nconsole.log(prodotto.nome);'],
+      conditions: ['const voto = 27;\nif (voto >= 18) {\n  console.log("Superato");\n} else {\n  console.log("Non superato");\n}', 'const eta = 16;\nconst messaggio = eta >= 18 ? "Accesso" : "Negato";\nconsole.log(messaggio);'],
+      switch: ['const scelta = 2;\nswitch (scelta) {\n  case 1:\n    console.log("Nuovo");\n    break;\n  case 2:\n    console.log("Apri");\n    break;\n  default:\n    console.log("Esci");\n}'],
+      loops: ['for (let i = 1; i <= 5; i++) {\n  console.log(i);\n}', 'let numero = 1;\nwhile (numero <= 5) {\n  console.log(numero);\n  numero++;\n}'],
+      functions: ['function somma(a, b) {\n  return a + b;\n}\n\nconsole.log(somma(10, 5));', 'const saluta = (nome) => {\n  return `Ciao ${nome}`;\n};\n\nconsole.log(saluta("Amina"));'],
+      arrays: ['const studenti = ["Amina", "Luca"];\nstudenti.push("Sara");\nconsole.log(studenti);', 'const voti = [18, 24, 30];\nconst sufficienti = voti.filter(voto => voto >= 18);\nconsole.log(sufficienti);'],
+      objects: ['const studente = { nome: "Amina", voto: 28 };\nconsole.log(studente.nome);\nstudente.voto = 30;\nconsole.log(studente);'],
+      dom: ['const titolo = document.querySelector("h1");\ntitolo.textContent = "Ciao dal JavaScript!";', 'const bottone = document.querySelector("button");\nbottone.addEventListener("click", () => {\n  alert("Hai cliccato!");\n});'],
+      fetch: ['async function carica() {\n  const risposta = await fetch("https://jsonplaceholder.typicode.com/users/1");\n  const utente = await risposta.json();\n  console.log(utente.name);\n}\n\ncarica();']
+    },
+    typescript: {
+      types: ['let nome: string = "Amina";\nlet eta: number = 16;\nlet attivo: boolean = true;\nconsole.log(nome, eta, attivo);', 'const voti: number[] = [24, 28, 30];\nconsole.log(voti);'],
+      functions: ['function somma(a: number, b: number): number {\n  return a + b;\n}\n\nconsole.log(somma(10, 5));'],
+      interfaces: ['interface Studente {\n  nome: string;\n  voto: number;\n}\n\nconst studente: Studente = {\n  nome: "Amina",\n  voto: 28\n};\n\nconsole.log(studente);'],
+      generics: ['function primo<T>(valori: T[]): T {\n  return valori[0];\n}\n\nconsole.log(primo<number>([10, 20, 30]));']
+    },
+    sql: {
+      select: ['SELECT nome, voto\nFROM Studenti;', 'SELECT *\nFROM Studenti\nWHERE voto >= 18;'],
+      where: ['SELECT nome, voto\nFROM Studenti\nWHERE voto >= 18\nORDER BY voto DESC;', 'SELECT *\nFROM Prodotti\nWHERE prezzo BETWEEN 10 AND 50;'],
+      aggregate: ['SELECT COUNT(*) AS TotaleStudenti\nFROM Studenti;', 'SELECT AVG(voto) AS Media\nFROM Studenti;'],
+      join: ['SELECT Studenti.nome, Corsi.nome\nFROM Studenti\nINNER JOIN Iscrizioni ON Studenti.id = Iscrizioni.studente_id\nINNER JOIN Corsi ON Corsi.id = Iscrizioni.corso_id;', 'SELECT c.nome, COUNT(i.id) AS iscritti\nFROM Corsi c\nLEFT JOIN Iscrizioni i ON c.id = i.corso_id\nGROUP BY c.nome;'],
+      insert: ['INSERT INTO Studenti (nome, voto)\nVALUES (\'Amina\', 28);'],
+      update: ['UPDATE Studenti\nSET voto = 30\nWHERE nome = \'Amina\';'],
+      delete: ['DELETE FROM Studenti\nWHERE id = 10;'],
+      table: ['CREATE TABLE Studenti (\n  id INT PRIMARY KEY,\n  nome VARCHAR(100) NOT NULL,\n  voto INT\n);']
+    }
   };
 
-  function examples(lang,topic){
-    if(lang==='python'){
-      const hit=Object.keys(py).find(k=>topic.toLowerCase().includes(k.toLowerCase())||k.toLowerCase().includes(topic.toLowerCase()));
-      if(hit)return py[hit];
+  function pick(lang, topic) {
+    const t = topic.toLowerCase();
+    const bank = banks[lang] || {};
+    const keys = Object.keys(bank);
+    const rules = [
+      ['final', ['progetto finale', 'applicazione', 'progetto']],
+      ['input', ['input', 'get started', 'utente']],
+      ['print', ['print', 'output', 'echo', 'console']],
+      ['if', ['if', 'condizion', 'else', 'elif']],
+      ['switch', ['switch', 'match', 'when']],
+      ['loops', ['ciclo', 'for', 'while', 'loop', 'range']],
+      ['lists', ['list', 'array', 'collections', 'vector', 'slice']],
+      ['dict', ['dizion', 'dictionary', 'map', 'hashmap', 'object']],
+      ['functions', ['funzion', 'metod', 'lambda', 'callback']],
+      ['classes', ['class', 'oop', 'object', 'constructor']],
+      ['files', ['file', 'csv', 'json']],
+      ['errors', ['error', 'exception', 'try', 'gestione error']],
+      ['box', ['box model', 'margin', 'padding', 'border', 'width', 'height']],
+      ['flex', ['flex']],
+      ['grid', ['grid']],
+      ['responsive', ['responsive', 'media quer']],
+      ['variables', ['variabil', 'variable', 'const', 'let', 'tipi']],
+      ['selectors', ['selector', 'selettor']],
+      ['dom', ['dom', 'event', 'element']],
+      ['fetch', ['fetch', 'api', 'http']],
+      ['types', ['type', 'tipi', 'interface', 'union', 'nullable']],
+      ['generics', ['generic']],
+      ['aggregate', ['aggregate', 'count', 'sum', 'avg', 'min', 'max', 'group by']],
+      ['join', ['join', 'relazion']],
+      ['where', ['where', 'order by', 'filter', 'having']],
+      ['insert', ['insert']],
+      ['update', ['update']],
+      ['delete', ['delete']],
+      ['table', ['create table', 'table', 'database']],
+      ['select', ['select', 'query', 'sql']]
+    ];
+    for (const [key, words] of rules) {
+      if (keys.includes(key) && words.some(w => t.includes(w))) return bank[key];
     }
-    const x=topic.toLowerCase();
-    if(lang==='html'){
-      if(x.includes('titoli'))return ['<h1>Titolo principale</h1>\n<h2>Sezione</h2>\n<h3>Sottosezione</h3>','<h1>Corso Python</h1>\n<p>Impara passo dopo passo.</p>'];
-      if(x.includes('paragrafi'))return ['<p>Questo è un paragrafo HTML.</p>\n<p>Questo è un secondo paragrafo.</p>','<article><h2>Corso</h2><p>Contenuto della lezione.</p></article>'];
-      if(x.includes('link'))return ['<nav><a href="/">Home</a> <a href="/courses/">Corsi</a></nav>','<a href="https://example.com" target="_blank" rel="noopener">Apri il sito</a>'];
-      if(x.includes('immagini'))return ['<img src="foto.jpg" alt="Studente che programma" width="320">','<figure><img src="foto.jpg" alt="Postazione di lavoro"><figcaption>Studio di programmazione</figcaption></figure>'];
-      if(x.includes('liste'))return ['<ul><li>Python</li><li>C#</li><li>SQL</li></ul>','<ol><li>Installa</li><li>Codifica</li><li>Esegui</li></ol>'];
-      if(x.includes('tabelle'))return ['<table><tr><th>Nome</th><th>Voto</th></tr><tr><td>Amina</td><td>28</td></tr></table>','<table><thead><tr><th>Corso</th><th>Ore</th></tr></thead><tbody><tr><td>Python</td><td>40</td></tr></tbody></table>'];
-      if(x.includes('form')||x.includes('input'))return ['<form><label for="email">Email</label><input id="email" type="email" required><button type="submit">Invia</button></form>','<form><label for="nome">Nome</label><input id="nome" name="nome" type="text" required></form>'];
-      if(x.includes('semant'))return ['<header><h1>MS Academy</h1></header><nav><a href="/">Home</a></nav><main><article><h2>Corso</h2><p>Contenuto.</p></article></main><footer>© 2025 Docente Moussa Salisou</footer>','<section><h2>Servizi</h2><p>Formazione e sviluppo.</p></section>'];
-      if(x.includes('seo')||x.includes('meta'))return ['<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Corso di programmazione">','<title>Corso di programmazione</title>\n<link rel="canonical" href="https://example.com/corso">'];
-      return [`<!-- ${topic} -->\n<section><h2>${topic}</h2><p>Esempio HTML collegato alla lezione.</p></section>`,`<article><h2>Applicazione pratica</h2><p>${topic}: esempio.</p></article>`];
-    }
-    if(lang==='css'){
-      if(x.includes('box model')||x.includes('margin')||x.includes('padding'))return ['.card{width:300px;padding:20px;border:2px solid #173b63;margin:24px;box-sizing:border-box;}','.box{padding:16px;margin:10px 0;border:1px solid #ddd;}'];
-      if(x.includes('flex'))return ['.menu{display:flex;align-items:center;justify-content:space-between;gap:16px;}','.cards{display:flex;flex-wrap:wrap;gap:20px;}'];
-      if(x.includes('grid'))return ['.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}','.layout{display:grid;grid-template-columns:240px 1fr;gap:24px;}'];
-      if(x.includes('responsive')||x.includes('media'))return ['.card{width:100%;}@media (min-width:700px){.card{width:50%;}}','@media (max-width:700px){.menu{flex-direction:column;}}'];
-      if(x.includes('variabili'))return [':root{--primary:#173b63;--space:20px;}.card{color:var(--primary);padding:var(--space);}','.button{background:var(--primary);}'];
-      if(x.includes('animation'))return ['@keyframes entra{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}.card{animation:entra .4s ease;}','.loader{animation:spin 1s linear infinite;}'];
-      return [`/* ${topic} */\n.card{padding:20px;border:1px solid #ddd;border-radius:10px;}`,`.title{font-size:2rem;margin-bottom:12px;}`];
-    }
-    if(lang==='javascript'||lang==='typescript'){
-      const typed=lang==='typescript';
-      if(x.includes('variabil'))return [typed?'const nome:string="Moussa";\nlet eta:number=30;\nconsole.log(nome,eta);':'const nome="Moussa";\nlet eta=30;\nconsole.log(nome,eta);','const corso={nome:"Python",ore:40};\nconsole.log(corso.nome);'];
-      if(x.includes('switch'))return [typed?'const scelta:number=2;\nswitch(scelta){case 1:console.log("Nuovo");break;case 2:console.log("Apri");break;default:console.log("Esci");}':'const scelta=2;\nswitch(scelta){case 1:console.log("Nuovo");break;case 2:console.log("Apri");break;default:console.log("Esci");}','function descrivi(ruolo:string){return ruolo==="docente"?"Insegna":"Utente";}\nconsole.log(descrivi("docente"));'];
-      if(x.includes('cicli'))return ['for(let i=1;i<=5;i++){console.log(i);}','let n=3;while(n>0){console.log(n);n--;}'];
-      if(x.includes('funzioni'))return [typed?'function somma(a:number,b:number):number{return a+b;}\nconsole.log(somma(12,8));':'function somma(a,b){return a+b;}\nconsole.log(somma(12,8));',typed?'const saluta=(nome:string):string=>`Ciao ${nome}`;':'const saluta=nome=>`Ciao ${nome}`;\nconsole.log(saluta("Moussa"));'];
-      if(x.includes('array'))return ['const voti=[24,28,30];\nconsole.log(voti.map(v=>v+1));','const studenti=["Amina","Luca"];\nstudenti.push("Sara");\nconsole.log(studenti);'];
-      if(x.includes('dom'))return ['const titolo=document.querySelector("#titolo");\nif(titolo) titolo.textContent="Benvenuto!";','document.querySelector("button")?.addEventListener("click",()=>alert("Cliccato!"));'];
-      if(x.includes('fetch')||x.includes('http'))return ['fetch("https://jsonplaceholder.typicode.com/users/1").then(r=>r.json()).then(data=>console.log(data.name));','async function carica(){const r=await fetch("https://jsonplaceholder.typicode.com/users/1");console.log(await r.json());}\ncarica();'];
-      return [`// ${topic}\n${typed?'const valore:number = 10;':'const valore = 10;'}\nconsole.log("${topic}:",valore);`,`function esempio(){return "Esempio pratico";}\nconsole.log(esempio());`];
-    }
-    if(lang==='sql'){
-      if(x.includes('select'))return ['SELECT nome,voto FROM studenti;','SELECT nome,voto FROM studenti WHERE voto>=18 ORDER BY voto DESC;'];
-      if(x.includes('where'))return ['SELECT nome,voto FROM studenti WHERE voto>=18;','SELECT * FROM studenti WHERE nome LIKE \'A%\';'];
-      if(x.includes('group')||x.includes('aggregate'))return ['SELECT corso_id,COUNT(*) AS totale FROM studenti GROUP BY corso_id;','SELECT AVG(voto) AS media,MAX(voto) AS massimo FROM studenti;'];
-      if(x.includes('join'))return ['SELECT s.nome,c.nome AS corso FROM studenti s INNER JOIN corsi c ON c.id=s.corso_id;','SELECT c.nome,COUNT(s.id) AS studenti FROM corsi c LEFT JOIN studenti s ON s.corso_id=c.id GROUP BY c.nome;'];
-      if(x.includes('insert'))return ["INSERT INTO studenti(nome,voto) VALUES ('Amina',28);","INSERT INTO corsi(nome) VALUES ('Python');"];
-      if(x.includes('update'))return ['UPDATE studenti SET voto=30 WHERE id=1;','UPDATE corsi SET nome=\'Python Avanzato\' WHERE id=2;'];
-      if(x.includes('delete'))return ['DELETE FROM studenti WHERE id=1;','DELETE FROM studenti WHERE voto<18;'];
-      if(x.includes('create'))return ['CREATE TABLE studenti(id INT PRIMARY KEY,nome VARCHAR(100) NOT NULL,voto INT);','CREATE TABLE corsi(id INT PRIMARY KEY,nome VARCHAR(100) NOT NULL);'];
-      return [`-- ${topic}\nSELECT nome,voto FROM studenti;`,`-- Applicazione pratica: ${topic}\nSELECT corso_id,COUNT(*) AS totale FROM studenti GROUP BY corso_id;`];
-    }
-    const simple={
-      c:['#include <stdio.h>\nint main(void){int valore=10;printf("Valore: %d\\n",valore);return 0;}','#include <stdio.h>\nint somma(int a,int b){return a+b;}\nint main(void){printf("%d\\n",somma(12,8));return 0;}'],
-      cpp:['#include <iostream>\nint main(){int valore=10;std::cout<<valore;}','#include <iostream>\nint somma(int a,int b){return a+b;}\nint main(){std::cout<<somma(12,8);}'],
-      csharp:['int valore=10;\nConsole.WriteLine(valore);','static int Somma(int a,int b)=>a+b;\nConsole.WriteLine(Somma(12,8));'],
-      java:['public class Main{public static void main(String[] args){int valore=10;System.out.println(valore);}}','public class Main{static int somma(int a,int b){return a+b;}public static void main(String[] args){System.out.println(somma(12,8));}}'],
-      php:['<?php\n$valore=10;\necho $valore;','<?php\nfunction somma(int $a,int $b):int{return $a+$b;}\necho somma(12,8);'],
-      go:['package main\nimport "fmt"\nfunc main(){valore:=10;fmt.Println(valore)}','package main\nimport "fmt"\nfunc somma(a,b int)int{return a+b}\nfunc main(){fmt.Println(somma(12,8))}'],
-      rust:['fn main(){let valore=10;println!("{}",valore);}','fn somma(a:i32,b:i32)->i32{a+b}\nfn main(){println!("{}",somma(12,8));}'],
-      kotlin:['fun main(){val valore=10;println(valore)}','fun somma(a:Int,b:Int)=a+b\nfun main(){println(somma(12,8))}'],
-      swift:['let valore=10\nprint(valore)','func somma(_ a:Int,_ b:Int)->Int{a+b}\nprint(somma(12,8))']
-    };
-    return simple[lang]||[`// ${topic}\nprint("${topic}")`,`// Esempio pratico di ${topic}`];
+    if (keys.length) return bank[keys[0]];
+    return null;
   }
 
-  function build(course){
-    return (course.topics||[]).map((topic,index)=>{const pair=examples(course.lang,topic);const level=index<6?'Fondamentale':index<20?'Base':index<35?'Intermedio':'Avanzato';return {title:topic,explain:`In questa lezione impari ${topic}. L'argomento viene presentato con un esempio semplice, un secondo esempio e un'attività pratica.`,syntax:`Studia la sintassi dell'esempio, individua la parte che realizza ${topic} e modifica un valore per verificare il comportamento.`,goals:[`Comprendere ${topic}`,'Scrivere autonomamente un esempio','Applicare il concetto a un caso reale'],code:pair[0],second:pair[1],lineByLine:`1. Leggi il codice dall'alto verso il basso.\n2. Individua la parte collegata a ${topic}.\n3. Esegui l'esempio.\n4. Modifica almeno un valore.\n5. Riscrivi l'esempio senza copiarlo.`,realExample:`Usa ${topic} in un caso realistico: studenti e voti, clienti e ordini, prodotti e prezzi oppure dati provenienti da file e API.`,exercise:`Crea una variante dell'esempio su ${topic}. Inserisci un dato di partenza, applica il concetto della lezione e mostra un risultato verificabile.`,solution:pair[1],mistakes:['Non copiare l esempio senza capire il ruolo delle istruzioni.','Controlla parentesi, indentazione, tipi e nomi delle variabili.','Esegui il codice dopo ogni modifica importante.'],quiz:[{q:`Qual è il tema principale della lezione “${topic}”?`,opts:[topic,'Un argomento diverso','Solo la grafica','Nessuno'],answer:0},{q:`Come verifichi meglio di aver capito “${topic}”?`,opts:['Modificando ed eseguendo l esempio','Copiandolo senza eseguirlo','Saltando l esercizio','Cambiando linguaggio'],answer:0}],challenge:`Costruisci una piccola funzionalità autonoma che utilizzi ${topic} e prova a inserirla nel progetto finale.`,difficulty:level};});
+  function fallback(lang, topic) {
+    const examples = {
+      c: `#include <stdio.h>\n\nint main(void) {\n    printf("Lezione: ${topic}");\n    return 0;\n}`,
+      cpp: `#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << "Lezione: ${topic}" << endl;\n    return 0;\n}`,
+      csharp: `using System;\n\nclass Program\n{\n    static void Main()\n    {\n        Console.WriteLine("Lezione: ${topic}");\n    }\n}`,
+      java: `public class Main {\n    public static void main(String[] args) {\n        System.out.println("Lezione: ${topic}");\n    }\n}`,
+      php: `<?php\n$argomento = "${topic}";\necho "Lezione: " . $argomento;`,
+      go: `package main\n\nimport "fmt"\n\nfunc main() {\n    fmt.Println("Lezione: ${topic}")\n}`,
+      rust: `fn main() {\n    println!("Lezione: ${topic}");\n}`,
+      kotlin: `fun main() {\n    println("Lezione: ${topic}")\n}`,
+      swift: `import Foundation\n\nprint("Lezione: ${topic}")`
+    };
+    const first = examples[lang] || `// Esempio introduttivo: ${topic}\n// Scrivi qui il tuo primo codice.`;
+    return [first, first + '\n\n// Ora modifica il valore e osserva cosa cambia.'];
   }
-  return {build};
+
+  function cleanTopic(topic) {
+    return topic.replace(/^\d+[.)-]\s*/, '').trim();
+  }
+
+  function makeSteps(code) {
+    const lines = String(code || '').split('\n').filter(line => line.trim());
+    return lines.slice(0, 12).map((line, i) => {
+      const text = line.trim();
+      let explanation = 'Questa riga esegue un\'istruzione del programma.';
+      if (/^(#|\/\/|<!--|\/\*)/.test(text)) explanation = 'È un commento: serve a spiegare il codice e non viene eseguito.';
+      else if (/^(def |function |func |fun |fn |static .*\(|class |interface )/.test(text)) explanation = 'Qui definiamo una funzione, una classe o una struttura che potremo riutilizzare.';
+      else if (/^(if |if\s*\(|elif |else|case |switch|match|when)/.test(text)) explanation = 'Qui il programma prende una decisione in base a una condizione.';
+      else if (/^(for |while |for\s*\()/.test(text)) explanation = 'Qui iniziamo una ripetizione: il programma esegue un blocco più volte.';
+      else if (/^(print|console\.log|Console\.WriteLine|fmt\.Print|println|echo|SELECT|INSERT|UPDATE|DELETE)/i.test(text)) explanation = 'Qui chiediamo al programma di mostrare un risultato o di eseguire un\'azione.';
+      else if (/^(import |using |#include|require|from )/.test(text)) explanation = 'Qui importiamo uno strumento o una libreria che ci serve.';
+      else if (/[=:].*["'\d]/.test(text)) explanation = 'Qui creiamo o assegniamo un valore a una variabile o proprietà.';
+      return `Riga ${i + 1}: ${text} — ${explanation}`;
+    });
+  }
+
+  function buildLesson(course, topic, index) {
+    const lang = course.lang;
+    const title = cleanTopic(topic);
+    const chosen = pick(lang, title) || fallback(lang, title);
+    const code = chosen[0];
+    const second = chosen[1] || chosen[0];
+    const third = chosen[2] || second;
+    const isFirst = index === 0;
+    const isFinal = /progetto finale|applicazione/i.test(title);
+    const steps = makeSteps(code);
+    const beginner = isFirst
+      ? `Partiamo davvero da zero. Prima di scrivere codice, pensa al computer come a un assistente: noi gli diamo istruzioni precise e lui le esegue nell'ordine indicato. In questa lezione vediamo ${title} senza dare nulla per scontato.`
+      : `Se è la prima volta che incontri questo argomento, nessun problema. ${title} significa, in pratica, imparare una nuova istruzione che possiamo usare dentro un programma. Prima leggiamo un esempio piccolo, poi lo modifichiamo e infine proviamo a usarlo in un caso reale.`;
+    const goals = [
+      `Capire con parole semplici che cosa significa "${title}".`,
+      'Leggere un esempio senza doverlo conoscere a memoria.',
+      'Scrivere una piccola modifica partendo dall’esempio.',
+      'Provare il codice e imparare a leggere eventuali errori.'
+    ];
+    const exercise = isFinal
+      ? `Crea una piccola applicazione completa collegando gli argomenti studiati. Parti dal menu, aggiungi almeno due funzioni, controlla gli input e prova ogni scelta.`
+      : `Ricrea l'esempio di "${title}". Poi cambia almeno un valore e aggiungi una piccola modifica tua. Non cercare di scrivere tutto perfettamente al primo tentativo: l'obiettivo è capire cosa succede.`;
+    const solution = isFinal
+      ? code
+      : `${code}\n\n# Variante: prova a cambiare i dati dell'esempio e verifica il nuovo risultato.`;
+    return {
+      title,
+      explain: beginner,
+      lead: `In questa lezione impariamo ${title} con esempi piccoli e concreti.`,
+      syntax: `Regola pratica: osserva prima la struttura dell'esempio, poi sostituisci i valori con qualcosa che conosci tu.`,
+      goals,
+      code,
+      second,
+      third,
+      steps,
+      realExample: `Immagina di creare una piccola app per una scuola. Puoi usare ${title} per gestire studenti, voti, corsi, prodotti o ordini. L'idea importante è trasformare un problema reale in istruzioni semplici per il computer.`,
+      exercise,
+      solution,
+      mistakes: [
+        'Copiare il codice senza eseguirlo: prova sempre a cambiare una riga.',
+        'Saltare gli spazi, le parentesi o l’indentazione richiesti dal linguaggio.',
+        'Quando compare un errore, leggere il messaggio prima di modificare il programma a caso.'
+      ],
+      challenge: `Senza guardare subito la soluzione, prova a creare una variante di "${title}" usando nomi e dati scelti da te. Poi confronta il risultato con l'esempio.`,
+      quiz: [
+        {q:`Qual è l'obiettivo principale della lezione "${title}"?`,opts:[`Capire e applicare ${title}`,'Imparare tutto a memoria','Copiare il codice senza provarlo','Saltare gli esempi'],answer:0,explain:'La programmazione si impara capendo il perché delle istruzioni e mettendole in pratica.'},
+        {q:'Cosa conviene fare quando il programma mostra un errore?',opts:['Leggere il messaggio e controllare la riga indicata','Cancellare tutto','Ignorarlo','Cambiare linguaggio'],answer:0,explain:'Il messaggio di errore è un indizio: ci aiuta a capire dove il programma non fa quello che ci aspettavamo.'},
+        {q:'Qual è il modo migliore per imparare da un esempio?',opts:['Eseguirlo, modificarlo e osservare il risultato','Guardarlo soltanto','Copiarlo senza eseguirlo','Saltare l’esercizio'],answer:0,explain:'Modificare un esempio trasforma la lettura passiva in pratica.'}
+      ],
+      reference: `${course.title}: ${title}`,
+      difficulty: isFinal ? 'Progetto' : (isFirst ? 'Principiante assoluto' : 'Principiante'),
+      isFinal,
+      meta: `Esempi: 3 · Spiegazione passo passo · Esercizio · Soluzione · Quiz · Challenge`
+    };
+  }
+
+  function build(course) {
+    return (course.topics || []).map((topic, index) => buildLesson(course, topic, index));
+  }
+
+  return { build };
 })();

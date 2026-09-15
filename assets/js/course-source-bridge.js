@@ -1,12 +1,13 @@
 /*
- * Connect all source-based lesson packs to the existing course engine.
- * Dedicated complete blueprints are authoritative; source packs enrich
- * the remaining courses without replacing their full syllabi.
+ * Connect source-based lesson packs to the existing course engine.
+ * Dedicated reference packs are authoritative for their course while
+ * the existing syllabus remains the structural source of truth.
  */
 (function(){
   'use strict';
   const source = window.MOUSSA_SOURCE_LESSONS;
   const multi = window.MOUSSA_MULTILANG_SOURCE_LESSONS;
+  const sqlsh = window.MOUSSA_SQLSH_REFERENCE;
   const blueprint = window.MOUSSA_TKINTER_BLUEPRINT;
   const content = window.MOUSSA_COURSE_CONTENT;
   if(!content || typeof content.build !== 'function') return;
@@ -16,14 +17,22 @@
   content.build = function(course, key){
     const resolvedKey = key || course?.key;
 
-    /* The old complete Tkinter course is our quality reference:
-       15 structured lessons, practical projects, many quizzes and
-       progressively deeper GUI/database topics. */
     if(resolvedKey === 'tkinter' && blueprint && Array.isArray(blueprint.lessons)){
       return blueprint.lessons.map(lesson => ({...lesson, blueprint:true}));
     }
 
     const baseLessons = originalBuild(course, key) || [];
+
+    /* SQL gets a dedicated teaching adaptation based on sql.sh's public
+       curriculum. It keeps our Italian UI, exercises, editor and quiz flow. */
+    if(resolvedKey === 'sql' && sqlsh && Array.isArray(sqlsh.lessons)){
+      const byTitle = new Map(sqlsh.lessons.map(lesson => [lesson.title, lesson]));
+      return baseLessons.map(lesson => byTitle.has(lesson.title)
+        ? {...lesson, ...byTitle.get(lesson.title), sourcePack:'sql.sh'}
+        : lesson
+      );
+    }
+
     const primary = source && typeof source.build === 'function'
       ? (source.build({...course, key:resolvedKey}) || []) : [];
     const secondary = multi && typeof multi.build === 'function'
@@ -32,8 +41,6 @@
     const sourceLessons = [...primary, ...secondary];
     if(!sourceLessons.length) return baseLessons;
 
-    /* The first pack wins. This keeps detailed dedicated lessons
-       ahead of smaller multi-language enrichment packs. */
     const sourceByTitle = new Map();
     sourceLessons.forEach(lesson => {
       if(!sourceByTitle.has(lesson.title)) sourceByTitle.set(lesson.title, lesson);

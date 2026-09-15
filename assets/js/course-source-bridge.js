@@ -9,6 +9,7 @@
   const multi = window.MOUSSA_MULTILANG_SOURCE_LESSONS;
   const sqlsh = window.MOUSSA_SQLSH_REFERENCE;
   const sqlComplete = window.MOUSSA_SQL_COMPLETE;
+  const sqlExtra = window.MOUSSA_SQL_EXTRA;
   const blueprint = window.MOUSSA_TKINTER_BLUEPRINT;
   const content = window.MOUSSA_COURSE_CONTENT;
   if(!content || typeof content.build !== 'function') return;
@@ -24,22 +25,26 @@
 
     const baseLessons = originalBuild(course, key) || [];
 
-    /* SQL uses the complete original teaching pack first. It keeps the
-       existing Italian UI, exercises, editor and quiz flow. */
     if(resolvedKey === 'sql' && sqlComplete && Array.isArray(sqlComplete.lessons)){
-      const byTitle = new Map(sqlComplete.lessons.map(lesson => [lesson.title, lesson]));
+      const packs = [
+        ...(Array.isArray(sqlComplete.lessons) ? sqlComplete.lessons : []),
+        ...(sqlExtra && Array.isArray(sqlExtra.lessons) ? sqlExtra.lessons : [])
+      ];
+      const byTitle = new Map(packs.map(lesson => [lesson.title, lesson]));
       const merged = baseLessons.map(lesson => byTitle.has(lesson.title)
         ? {...lesson, ...byTitle.get(lesson.title), sourcePack:'sql.sh-complete'}
         : lesson
       );
       const existing = new Set(merged.map(lesson => lesson.title));
-      sqlComplete.lessons.forEach(lesson => {
-        if(!existing.has(lesson.title)) merged.push({...lesson, sourcePack:'sql.sh-complete'});
+      packs.forEach(lesson => {
+        if(!existing.has(lesson.title)){
+          merged.push({...lesson, sourcePack:'sql.sh-complete'});
+          existing.add(lesson.title);
+        }
       });
       return merged;
     }
 
-    /* Legacy SQL adaptation retained as fallback. */
     if(resolvedKey === 'sql' && sqlsh && Array.isArray(sqlsh.lessons)){
       const byTitle = new Map(sqlsh.lessons.map(lesson => [lesson.title, lesson]));
       return baseLessons.map(lesson => byTitle.has(lesson.title)

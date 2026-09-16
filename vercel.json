@@ -6,6 +6,7 @@
     {"source":"/courses/","destination":"/courses/index.html"},
     {"source":"/contact","destination":"/contact.html"},
     {"source":"/risorse","destination":"/risorse.html"},
+    {"source":"/learncode-bot","destination":"/learncode-bot.html"},
     {"source":"/corso_csharp","destination":"/corso_csharp.html"},
     {"source":"/corso_blazor","destination":"/corso_blazor.html"},
     {"source":"/corso_maui","destination":"/corso_maui.html"},

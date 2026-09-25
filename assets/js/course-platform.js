@@ -73,6 +73,9 @@
   }
 
   function labMarkup(course,lesson,index){
+    if(course.key==='python'){
+      return `<section class="lab"><div class="lab-head"><div><div class="section-kicker">Terminale Python</div><h3>Scrivi, modifica ed esegui</h3><p>Editor in stile VS Code e terminale integrato. Il codice viene eseguito nel browser quando possibile.</p></div></div><pre class="code-block"><code>${escapeHtml(lesson.code||'')}</code></pre></section>`;
+    }
     if(!isOnline(course)){
       return `<section class="lab lab-reference"><div class="section-kicker">Laboratorio</div><h3>Prova in locale</h3><p>${escapeHtml(course.lang==='sqlserver'||course.lang==='sql'?'SQL richiede un database. Usa SSMS o il database indicato nel corso.':'Questa tecnologia richiede un ambiente locale o un framework. Il codice sotto è la base da copiare nel tuo progetto.')}</p><pre class="code-block"><code>${escapeHtml(labCode(course,lesson.code||''))}</code></pre></section>`;
     }

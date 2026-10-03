@@ -1262,7 +1262,7 @@ root.<span class="fn">mainloop</span>()</pre>
             <span>calcolatrice.py — Parte 2: Display</span>
             <button class="code-copy">copia</button>
           </div>
-          <pre">    <span class="kw">def</span> <span class="fn">crea_display</span>(self):
+          <pre>    <span class="kw">def</span> <span class="fn">crea_display</span>(self):
         <span class="cm"># Frame display</span>
         frame_display = tk.<span class="cls">Frame</span>(self.root, bg=<span class="str">"#1e1e2e"</span>)
         frame_display.<span class="fn">pack</span>(fill=<span class="str">"x"</span>, padx=<span class="num">12</span>, pady=<span class="num">12</span>)
@@ -1301,7 +1301,7 @@ root.<span class="fn">mainloop</span>()</pre>
             <span>calcolatrice.py — Parte 3: Tasti</span>
             <button class="code-copy">copia</button>
           </div>
-          <pre">    <span class="kw">def</span> <span class="fn">crea_tasti</span>(self):
+          <pre>    <span class="kw">def</span> <span class="fn">crea_tasti</span>(self):
         <span class="cm"># Layout: (testo, riga, colonna, colspan, tipo)</span>
         tasti = [
             (<span class="str">"C"</span>,  <span class="num">0</span>, <span class="num">0</span>, <span class="num">1</span>, <span class="str">"fn"</span>), (<span class="str">"±"</span>,  <span class="num">0</span>, <span class="num">1</span>, <span class="num">1</span>, <span class="str">"fn"</span>),
@@ -1366,7 +1366,7 @@ root.<span class="fn">mainloop</span>()</pre>
             <span>calcolatrice.py — Parte 4: Logica</span>
             <button class="code-copy">copia</button>
           </div>
-          <pre">    <span class="kw">def</span> <span class="fn">premi</span>(self, tasto):
+          <pre>    <span class="kw">def</span> <span class="fn">premi</span>(self, tasto):
         <span class="kw">if</span> tasto == <span class="str">"C"</span>:
             self.espressione = <span class="str">""</span>
             self.display_var.<span class="fn">set</span>(<span class="str">"0"</span>)
@@ -2711,7 +2711,7 @@ conn_str_sql = (
         <h2>CRUD completo con SQL Server</h2>
         <div class="code-block">
           <div class="code-header"><div class="code-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div><span>crud_sqlserver.py</span><button class="code-copy">copia</button></div>
-          <pre"><span class="cm"># Usando SQLServerManager definito sopra</span>
+          <pre><span class="cm"># Usando SQLServerManager definito sopra</span>
 db = <span class="cls">SQLServerManager</span>(<span class="str">"localhost"</span>, <span class="str">"AziendaDB"</span>)
 db.<span class="fn">connetti</span>()
 db.<span class="fn">crea_tabella</span>()
@@ -3463,7 +3463,7 @@ fig.<span class="fn">colorbar</span>(scatter, ax=ax, label=<span class="str">"Ca
         <h3>📉 Istogramma</h3>
         <div class="code-block">
           <div class="code-header"><div class="code-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div><span>istogramma.py</span><button class="code-copy">copia</button></div>
-          <pre">np.random.<span class="fn">seed</span>(<span class="num">0</span>)
+          <pre>np.random.<span class="fn">seed</span>(<span class="num">0</span>)
 valutazioni = np.random.<span class="fn">normal</span>(loc=<span class="num">7.2</span>, scale=<span class="num">1.5</span>, size=<span class="num">500</span>)
 valutazioni = np.<span class="fn">clip</span>(valutazioni, <span class="num">0</span>, <span class="num">10</span>)
 
@@ -3489,7 +3489,7 @@ ax.<span class="fn">legend</span>()</pre>
         <h3>🌊 Area Chart (multi-canale)</h3>
         <div class="code-block">
           <div class="code-header"><div class="code-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div><span>area.py</span><button class="code-copy">copia</button></div>
-          <pre">t = np.<span class="fn">linspace</span>(<span class="num">0</span>, <span class="num">4</span> * np.pi, <span class="num">300</span>)
+          <pre>t = np.<span class="fn">linspace</span>(<span class="num">0</span>, <span class="num">4</span> * np.pi, <span class="num">300</span>)
 A = <span class="num">0.5</span> + <span class="num">0.5</span> * np.<span class="fn">sin</span>(t * <span class="num">0.8</span>)
 B = <span class="num">0.5</span> + <span class="num">0.5</span> * np.<span class="fn">sin</span>(t * <span class="num">0.8</span> + np.pi / <span class="num">3</span>)
 C = <span class="num">0.5</span> + <span class="num">0.5</span> * np.<span class="fn">sin</span>(t * <span class="num">0.8</span> + <span class="num">2</span> * np.pi / <span class="num">3</span>)

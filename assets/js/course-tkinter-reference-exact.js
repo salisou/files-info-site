@@ -7,9 +7,30 @@
   'use strict';
 
   const q = (question, options, answer, explain) => ({q:question, opts:options, answer, explain});
+  const esc = (value) => String(value ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  const rich = (title, lead, explain, goals, syntax, code, second, third, steps, realExample, exercises, solution, mistakes, challenge, quiz) => {
+    const examples = [code, second, third].filter(Boolean).map((x,i) => '<div class="code-block"><div class="code-header"><span>esempio-'+(i+1)+'.py</span><button class="code-copy" type="button">copia</button></div><pre><code>'+esc(x)+'</code></pre></div>').join('');
+    const goalsHtml = (goals||[]).map(x => '<li>'+esc(x)+'</li>').join('');
+    const stepsHtml = (steps||[]).map(x => '<li>'+esc(x)+'</li>').join('');
+    const exercisesHtml = (exercises||[]).map(x => '<li><strong>'+esc(x.title)+'</strong><p>'+esc(x.text)+'</p></li>').join('');
+    const mistakesHtml = (mistakes||[]).map(x => '<li>'+esc(x)+'</li>').join('');
+    const quizHtml = (quiz||[]).map((q,i) => '<div class="quiz-box"><h3>Verifica — Domanda '+(i+1)+'</h3><p>'+esc(q.q)+'</p><div class="quiz-options">'+(q.opts||[]).map((o,j) => '<button type="button" class="quiz-opt" data-correct="'+(j===q.answer)+'"><span class="opt-key">'+String.fromCharCode(65+j)+'</span>'+esc(o)+'</button>').join('')+'</div><div class="quiz-result"></div></div>').join('');
+    return '<div class="rich-intro"><p>'+esc(lead)+'</p><div class="callout callout-info"><span class="callout-label">Perché è importante</span>'+esc(explain)+'</div></div>'+
+      '<h2>Cosa imparerai</h2><ul>'+goalsHtml+'</ul>'+
+      '<h2>Come si scrive</h2><p><code>'+esc(syntax)+'</code></p>'+
+      '<h2>Esempi pratici</h2>'+examples+
+      '<h2>Spiegazione passo passo</h2><ol>'+stepsHtml+'</ol>'+
+      '<div class="callout callout-tip"><span class="callout-label">Esempio reale</span>'+esc(realExample)+'</div>'+
+      '<h2>Esercizi</h2><ol>'+exercisesHtml+'</ol>'+
+      '<details class="solution"><summary>Mostra la soluzione guidata</summary><pre><code>'+esc(solution||code)+'</code></pre></details>'+
+      '<h2>Errori comuni</h2><ul>'+mistakesHtml+'</ul>'+
+      '<div class="callout callout-warn"><span class="callout-label">Challenge</span>'+esc(challenge)+'</div>'+
+      quizHtml;
+  };
   const lesson = (title, lead, explain, goals, syntax, code, second, third, steps, realExample, exercises, solution, mistakes, challenge, quiz) => ({
     title, lead, explain, goals, syntax, code, second, third, steps, realExample, exercises, solution, mistakes, challenge, quiz,
-    referenceSource: 'WebTkinter'
+    referenceSource: 'WebTkinter',
+    richHtml: rich(title, lead, explain, goals, syntax, code, second, third, steps, realExample, exercises, solution, mistakes, challenge, quiz)
   });
 
   const lessons = [

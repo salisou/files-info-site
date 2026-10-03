@@ -2714,42 +2714,63 @@ conn_str_sql = (
         <h2>CRUD completo con SQL Server</h2>
         <div class="code-block">
           <div class="code-header"><div class="code-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div><span>crud_sqlserver.py</span><button class="code-copy">copia</button></div>
-          <pre><span class="cm"># Usando SQLServerManager definito sopra</span>
+          <pre><span class="kw">import</span> pyodbc
+
+<span class="cm"># SQLServerManager deve essere definito prima di questo esempio.</span>
 db = <span class="cls">SQLServerManager</span>(<span class="str">"localhost"</span>, <span class="str">"AziendaDB"</span>)
-db.<span class="fn">connetti</span>()
-db.<span class="fn">crea_tabella</span>()
 
-<span class="cm"># ── CREATE ──</span>
-db.<span class="fn">esegui</span>(
-    <span class="str">"INSERT INTO Dipendenti (Nome, Cognome, Email, Reparto, Stipendio) "</span>
-    <span class="str">"VALUES (?, ?, ?, ?, ?)"</span>,
-    (<span class="str">"Marco"</span>, <span class="str">"Rossi"</span>, <span class="str">"<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d6bbb7a4b5b996b7acbfb3b8b2b7f8bfa2">[email&#160;protected]</a>"</span>, <span class="str">"IT"</span>, <span class="num">35000.00</span>)
-)
+<span class="kw">try</span>:
+    db.<span class="fn">connetti</span>()
+    db.<span class="fn">crea_tabella</span>()
 
-<span class="cm"># ── READ — tutti ──</span>
-dipendenti = db.<span class="fn">leggi</span>(<span class="str">"SELECT * FROM Dipendenti ORDER BY Cognome"</span>)
-<span class="kw">for</span> d <span class="kw">in</span> dipendenti:
-    <span class="fn">print</span>(<span class="str">f"{d.Id} | {d.Nome} {d.Cognome} | {d.Reparto} | €{d.Stipendio}"</span>)
+    <span class="cm"># ── CREATE ──</span>
+    db.<span class="fn">esegui</span>(
+        <span class="str">"INSERT INTO Dipendenti (Nome, Cognome, Email, Reparto, Stipendio) "</span>
+        <span class="str">"VALUES (?, ?, ?, ?, ?)"</span>,
+        (<span class="str">"Marco"</span>, <span class="str">"Rossi"</span>, <span class="str">"marco.rossi@example.com"</span>, <span class="str">"IT"</span>, <span class="num">35000.00</span>)
+    )
 
-<span class="cm"># ── READ — con filtro ──</span>
-it_team = db.<span class="fn">leggi</span>(
-    <span class="str">"SELECT * FROM Dipendenti WHERE Reparto = ? AND Stipendio > ?"</span>,
-    (<span class="str">"IT"</span>, <span class="num">30000</span>)
-)
+    <span class="cm"># ── READ — tutti ──</span>
+    dipendenti = db.<span class="fn">leggi</span>(
+        <span class="str">"SELECT * FROM Dipendenti ORDER BY Cognome, Nome"</span>
+    )
 
-<span class="cm"># ── UPDATE ──</span>
-db.<span class="fn">esegui</span>(
-    <span class="str">"UPDATE Dipendenti SET Stipendio = ? WHERE Id = ?"</span>,
-    (<span class="num">38000.00</span>, <span class="num">1</span>)
-)
+    <span class="kw">for</span> d <span class="kw">in</span> dipendenti:
+        <span class="fn">print</span>(
+            <span class="str">f"{d.Id} | {d.Nome} {d.Cognome} | {d.Reparto} | €{d.Stipendio}"</span>
+        )
 
-<span class="cm"># ── DELETE ──</span>
-db.<span class="fn">esegui</span>(<span class="str">"DELETE FROM Dipendenti WHERE Id = ?"</span>, (<span class="num">5</span>,))
+    <span class="cm"># ── READ — con filtro ──</span>
+    it_team = db.<span class="fn">leggi</span>(
+        <span class="str">"SELECT * FROM Dipendenti "</span>
+        <span class="str">"WHERE Reparto = ? AND Stipendio > ? "</span>
+        <span class="str">"ORDER BY Stipendio DESC"</span>,
+        (<span class="str">"IT"</span>, <span class="num">30000</span>)
+    )
 
-<span class="cm"># ── Stored Procedure ──</span>
-db.<span class="fn">esegui</span>(<span class="str">"EXEC sp_AggiornaStipendi @percentuale=?"</span>, (<span class="num">5</span>,))
+    <span class="kw">for</span> d <span class="kw">in</span> it_team:
+        <span class="fn">print</span>(<span class="str">f"IT: {d.Nome} {d.Cognome} - €{d.Stipendio}"</span>)
 
-db.<span class="fn">disconnetti</span>()</pre>
+    <span class="cm"># ── UPDATE ──</span>
+    db.<span class="fn">esegui</span>(
+        <span class="str">"UPDATE Dipendenti SET Stipendio = ? WHERE Id = ?"</span>,
+        (<span class="num">38000.00</span>, <span class="num">1</span>)
+    )
+
+    <span class="cm"># ── DELETE ──</span>
+    db.<span class="fn">esegui</span>(
+        <span class="str">"DELETE FROM Dipendenti WHERE Id = ?"</span>,
+        (<span class="num">5</span>,)
+    )
+
+    <span class="cm"># ── Stored Procedure ──</span>
+    db.<span class="fn">esegui</span>(
+        <span class="str">"EXEC sp_AggiornaStipendi @percentuale = ?"</span>,
+        (<span class="num">5</span>,)
+    )
+
+<span class="kw">finally</span>:
+    db.<span class="fn">disconnetti</span>()</pre>
         </div>
 
         <h2>App Gestione Dipendenti — Tkinter + SQL Server</h2>

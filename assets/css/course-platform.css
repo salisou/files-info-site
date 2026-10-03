@@ -5,3 +5,9 @@
 .course-header-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}
 .course-header-actions .repo-link{border-color:var(--accent,#4b45d8)}
 @media(max-width:700px){.course-header-actions{width:100%;justify-content:flex-start}.course-header-actions .back{font-size:.82rem}}
+
+/* Shared site-wide navbar */
+.site-course-page{min-height:100vh}
+.site-global-header{position:sticky;top:0;z-index:9999}
+.site-course-page .course-shell{position:relative}
+@media(max-width:900px){.site-global-header .site-global-menu{display:none}.site-global-header .site-global-menu.open{display:flex}}

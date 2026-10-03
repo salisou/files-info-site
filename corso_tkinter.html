@@ -1899,43 +1899,99 @@ root.<span class="fn">mainloop</span>()</pre>
         <h2>Timer con conto alla rovescia</h2>
         <div class="code-block">
           <div class="code-header"><div class="code-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div><span class="code-header-name">countdown.py</span><button class="code-copy">copia</button></div>
-          <pre"><span class="kw">import</span> tkinter <span class="kw">as</span> tk
+          <pre><span class="kw">import</span> tkinter <span class="kw">as</span> tk
 
 root = tk.<span class="cls">Tk</span>()
-root.<span class="fn">title</span>(<span class="str">"Countdown"</span>)
+root.<span class="fn">title</span>(<span class="str">"Timer con conto alla rovescia"</span>)
 root.<span class="fn">configure</span>(bg=<span class="str">"#1e1e2e"</span>)
 
-secondi = [<span class="num">10</span>]
-timer_id = [<span class="kw">None</span>]
+DURATA = <span class="num">10</span>
+secondi = DURATA
+timer_id = <span class="kw">None</span>
+in_esecuzione = <span class="kw">False</span>
 
-lbl = tk.<span class="cls">Label</span>(root, text=<span class="str">"10"</span>,
+lbl = tk.<span class="cls">Label</span>(
+    root,
+    text=<span class="str">f"{DURATA:02d}"</span>,
     font=(<span class="str">"Consolas"</span>, <span class="num">72</span>, <span class="str">"bold"</span>),
-    fg=<span class="str">"#a6e3a1"</span>, bg=<span class="str">"#1e1e2e"</span>)
+    fg=<span class="str">"#a6e3a1"</span>,
+    bg=<span class="str">"#1e1e2e"</span>
+)
 lbl.<span class="fn">pack</span>(pady=<span class="num">30</span>, padx=<span class="num">60</span>)
 
-<span class="kw">def</span> <span class="fn">tick</span>():
-    secondi[<span class="num">0</span>] -= <span class="num">1</span>
-    lbl.<span class="fn">config</span>(text=<span class="str">str</span>(secondi[<span class="num">0</span>]))
-    <span class="kw">if</span> secondi[<span class="num">0</span>] <= <span class="num">3</span>:
-        lbl.<span class="fn">config</span>(fg=<span class="str">"#f38ba8"</span>)  <span class="cm"># rosso negli ultimi secondi</span>
-    <span class="kw">if</span> secondi[<span class="num">0</span>] > <span class="num">0</span>:
-        timer_id[<span class="num">0</span>] = root.<span class="fn">after</span>(<span class="num">1000</span>, tick)
+<span class="kw">def</span> <span class="fn">aggiorna_display</span>():
+    <span class="kw">global</span> secondi
+    <span class="kw">if</span> secondi <= <span class="num">3</span>:
+        colore = <span class="str">"#f38ba8"</span>  <span class="cm"># rosso negli ultimi 3 secondi</span>
     <span class="kw">else</span>:
-        lbl.<span class="fn">config</span>(text=<span class="str">"⏰ Fine!"</span>, fg=<span class="str">"#f7a26a"</span>)
+        colore = <span class="str">"#a6e3a1"</span>
+
+    lbl.<span class="fn">config</span>(
+        text=<span class="str">f"{secondi:02d}"</span>,
+        fg=colore
+    )
+
+<span class="kw">def</span> <span class="fn">tick</span>():
+    <span class="kw">global</span> secondi, timer_id, in_esecuzione
+
+    <span class="kw">if not</span> in_esecuzione:
+        <span class="kw">return</span>
+
+    <span class="kw">if</span> secondi > <span class="num">0</span>:
+        secondi -= <span class="num">1</span>
+        aggiorna_display()
+        timer_id = root.<span class="fn">after</span>(<span class="num">1000</span>, tick)
+    <span class="kw">else</span>:
+        in_esecuzione = <span class="kw">False</span>
+        timer_id = <span class="kw">None</span>
+        lbl.<span class="fn">config</span>(text=<span class="str">"FINE!"</span>, fg=<span class="str">"#f7a26a"</span>)
 
 <span class="kw">def</span> <span class="fn">avvia</span>():
-    secondi[<span class="num">0</span>] = <span class="num">10</span>
-    lbl.<span class="fn">config</span>(text=<span class="str">"10"</span>, fg=<span class="str">"#a6e3a1"</span>)
+    <span class="kw">global</span> secondi, timer_id, in_esecuzione
+
+    <span class="kw">if</span> in_esecuzione:
+        <span class="kw">return</span>  <span class="cm"># evita di creare più timer contemporaneamente</span>
+
+    <span class="kw">if</span> secondi <= <span class="num">0</span>:
+        secondi = DURATA
+        aggiorna_display()
+
+    in_esecuzione = <span class="kw">True</span>
     tick()
 
 <span class="kw">def</span> <span class="fn">ferma</span>():
-    <span class="kw">if</span> timer_id[<span class="num">0</span>]:
-        root.<span class="fn">after_cancel</span>(timer_id[<span class="num">0</span>])  <span class="cm"># cancella il prossimo tick</span>
+    <span class="kw">global</span> timer_id, in_esecuzione
 
-tk.<span class="cls">Button</span>(root, text=<span class="str">"▶ Avvia"</span>, command=avvia,
-    bg=<span class="str">"#a6e3a1"</span>, fg=<span class="str">"#1e1e2e"</span>, font=(<span class="str">"Syne"</span>,<span class="num">12</span>,<span class="str">"bold"</span>)).<span class="fn">pack</span>(side=<span class="str">"left"</span>, padx=<span class="num">20</span>, pady=<span class="num">10</span>)
-tk.<span class="cls">Button</span>(root, text=<span class="str">"⏹ Ferma"</span>, command=ferma,
-    bg=<span class="str">"#f38ba8"</span>, fg=<span class="str">"#1e1e2e"</span>, font=(<span class="str">"Syne"</span>,<span class="num">12</span>,<span class="str">"bold"</span>)).<span class="fn">pack</span>(side=<span class="str">"left"</span>, padx=<span class="num">4</span>)
+    in_esecuzione = <span class="kw">False</span>
+
+    <span class="kw">if</span> timer_id <span class="kw">is not None</span>:
+        root.<span class="fn">after_cancel</span>(timer_id)
+        timer_id = <span class="kw">None</span>
+
+<span class="kw">def</span> <span class="fn">reset</span>():
+    <span class="kw">global</span> secondi, timer_id, in_esecuzione
+
+    ferma()
+    secondi = DURATA
+    aggiorna_display()
+
+tk.<span class="cls">Button</span>(
+    root, text=<span class="str">"Avvia"</span>, command=avvia,
+    bg=<span class="str">"#a6e3a1"</span>, fg=<span class="str">"#1e1e2e"</span>,
+    font=(<span class="str">"Syne"</span>, <span class="num">12</span>, <span class="str">"bold"</span>)
+).<span class="fn">pack</span>(side=<span class="str">"left"</span>, padx=<span class="num">20</span>, pady=<span class="num">10</span>)
+
+tk.<span class="cls">Button</span>(
+    root, text=<span class="str">"Ferma"</span>, command=ferma,
+    bg=<span class="str">"#f38ba8"</span>, fg=<span class="str">"#1e1e2e"</span>,
+    font=(<span class="str">"Syne"</span>, <span class="num">12</span>, <span class="str">"bold"</span>)
+).<span class="fn">pack</span>(side=<span class="str">"left"</span>, padx=<span class="num">4</span>, pady=<span class="num">10</span>)
+
+tk.<span class="cls">Button</span>(
+    root, text=<span class="str">"Reset"</span>, command=reset,
+    bg=<span class="str">"#89b4fa"</span>, fg=<span class="str">"#1e1e2e"</span>,
+    font=(<span class="str">"Syne"</span>, <span class="num">12</span>, <span class="str">"bold"</span>)
+).<span class="fn">pack</span>(side=<span class="str">"left"</span>, padx=<span class="num">4</span>, pady=<span class="num">10</span>)
 
 root.<span class="fn">mainloop</span>()</pre>
         </div>

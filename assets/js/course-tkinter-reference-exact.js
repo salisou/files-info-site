@@ -30,6 +30,7 @@
   const lesson = (title, lead, explain, goals, syntax, code, second, third, steps, realExample, exercises, solution, mistakes, challenge, quiz) => ({
     title, lead, explain, goals, syntax, code, second, third, steps, realExample, exercises, solution, mistakes, challenge, quiz,
     referenceSource: 'WebTkinter',
+    sourceUrl: 'https://github.com/salisou/WebTkinter',
     richHtml: rich(title, lead, explain, goals, syntax, code, second, third, steps, realExample, exercises, solution, mistakes, challenge, quiz)
   });
 

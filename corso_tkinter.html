@@ -1957,7 +1957,7 @@ lbl.<span class="fn">pack</span>(pady=<span class="num">30</span>, padx=<span cl
         aggiorna_display()
 
     in_esecuzione = <span class="kw">True</span>
-    tick()
+    timer_id = root.<span class="fn">after</span>(<span class="num">1000</span>, tick)
 
 <span class="kw">def</span> <span class="fn">ferma</span>():
     <span class="kw">global</span> timer_id, in_esecuzione

@@ -1371,6 +1371,7 @@ root.<span class="fn">mainloop</span>()</pre>
             self.espressione = <span class="str">""</span>
             self.display_var.<span class="fn">set</span>(<span class="str">"0"</span>)
             self.lbl_expr.<span class="fn">config</span>(text=<span class="str">""</span>)
+            self.nuovo_numero = <span class="kw">True</span>
 
         <span class="kw">elif</span> tasto == <span class="str">"±"</span>:
             <span class="kw">try</span>:
@@ -1400,9 +1401,11 @@ root.<span class="fn">mainloop</span>()</pre>
             <span class="kw">except</span> ZeroDivisionError:
                 self.display_var.<span class="fn">set</span>(<span class="str">"Errore: ÷0"</span>)
                 self.espressione = <span class="str">""</span>
+                self.nuovo_numero = <span class="kw">True</span>
             <span class="kw">except</span>:
                 self.display_var.<span class="fn">set</span>(<span class="str">"Errore"</span>)
                 self.espressione = <span class="str">""</span>
+                self.nuovo_numero = <span class="kw">True</span>
 
         <span class="kw">elif</span> tasto <span class="kw">in</span> (<span class="str">"+"</span>, <span class="str">"-"</span>, <span class="str">"×"</span>, <span class="str">"÷"</span>):
             self.espressione += self.display_var.<span class="fn">get</span>() + tasto
@@ -1509,9 +1512,9 @@ root.<span class="fn">mainloop</span>()</pre>
                 self.display_var.<span class="fn">set</span>(<span class="fn">str</span>(<span class="fn">int</span>(r) <span class="kw">if</span> r==<span class="fn">int</span>(r) <span class="kw">else</span> r))
                 self.espressione = <span class="str">""</span>; self.nuovo_numero = <span class="kw">True</span>
             <span class="kw">except</span> ZeroDivisionError:
-                self.display_var.<span class="fn">set</span>(<span class="str">"Errore: ÷0"</span>); self.espressione = <span class="str">""</span>
+                self.display_var.<span class="fn">set</span>(<span class="str">"Errore: ÷0"</span>); self.espressione = <span class="str">""</span>; self.nuovo_numero = <span class="kw">True</span>
             <span class="kw">except</span>:
-                self.display_var.<span class="fn">set</span>(<span class="str">"Errore"</span>); self.espressione = <span class="str">""</span>
+                self.display_var.<span class="fn">set</span>(<span class="str">"Errore"</span>); self.espressione = <span class="str">""</span>; self.nuovo_numero = <span class="kw">True</span>
         <span class="kw">elif</span> t <span class="kw">in</span> <span class="str">"+-×÷"</span>:
             self.espressione += self.display_var.<span class="fn">get</span>()+t
             self.lbl_expr.<span class="fn">config</span>(text=self.espressione); self.nuovo_numero = <span class="kw">True</span>

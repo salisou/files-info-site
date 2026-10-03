@@ -140,6 +140,21 @@
       const prev=index>0?`<button type="button" data-nav="${index-1}">← Lezione precedente</button>`:'<button type="button" disabled>← Lezione precedente</button>';
       const next=index<course.lessons.length-1?`<button type="button" data-nav="${index+1}">Lezione successiva →</button>`:'<button type="button" disabled>Corso completato</button>';
 
+      if(lesson.richHtml){
+        const prev=index>0?'<button type="button" data-nav="'+(index-1)+'">← Lezione precedente</button>':'<button type="button" disabled>← Lezione precedente</button>';
+        const next=index<course.lessons.length-1?'<button type="button" data-nav="'+(index+1)+'">Lezione successiva →</button>':'<button type="button" disabled>Corso completato</button>';
+        main.innerHTML='<div class="lesson-head"><div><span>Lezione '+(index+1)+' di '+course.lessons.length+'</span><strong>'+escapeHtml(groupFor(index,course.lessons.length))+'</strong></div><div class="progress"><i style="width:'+p+'%"></i></div></div><article class="lesson-card rich-lesson-card"><div class="lesson-status"><span class="lesson-badge">'+escapeHtml(lesson.difficulty||'Tkinter')+'</span><button type="button" class="complete-btn" '+(done?'disabled':'')+'>'+(done?'Lezione completata':'Segna come completata')+'</button></div><h2>'+escapeHtml(lesson.title)+'</h2><p class="lead">'+escapeHtml(lesson.lead||'')+'</p><div class="rich-course-content">'+lesson.richHtml+'</div>'+labMarkup(course,lesson,index)+'<section class="exercise"><div class="section-kicker">Appunti della lezione</div><h3>Le tue note</h3><textarea id="exerciseNotes" rows="7" placeholder="Scrivi qui codice, dubbi o appunti...">'+escapeHtml(notes[index]||'')+'</textarea><div class="exercise-actions"><button type="button" class="save-notes">Salva i miei appunti</button></div><p class="exercise-status" aria-live="polite"></p></section><div class="lesson-nav">'+prev+next+'</div></article>';
+        const complete=main.querySelector('.complete-btn');
+        if(complete) complete.addEventListener('click',markComplete);
+        const saveNotes=main.querySelector('.save-notes');
+        if(saveNotes) saveNotes.addEventListener('click',()=>{notes[index]=main.querySelector('#exerciseNotes').value;save();main.querySelector('.exercise-status').textContent='Appunti salvati sul tuo dispositivo.';});
+        main.querySelectorAll('[data-nav]').forEach(b=>b.addEventListener('click',()=>choose(Number(b.dataset.nav))));
+        main.querySelectorAll('.code-copy').forEach((button)=>button.addEventListener('click',async()=>{const block=button.closest('.code-block');const pre=block&&block.querySelector('pre');const code=pre?pre.innerText||pre.textContent:'';try{await navigator.clipboard.writeText(code);button.textContent='Copiato';setTimeout(()=>button.textContent='copia',1200);}catch(e){button.textContent='Seleziona e copia';}}));
+        main.querySelectorAll('.quiz-opt').forEach(option=>option.addEventListener('click',()=>{const box=option.closest('.quiz-box');if(!box||option.classList.contains('correct')||option.classList.contains('wrong'))return;box.querySelectorAll('.quiz-opt').forEach(o=>o.classList.remove('correct','wrong'));const ok=option.getAttribute('data-correct')==='true';option.classList.add(ok?'correct':'wrong');const result=box.querySelector('.quiz-result');if(result){result.textContent=ok?'Corretto. Ottimo lavoro.':'Risposta non corretta. Riprova dopo aver riletto la spiegazione.';result.classList.add('show');}}));
+        updateProgress();
+        return;
+      }
+
       main.innerHTML=`<div class="lesson-head"><div><span>Lezione ${index+1} di ${course.lessons.length}</span><strong>${escapeHtml(groupFor(index,course.lessons.length))}</strong></div><div class="progress"><i style="width:${p}%"></i></div></div><article class="lesson-card">
         <div class="lesson-status"><span class="lesson-badge">${escapeHtml(lesson.difficulty||'Principiante')}</span><button type="button" class="complete-btn" ${done?'disabled':''}>${done?'Lezione completata':'Segna come completata'}</button></div>
         <h2>${escapeHtml(lesson.title)}</h2>

@@ -18,6 +18,16 @@
           <a href="/risorse" data-i18n="nav.resources">Risorse</a>
           <a class="nav-cta" href="/contact" data-i18n="nav.contact">Contattami</a>
         </nav>
+        <div class="site-search">
+          <button class="site-search-toggle" type="button" aria-expanded="false" aria-label="Cerca" data-i18n-aria="search.open">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 5 5"></path></svg>
+          </button>
+          <form class="site-search-form" action="/courses/" method="get" role="search">
+            <label class="sr-only" for="site-search-input" data-i18n="search.label">Cerca nei corsi</label>
+            <input id="site-search-input" name="q" type="search" placeholder="Cerca nei corsi..." autocomplete="off" data-i18n-placeholder="search.placeholder">
+            <button type="submit" data-i18n="search.submit">Cerca</button>
+          </form>
+        </div>
         <div class="language-switcher" aria-label="Selettore lingua">
           <button type="button" class="language-current">IT</button>
           <div class="language-menu">
@@ -34,6 +44,17 @@
   window.MOUSSA_SITE_NAVBAR_HTML = NAV_HTML;
 
   function bind() {
+    const searchToggle = document.querySelector('.site-search-toggle');
+    const search = document.querySelector('.site-search');
+    const input = document.querySelector('#site-search-input');
+    if (searchToggle && search && input) {
+      searchToggle.addEventListener('click', () => {
+        const open = search.classList.toggle('open');
+        searchToggle.setAttribute('aria-expanded', String(open));
+        if (open) input.focus();
+      });
+    }
+
     const toggle = document.querySelector('.site-nav-toggle');
     const menu = document.querySelector('.site-global-menu');
     if (!toggle || !menu) return;
@@ -59,10 +80,20 @@
     bind();
   }
 
+  function ensureI18n() {
+    if (window.MOUSSA_I18N_LOADED) return;
+    const script = document.createElement('script');
+    script.src = '/assets/js/i18n.js';
+    script.defer = true;
+    document.head.appendChild(script);
+    window.MOUSSA_I18N_LOADED = true;
+  }
+
   window.mountMoussaNavbar = mount;
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', mount);
+    document.addEventListener('DOMContentLoaded', () => { mount(); ensureI18n(); });
   } else {
     mount();
+    ensureI18n();
   }
 })();

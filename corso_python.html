@@ -14,7 +14,12 @@
 <script src="https://cdn.jsdelivr.net/pyodide/v0.28.2/full/pyodide.js"></script>
 <style>
 .python-course .app{display:block;min-height:calc(100vh - 76px);background:#f6f8fb}
-.python-course .app>nav{display:none;position:sticky;top:76px;height:calc(100vh - 76px);overflow:auto;background:#fff;border-right:1px solid #e5e9f0;padding:18px 14px;font:inherit}
+.python-course .app>nav{display:block;position:fixed;top:76px;left:0;width:min(340px,88vw);height:calc(100vh - 76px);z-index:100;overflow:auto;background:#fff;border-right:1px solid #e5e9f0;padding:18px 14px;font:inherit;transform:translateX(-105%);transition:transform .25s ease;box-shadow:10px 0 30px rgba(15,23,42,.12)}
+.python-course .app>nav.open{transform:translateX(0)}
+.python-course .menu-toggle{position:fixed;top:88px;left:18px;z-index:120;width:44px;height:44px;border:1px solid #d9dfe8;border-radius:10px;background:#fff;color:#173b63;font-size:22px;cursor:pointer;box-shadow:0 6px 18px rgba(15,23,42,.12)}
+.python-course .menu-toggle:hover{background:#f0f8f5}
+.python-course .menu-overlay{position:fixed;inset:76px 0 0 0;z-index:90;background:rgba(15,23,42,.28);opacity:0;visibility:hidden;transition:opacity .2s ease}
+.python-course .menu-overlay.open{opacity:1;visibility:visible}top:76px;height:calc(100vh - 76px);overflow:auto;background:#fff;border-right:1px solid #e5e9f0;padding:18px 14px;font:inherit}
 .python-course .app .brand{font-family:Inter,system-ui,sans-serif;color:#173b63;font-size:1.35rem;font-weight:900;margin:0 0 4px}
 .python-course .app .brand span{background:#eef6f3;padding:2px 5px;color:#087a61}
 .python-course .app .sub{font:inherit;font-size:.82rem;color:#697386;margin:0 0 14px}
@@ -52,7 +57,7 @@
 .python-course .app .prof b{font-family:Inter,system-ui,sans-serif}
 .python-course .app .top{display:none}
 .python-course .python-course-title{display:none}
-@media(max-width:900px){.python-course .app{grid-template-columns:1fr}.python-course .app>nav{position:fixed;top:76px;left:0;bottom:0;width:min(310px,85vw);height:auto;z-index:50;transform:translateX(-105%);transition:transform .25s}.python-course .app>nav.open{transform:none}.python-course .app .top{display:flex;position:sticky;top:0;z-index:40;align-items:center;gap:12px;padding:10px 14px;background:#fff;border-bottom:1px solid #e5e9f0}.python-course .app main{padding:22px 4% 50px}.python-course .app main>h1{padding:24px 20px 10px;border-radius:11px 11px 0 0}.python-course .app main>h1~p,.python-course .app main>h1~h2,.python-course .app main>h1~ul,.python-course .app main>h1~pre,.python-course .app main>h1~.out,.python-course .app main>h1~.prof{padding-left:20px;padding-right:20px}.python-course .app pre{padding-left:20px;padding-right:20px}.python-course .app .out{padding-left:20px;padding-right:20px}.python-course .app .prof{padding-left:20px!important;padding-right:20px!important}}
+@media(max-width:900px){.python-course .menu-toggle{top:86px;left:12px}.python-course .app main{padding:22px 4% 50px}.python-course .app main>h1{padding:24px 20px 10px;border-radius:11px 11px 0 0}.python-course .app main>h1~p,.python-course .app main>h1~h2,.python-course .app main>h1~ul,.python-course .app main>h1~pre,.python-course .app main>h1~.out,.python-course .app main>h1~.prof{padding-left:20px;padding-right:20px}.python-course .app pre{padding-left:20px;padding-right:20px}.python-course .app .out{padding-left:20px;padding-right:20px}.python-course .app .prof{padding-left:20px!important;padding-right:20px!important}}
 
 .python-course .code-editor{max-width:1050px;margin:22px auto 0;border:1px solid #263348;border-radius:12px;overflow:hidden;background:#0b1220;color:#dbe5f4;box-shadow:0 14px 35px rgba(15,23,42,.16)}
 .python-course .code-editor-head{display:flex;align-items:center;gap:10px;padding:9px 12px;background:#111a2b;border-bottom:1px solid #263348}
@@ -75,6 +80,7 @@
 </head>
 <body class="python-course">
 <div class="app">
+<button class="menu-toggle" id="menuToggle" aria-label="Apri menu del corso" aria-expanded="false">☰</button><div class="menu-overlay" id="menuOverlay"></div>
 <nav id="nav" aria-label="Indice delle lezioni">
 <p class="brand">Python <span>Completo</span></p>
 <p class="sub">Programmazione, OOP, Data Analysis, visualizzazione, SQL, AI e progetto finale.</p>
@@ -300,7 +306,11 @@ else{b.classList.add("bad");fb.textContent="Non proprio. Rileggi l'esempio e rip
 $("#prev").onclick=()=>go(i-1);$("#next").onclick=()=>go(i<L.length-1?i+1:0);
 $("#main").querySelectorAll(".cp").forEach(b=>b.onclick=()=>{navigator.clipboard&&navigator.clipboard.writeText(b.nextElementSibling.textContent).then(()=>{b.textContent="Copiato";setTimeout(()=>b.textContent="Copia",1200)}).catch(()=>{})});
 setupEditors();drawNav()}
-function go(i){location.hash="l"+(i+1);show(i);window.scrollTo(0,0)}
+function go(i){location.hash="l"+(i+1);show(i);window.scrollTo(0,0);closeMenu()}
+const menuToggle=$("#menuToggle"),menuOverlay=$("#menuOverlay");
+function openMenu(){$("#nav").classList.add("open");menuOverlay.classList.add("open");menuToggle.setAttribute("aria-expanded","true");menuToggle.textContent="×";menuToggle.setAttribute("aria-label","Chiudi menu del corso")}
+function closeMenu(){$("#nav").classList.remove("open");menuOverlay.classList.remove("open");menuToggle.setAttribute("aria-expanded","false");menuToggle.textContent="☰";menuToggle.setAttribute("aria-label","Apri menu del corso")}
+menuToggle.onclick=()=>$("#nav").classList.contains("open")?closeMenu():openMenu();menuOverlay.onclick=closeMenu;document.addEventListener("keydown",e=>{if(e.key==="Escape")closeMenu()});
 $("#list").onclick=e=>{const b=e.target.closest(".l");if(b)go(+b.dataset.i)};
 $("#reset").onclick=()=>{if(confirm("Vuoi azzerare i progressi del corso Python?")){done=new Set();save();drawNav();show(cur)}};
 const m=/^#l(\d+)$/.exec(location.hash);show(m&&L[m[1]-1]?m[1]-1:0);

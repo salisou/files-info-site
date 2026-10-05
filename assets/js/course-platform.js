@@ -154,6 +154,7 @@
         main.querySelectorAll('.code-copy').forEach((button)=>button.addEventListener('click',async()=>{const block=button.closest('.code-block');const pre=block&&block.querySelector('pre');const code=pre?pre.innerText||pre.textContent:'';try{await navigator.clipboard.writeText(code);button.textContent='Copiato';setTimeout(()=>button.textContent='copia',1200);}catch(e){button.textContent='Seleziona e copia';}}));
         main.querySelectorAll('.quiz-opt').forEach(option=>option.addEventListener('click',()=>{const box=option.closest('.quiz-box');if(!box||option.classList.contains('correct')||option.classList.contains('wrong'))return;box.querySelectorAll('.quiz-opt').forEach(o=>o.classList.remove('correct','wrong'));const ok=option.getAttribute('data-correct')==='true';option.classList.add(ok?'correct':'wrong');const result=box.querySelector('.quiz-result');if(result){result.textContent=ok?'Corretto. Ottimo lavoro.':'Risposta non corretta. Riprova dopo aver riletto la spiegazione.';result.classList.add('show');}}));
         updateProgress();
+        if (typeof window.MOUSSA_APPLY_LANGUAGE === 'function') window.MOUSSA_APPLY_LANGUAGE(localStorage.getItem('site-language') || 'it');
         return;
       }
 
@@ -208,6 +209,7 @@
       if(load) load.addEventListener('click',()=>{sendToEditor(lesson.code||'',false);document.querySelector('#labStatus').textContent='Esempio caricato nell’editor.';});
       if(run) run.addEventListener('click',()=>{sendToEditor(lesson.code||'',true);document.querySelector('#labStatus').textContent='Codice inviato all’editor. Ora guarda il risultato.';});
       updateProgress();
+      if (typeof window.MOUSSA_APPLY_LANGUAGE === 'function') window.MOUSSA_APPLY_LANGUAGE(localStorage.getItem('site-language') || 'it');
     }
 
     search.addEventListener('input',()=>renderSidebar(search.value));

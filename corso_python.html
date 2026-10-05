@@ -19,7 +19,7 @@
 .python-course .menu-toggle{position:fixed;top:88px;left:18px;z-index:120;width:44px;height:44px;border:1px solid #d9dfe8;border-radius:10px;background:#fff;color:#173b63;font-size:22px;cursor:pointer;box-shadow:0 6px 18px rgba(15,23,42,.12)}
 .python-course .menu-toggle:hover{background:#f0f8f5}
 .python-course .menu-overlay{position:fixed;inset:76px 0 0 0;z-index:90;background:rgba(15,23,42,.28);opacity:0;visibility:hidden;transition:opacity .2s ease}
-.python-course .menu-overlay.open{opacity:1;visibility:visible}top:76px;height:calc(100vh - 76px);overflow:auto;background:#fff;border-right:1px solid #e5e9f0;padding:18px 14px;font:inherit}
+.python-course .menu-overlay.open{opacity:1;visibility:visible}
 .python-course .app .brand{font-family:Inter,system-ui,sans-serif;color:#173b63;font-size:1.35rem;font-weight:900;margin:0 0 4px}
 .python-course .app .brand span{background:#eef6f3;padding:2px 5px;color:#087a61}
 .python-course .app .sub{font:inherit;font-size:.82rem;color:#697386;margin:0 0 14px}
@@ -50,7 +50,7 @@
 .python-course .app .btn{font:800 .88rem Inter,system-ui,sans-serif;padding:12px 18px;border:0;background:#173b63;color:#fff;border-radius:9px;cursor:pointer;box-shadow:none}
 .python-course .app .btn.g{background:#fff;color:#173b63;border:1px solid #d9dfe8}
 .python-course .app .k{color:#7dd3fc}.python-course .app .s{color:#a7f3d0}.python-course .app .c{color:#64748b;font-style:italic}.python-course .app code{font-family:Consolas,monospace;font-size:.88em;background:#eef2f7;color:#173b63;padding:2px 5px;border-radius:4px}
-.python-course .app pre{position:relative;margin-top:0;background:#101827;color:#e9eef7;border-radius:0;padding:18px 46px;overflow-x:auto;line-height:1.6;font-size:.88rem}
+.python-course .app pre{position:relative;margin-top:0;background:#0b1220;color:#e8eef7;border:1px solid #263348;border-radius:10px;padding:18px 46px;overflow-x:auto;line-height:1.6;font-size:.88rem;box-shadow:0 8px 24px rgba(15,23,42,.14)}\n.python-course .app pre .cp{position:absolute;top:10px;right:12px;border:1px solid #334155;border-radius:7px;padding:6px 10px;background:#172235;color:#dbe5f4;font:700 11px Inter,system-ui;cursor:pointer}.python-course .app pre .cp:hover{background:#22304a;color:#fff}\n.python-course .app pre code{font-family:Consolas,Monaco,monospace;color:#e8eef7}\n.python-course .app pre .k{color:#7dd3fc}.python-course .app pre .s{color:#a7f3d0}.python-course .app pre .c{color:#64748b}
 .python-course .app pre code{background:transparent;color:inherit;padding:0}
 .python-course .app .out{padding:10px 46px;font:14px/1.5 Consolas,monospace;color:#687387;border-left:1px solid #e5e9f0;border-right:1px solid #e5e9f0;background:#fff}
 .python-course .app .prof{padding:18px 46px!important;border:0;border-left:4px solid #16856b!important;background:#f0f8f5!important;color:#435067;box-shadow:none;border-radius:0}
@@ -81,7 +81,7 @@
 <body class="python-course">
 <div class="app">
 <button class="menu-toggle" id="menuToggle" aria-label="Apri menu del corso" aria-expanded="false">☰</button><div class="menu-overlay" id="menuOverlay"></div>
-<nav id="nav" aria-label="Indice delle lezioni">
+<nav id="nav" aria-label="Menu delle lezioni">
 <p class="brand">Python <span>Completo</span></p>
 <p class="sub">Programmazione, OOP, Data Analysis, visualizzazione, SQL, AI e progetto finale.</p>
 <div class="bar"><i id="fill"></i></div>

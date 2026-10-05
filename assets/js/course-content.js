@@ -201,22 +201,109 @@ window.MOUSSA_COURSE_CONTENT = (() => {
   }
 
   function localizeLesson(lesson, lang, title) {
-    if(lang==='it') return lesson;
-    const copy={
-      en:{lead:'In this lesson we learn ', explainFirst:'Let’s start from scratch. Before writing code, think of the computer as an assistant: we give it precise instructions and it executes them in order. In this lesson we study ', explainFirstEnd:' without assuming any prior knowledge.', explainMore:'If this is your first time with this topic, no problem. ', explainMore2:' means learning a new instruction that we can use inside a program. First we read a small example, then we modify it and finally use it in a real-world case.', syntax:'Practical rule: first observe the structure of the example, then replace the values with something you know.', real:'Imagine creating a small school app. You can use ', real2:' to manage students, grades, courses, products or orders. The important idea is turning a real problem into simple instructions for the computer.', challenge:'Without looking at the solution first, create your own variation of ', challenge2:' using names and data you choose. Then compare the result with the example.', mistakes:['Copying code without running it: always try changing a line.','Skipping spaces, brackets or indentation required by the language.','When an error appears, read the message before changing the program at random.'], quiz1:'What is the main goal of the lesson "', quiz1end:'"?', quizExplain:'Programming is learned by understanding why instructions work and putting them into practice.', errorExplain:'An error message is a clue: it helps us understand where the program does not behave as expected.', exampleExplain:'Modifying an example turns passive reading into practice.', meta:'3 examples · Step-by-step explanation · Exercise · Solution · Quiz · Challenge'},
-      fr:{lead:'Dans cette leçon, nous apprenons ', explainFirst:'Commençons vraiment de zéro. Avant d’écrire du code, imaginez l’ordinateur comme un assistant : nous lui donnons des instructions précises et il les exécute dans l’ordre. Dans cette leçon, nous étudions ', explainFirstEnd:' sans rien supposer.', explainMore:'Si vous découvrez ce sujet pour la première fois, aucun problème. ', explainMore2:' signifie apprendre une nouvelle instruction que nous pouvons utiliser dans un programme. Nous lisons d’abord un petit exemple, puis nous le modifions et enfin nous l’utilisons dans un cas réel.', syntax:'Règle pratique : observez d’abord la structure de l’exemple, puis remplacez les valeurs par des données que vous connaissez.', real:'Imaginez une petite application pour une école. Vous pouvez utiliser ', real2:' pour gérer les étudiants, notes, cours, produits ou commandes. L’idée est de transformer un problème réel en instructions simples pour l’ordinateur.', challenge:'Sans regarder immédiatement la solution, créez une variante de ', challenge2:' avec vos propres noms et données. Comparez ensuite le résultat avec l’exemple.', mistakes:['Copier le code sans l’exécuter : essayez toujours de modifier une ligne.','Oublier les espaces, parenthèses ou indentations demandés par le langage.','Lorsqu’une erreur apparaît, lisez le message avant de modifier le programme au hasard.'], quiz1:'Quel est l’objectif principal de la leçon "', quiz1end:'" ?', quizExplain:'On apprend la programmation en comprenant pourquoi les instructions fonctionnent et en les mettant en pratique.', errorExplain:'Le message d’erreur est un indice : il aide à comprendre où le programme ne se comporte pas comme prévu.', exampleExplain:'Modifier un exemple transforme la lecture passive en pratique.', meta:'3 exemples · Explication pas à pas · Exercice · Solution · Quiz · Challenge'},
-      es:{lead:'En esta lección aprendemos ', explainFirst:'Empecemos realmente desde cero. Antes de escribir código, piensa en el ordenador como un asistente: le damos instrucciones precisas y las ejecuta en orden. En esta lección estudiamos ', explainFirstEnd:' sin dar nada por supuesto.', explainMore:'Si es la primera vez que encuentras este tema, no hay problema. ', explainMore2:' significa aprender una nueva instrucción que podemos usar dentro de un programa. Primero leemos un ejemplo pequeño, después lo modificamos y finalmente lo usamos en un caso real.', syntax:'Regla práctica: observa primero la estructura del ejemplo y después sustituye los valores por datos que conozcas.', real:'Imagina que creas una pequeña aplicación para una escuela. Puedes usar ', real2:' para gestionar estudiantes, notas, cursos, productos o pedidos. La idea importante es transformar un problema real en instrucciones sencillas para el ordenador.', challenge:'Sin mirar primero la solución, crea una variante de ', challenge2:' usando nombres y datos elegidos por ti. Después compara el resultado con el ejemplo.', mistakes:['Copiar el código sin ejecutarlo: intenta siempre cambiar una línea.','Omitir espacios, paréntesis o sangría requeridos por el lenguaje.','Cuando aparezca un error, lee el mensaje antes de modificar el programa al azar.'], quiz1:'¿Cuál es el objetivo principal de la lección "', quiz1end:'"?', quizExplain:'La programación se aprende entendiendo por qué funcionan las instrucciones y poniéndolas en práctica.', errorExplain:'El mensaje de error es una pista: ayuda a entender dónde el programa no se comporta como esperábamos.', exampleExplain:'Modificar un ejemplo convierte la lectura pasiva en práctica.', meta:'3 ejemplos · Explicación paso a paso · Ejercicio · Solución · Cuestionario · Reto'},
-      de:{lead:'In dieser Lektion lernen wir ', explainFirst:'Beginnen wir wirklich bei null. Bevor du Code schreibst, stelle dir den Computer als Assistenten vor: Wir geben ihm genaue Anweisungen und er führt sie der Reihe nach aus. In dieser Lektion lernen wir ', explainFirstEnd:' ohne Vorkenntnisse vorauszusetzen.', explainMore:'Wenn du dieses Thema zum ersten Mal siehst, kein Problem. ', explainMore2:' bedeutet, eine neue Anweisung zu lernen, die wir in einem Programm verwenden können. Zuerst lesen wir ein kleines Beispiel, dann ändern wir es und verwenden es schließlich in einem Praxisfall.', syntax:'Praxisregel: Beobachte zuerst die Struktur des Beispiels und ersetze dann die Werte durch Daten, die du kennst.', real:'Stell dir eine kleine Schul-App vor. Du kannst ', real2:' verwenden, um Schüler, Noten, Kurse, Produkte oder Bestellungen zu verwalten. Wichtig ist, ein reales Problem in einfache Anweisungen für den Computer zu übersetzen.', challenge:'Erstelle ohne sofort die Lösung anzusehen eine Variante von ', challenge2:' mit eigenen Namen und Daten. Vergleiche anschließend das Ergebnis mit dem Beispiel.', mistakes:['Code kopieren, ohne ihn auszuführen: Ändere immer mindestens eine Zeile.','Leerzeichen, Klammern oder die vom Sprachstandard verlangte Einrückung überspringen.','Wenn ein Fehler erscheint, lies die Meldung, bevor du das Programm zufällig änderst.'], quiz1:'Was ist das Hauptziel der Lektion "', quiz1end:'"?', quizExplain:'Programmieren lernt man, indem man versteht, warum Anweisungen funktionieren, und sie praktisch anwendet.', errorExplain:'Eine Fehlermeldung ist ein Hinweis: Sie hilft zu erkennen, wo sich das Programm anders verhält als erwartet.', exampleExplain:'Ein Beispiel zu verändern macht aus passivem Lesen praktische Übung.', meta:'3 Beispiele · Schritt-für-Schritt-Erklärung · Übung · Lösung · Quiz · Challenge'}
+    if (lang === 'it') return lesson;
+    const copy = {
+      en: {
+        lead: 'In this lesson we learn ',
+        exampleSuffix: ' through small, concrete examples.',
+        explainFirst: 'Let’s start from scratch. Before writing code, think of the computer as an assistant: we give it precise instructions and it executes them in order. In this lesson we study ',
+        explainFirstEnd: ' without assuming any prior knowledge.',
+        explainMore: 'If this is your first time with this topic, no problem. ',
+        explainMore2: ' means learning a new instruction that we can use inside a program. First we read a small example, then we modify it and finally use it in a real-world case.',
+        syntax: 'Practical rule: first observe the structure of the example, then replace the values with something you know.',
+        goals: ['Understand in simple words what it means','Read an example without memorizing it.','Write a small modification based on the example.','Run the code and learn to read possible errors.'],
+        exercise: 'Recreate the example for',
+        exercise2: 'Then change at least one value and add a small modification of your own. The goal is to understand what happens.',
+        real: 'Imagine creating a small school app. You can use ',
+        real2: ' to manage students, grades, courses, products or orders. The important idea is turning a real problem into simple instructions for the computer.',
+        challenge: 'Without looking at the solution first, create your own variation of ',
+        challenge2: ' using names and data you choose. Then compare the result with the example.',
+        mistakes: ['Copying code without running it: always try changing a line.','Skipping spaces, brackets or indentation required by the language.','When an error appears, read the message before changing the program at random.'],
+        quiz1: 'What is the main goal of the lesson "',
+        quiz1end: '"?',
+        quizOpts: ['Understand and apply ','Memorize everything','Copy the code without testing it','Skip the examples'],
+        errorQ: 'What should you do when the program shows an error?',
+        errorOpts: ['Read the message and check the indicated line','Delete everything','Ignore it','Change programming language'],
+        exampleQ: 'What is the best way to learn from an example?',
+        exampleOpts: ['Run it, modify it and observe the result','Only look at it','Copy it without running it','Skip the exercise'],
+        quizExplain: 'Programming is learned by understanding why instructions work and putting them into practice.',
+        errorExplain: 'An error message is a clue: it helps us understand where the program does not behave as expected.',
+        exampleExplain: 'Modifying an example turns passive reading into practice.',
+        meta: '3 examples · Step-by-step explanation · Exercise · Solution · Quiz · Challenge'
+      },
+      fr: {
+        lead: 'Dans cette leçon, nous apprenons ', exampleSuffix: ' avec des exemples simples et concrets.',
+        explainFirst: 'Commençons vraiment de zéro. Avant d’écrire du code, imaginez l’ordinateur comme un assistant : nous lui donnons des instructions précises et il les exécute dans l’ordre. Dans cette leçon, nous étudions ',
+        explainFirstEnd: ' sans rien supposer.', explainMore: 'Si vous découvrez ce sujet pour la première fois, aucun problème. ',
+        explainMore2: ' signifie apprendre une nouvelle instruction que nous pouvons utiliser dans un programme. Nous lisons d’abord un petit exemple, puis nous le modifions et enfin nous l’utilisons dans un cas réel.',
+        syntax: 'Règle pratique : observez d’abord la structure de l’exemple, puis remplacez les valeurs par des données que vous connaissez.',
+        goals: ['Comprendre simplement ce que cela signifie','Lire un exemple sans devoir le mémoriser.','Écrire une petite modification à partir de l’exemple.','Exécuter le code et apprendre à lire les erreurs éventuelles.'],
+        exercise: 'Recréez l’exemple de', exercise2: 'Puis changez au moins une valeur et ajoutez une petite modification personnelle. L’objectif est de comprendre.',
+        real: 'Imaginez une petite application pour une école. Vous pouvez utiliser ', real2: ' pour gérer les étudiants, notes, cours, produits ou commandes. L’idée est de transformer un problème réel en instructions simples pour l’ordinateur.',
+        challenge: 'Sans regarder immédiatement la solution, créez une variante de ', challenge2: ' avec vos propres noms et données. Comparez ensuite le résultat avec l’exemple.',
+        mistakes: ['Copier le code sans l’exécuter : essayez toujours de modifier une ligne.','Oublier les espaces, parenthèses ou indentations demandés par le langage.','Lorsqu’une erreur apparaît, lisez le message avant de modifier le programme au hasard.'],
+        quiz1: 'Quel est l’objectif principal de la leçon "', quiz1end: '" ?', quizOpts: ['Comprendre et appliquer ','Tout mémoriser','Copier le code sans le tester','Sauter les exemples'],
+        errorQ: 'Que faut-il faire lorsque le programme affiche une erreur?', errorOpts: ['Lire le message et vérifier la ligne indiquée','Tout supprimer','L’ignorer','Changer de langage'],
+        exampleQ: 'Quelle est la meilleure façon d’apprendre avec un exemple?', exampleOpts: ['L’exécuter, le modifier et observer le résultat','Le regarder seulement','Le copier sans l’exécuter','Sauter l’exercice'],
+        quizExplain: 'On apprend la programmation en comprenant pourquoi les instructions fonctionnent et en les mettant en pratique.',
+        errorExplain: 'Le message d’erreur est un indice : il aide à comprendre où le programme ne se comporte pas comme prévu.',
+        exampleExplain: 'Modifier un exemple transforme la lecture passive en pratique.',
+        meta: '3 exemples · Explication pas à pas · Exercice · Solution · Quiz · Challenge'
+      },
+      es: {
+        lead: 'En esta lección aprendemos ', exampleSuffix: ' con ejemplos sencillos y concretos.',
+        explainFirst: 'Empecemos realmente desde cero. Antes de escribir código, piensa en el ordenador como un asistente: le damos instrucciones precisas y las ejecuta en orden. En esta lección estudiamos ',
+        explainFirstEnd: ' sin dar nada por supuesto.', explainMore: 'Si es la primera vez que encuentras este tema, no hay problema. ',
+        explainMore2: ' significa aprender una nueva instrucción que podemos usar dentro de un programa. Primero leemos un ejemplo pequeño, después lo modificamos y finalmente lo usamos en un caso real.',
+        syntax: 'Regla práctica: observa primero la estructura del ejemplo y después sustituye los valores por datos que conozcas.',
+        goals: ['Entender con palabras sencillas qué significa','Leer un ejemplo sin tener que memorizarlo.','Escribir una pequeña modificación a partir del ejemplo.','Ejecutar el código y aprender a leer posibles errores.'],
+        exercise: 'Recrea el ejemplo de', exercise2: 'Después cambia al menos un valor y añade una pequeña modificación propia. El objetivo es entender qué ocurre.',
+        real: 'Imagina que creas una pequeña aplicación para una escuela. Puedes usar ', real2: ' para gestionar estudiantes, notas, cursos, productos o pedidos. La idea importante es transformar un problema real en instrucciones sencillas para el ordenador.',
+        challenge: 'Sin mirar primero la solución, crea una variante de ', challenge2: ' usando nombres y datos elegidos por ti. Después compara el resultado con el ejemplo.',
+        mistakes: ['Copiar el código sin ejecutarlo: intenta siempre cambiar una línea.','Omitir espacios, paréntesis o sangría requeridos por el lenguaje.','Cuando aparezca un error, lee el mensaje antes de modificar el programa al azar.'],
+        quiz1: '¿Cuál es el objetivo principal de la lección "', quiz1end: '"?', quizOpts: ['Entender y aplicar ','Memorizarlo todo','Copiar el código sin probarlo','Saltar los ejemplos'],
+        errorQ: '¿Qué debes hacer cuando el programa muestra un error?', errorOpts: ['Leer el mensaje y revisar la línea indicada','Borrarlo todo','Ignorarlo','Cambiar de lenguaje'],
+        exampleQ: '¿Cuál es la mejor forma de aprender de un ejemplo?', exampleOpts: ['Ejecutarlo, modificarlo y observar el resultado','Solo mirarlo','Copiarlo sin ejecutarlo','Saltar el ejercicio'],
+        quizExplain: 'La programación se aprende entendiendo por qué funcionan las instrucciones y poniéndolas en práctica.',
+        errorExplain: 'El mensaje de error es una pista: ayuda a entender dónde el programa no se comporta como esperábamos.',
+        exampleExplain: 'Modificar un ejemplo convierte la lectura pasiva en práctica.',
+        meta: '3 ejemplos · Explicación paso a paso · Ejercicio · Solución · Cuestionario · Reto'
+      },
+      de: {
+        lead: 'In dieser Lektion lernen wir ', exampleSuffix: ' anhand kleiner und konkreter Beispiele.',
+        explainFirst: 'Beginnen wir wirklich bei null. Bevor du Code schreibst, stelle dir den Computer als Assistenten vor: Wir geben ihm genaue Anweisungen und er führt sie der Reihe nach aus. In dieser Lektion lernen wir ',
+        explainFirstEnd: ' ohne Vorkenntnisse vorauszusetzen.', explainMore: 'Wenn du dieses Thema zum ersten Mal siehst, kein Problem. ',
+        explainMore2: ' bedeutet, eine neue Anweisung zu lernen, die wir in einem Programm verwenden können. Zuerst lesen wir ein kleines Beispiel, dann ändern wir es und verwenden es schließlich in einem Praxisfall.',
+        syntax: 'Praxisregel: Beobachte zuerst die Struktur des Beispiels und ersetze dann die Werte durch Daten, die du kennst.',
+        goals: ['Einfach verstehen, was es bedeutet','Ein Beispiel lesen, ohne es auswendig zu lernen.','Eine kleine Änderung auf Grundlage des Beispiels schreiben.','Den Code ausführen und mögliche Fehler lesen lernen.'],
+        exercise: 'Erstelle das Beispiel zu', exercise2: 'Ändere anschließend mindestens einen Wert und füge eine kleine eigene Änderung hinzu. Das Ziel ist, zu verstehen, was passiert.',
+        real: 'Stell dir eine kleine Schul-App vor. Du kannst ', real2: ' verwenden, um Schüler, Noten, Kurse, Produkte oder Bestellungen zu verwalten. Wichtig ist, ein reales Problem in einfache Anweisungen für den Computer zu übersetzen.',
+        challenge: 'Erstelle ohne sofort die Lösung anzusehen eine Variante von ', challenge2: ' mit eigenen Namen und Daten. Vergleiche anschließend das Ergebnis mit dem Beispiel.',
+        mistakes: ['Code kopieren, ohne ihn auszuführen: Ändere immer mindestens eine Zeile.','Leerzeichen, Klammern oder die vom Sprachstandard verlangte Einrückung überspringen.','Wenn ein Fehler erscheint, lies die Meldung, bevor du das Programm zufällig änderst.'],
+        quiz1: 'Was ist das Hauptziel der Lektion "', quiz1end: '"?', quizOpts: ['Verstehen und anwenden ','Alles auswendig lernen','Code ohne Test kopieren','Beispiele überspringen'],
+        errorQ: 'Was solltest du tun, wenn das Programm einen Fehler anzeigt?', errorOpts: ['Die Meldung lesen und die angegebene Zeile prüfen','Alles löschen','Den Fehler ignorieren','Die Programmiersprache wechseln'],
+        exampleQ: 'Wie lernt man am besten aus einem Beispiel?', exampleOpts: ['Es ausführen, ändern und das Ergebnis beobachten','Nur ansehen','Ohne Ausführung kopieren','Die Übung überspringen'],
+        quizExplain: 'Programmieren lernt man, indem man versteht, warum Anweisungen funktionieren, und sie praktisch anwendet.',
+        errorExplain: 'Eine Fehlermeldung ist ein Hinweis: Sie hilft zu erkennen, wo sich das Programm anders verhält als erwartet.',
+        exampleExplain: 'Ein Beispiel zu verändern macht aus passivem Lesen praktische Übung.',
+        meta: '3 Beispiele · Schritt-für-Schritt-Erklärung · Übung · Lösung · Quiz · Challenge'
+      }
     };
-    const x=copy[lang]||copy.en;
-    lesson.lead=x.lead+title+' with small, concrete examples.';
-    lesson.explain=lesson.explain.replace(/^Partiamo davvero da zero\.[\s\S]*?scontato\./,x.explainFirst+title+x.explainFirstEnd).replace(/^Se è la prima volta[\s\S]*?reale\./,x.explainMore+title+x.explainMore2);
-    lesson.syntax=x.syntax;
-    lesson.realExample=x.real+title+x.real2;
-    lesson.challenge=x.challenge+'"'+title+'"'+x.challenge2;
-    lesson.mistakes=x.mistakes;
-    lesson.quiz=lesson.quiz.map((q,i)=>({...q,q:(i===0?x.quiz1+title+x.quiz1end:q.q),explain:i===0?x.quizExplain:i===1?x.errorExplain:x.exampleExplain}));
-    lesson.meta=x.meta;
+    const x = copy[lang] || copy.en;
+    lesson.lead = x.lead + title + x.exampleSuffix;
+    lesson.explain = lesson.explain.replace(/^Partiamo davvero da zero\.[\s\S]*?scontato\./, x.explainFirst + title + x.explainFirstEnd).replace(/^Se è la prima volta[\s\S]*?reale\./, x.explainMore + title + x.explainMore2);
+    lesson.syntax = x.syntax;
+    lesson.goals = x.goals.map((g, i) => i === 0 ? g + ' "' + title + '".' : g);
+    lesson.realExample = x.real + title + x.real2;
+    lesson.exercise = lesson.isFinal ? lesson.exercise : x.exercise + ' "' + title + '". ' + x.exercise2;
+    lesson.challenge = x.challenge + '"' + title + '"' + x.challenge2;
+    lesson.mistakes = x.mistakes;
+    lesson.quiz = [
+      {q:x.quiz1 + title + x.quiz1end, opts:x.quizOpts.map(v=>v+title).map((v,i)=>i===0?v:x.quizOpts[i]), answer:0, explain:x.quizExplain},
+      {q:x.errorQ, opts:x.errorOpts, answer:0, explain:x.errorExplain},
+      {q:x.exampleQ, opts:x.exampleOpts, answer:0, explain:x.exampleExplain}
+    ];
+    lesson.meta = x.meta;
     return lesson;
   }
 

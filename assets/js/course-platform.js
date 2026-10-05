@@ -102,7 +102,7 @@
     const list=document.querySelector('#lessonList'),main=document.querySelector('#lesson'),search=document.querySelector('#courseSearch');
 
     function save(){localStorage.setItem(stateKey,String(index));localStorage.setItem(completedKey,JSON.stringify(completed));localStorage.setItem(notesKey,JSON.stringify(notes));}
-    function updateProgress(){const p=course.lessons.length?Math.round(completed.length/course.lessons.length*100):0;document.querySelector('#sidebarProgress').textContent=`${p}%`;document.querySelector('#sidebarProgressBar').style.width=`${p}%`;document.querySelector('#courseSummary').textContent=`${course.lessons.length} lezioni · esempi spiegati · esercizi · quiz · challenge · ${isOnline(course)?'editor online':'laboratorio locale'}`;}
+    function updateProgress(){const p=course.lessons.length?Math.round(completed.length/course.lessons.length*100):0;document.querySelector('#sidebarProgress').textContent=`${p}%`;document.querySelector('#sidebarProgressBar').style.width=`${p}%`;document.querySelector('#courseSummary').textContent=`${course.lessons.length} ${T('course.lessons','lezioni')} · ${T('course.examplesShort','esempi spiegati')} · ${T('course.exercises','esercizi')} · ${T('course.quizShort','quiz')} · ${T('course.challenge','challenge')} · ${isOnline(course)?T('course.onlineEditor','editor online'):T('course.localLab','laboratorio locale')}`;}
     function choose(i){index=i;save();render();window.scrollTo({top:0,behavior:'smooth'});main.focus();}
     function markComplete(){if(!completed.includes(index)) completed.push(index);completed.sort((a,b)=>a-b);save();render();}
 
@@ -134,18 +134,18 @@
       renderSidebar(search.value||'');
       updateProgress();
 
-      const exampleMarkup=examples.map((code,i)=>`<div class="example-card"><div class="example-label">Esempio ${i+1}</div><pre class="code-block"><code>${escapeHtml(code)}</code></pre><button type="button" class="copy-code" data-example="${i}">Copia esempio</button></div>`).join('');
+      const exampleMarkup=examples.map((code,i)=>`<div class="example-card"><div class="example-label">${T('course.example','Esempio')} ${i+1}</div><pre class="code-block"><code>${escapeHtml(code)}</code></pre><button type="button" class="copy-code" data-example="${i}">${T('course.copy','Copia esempio')}</button></div>`).join('');
       const goals=(lesson.goals||[]).map(x=>`<li>${escapeHtml(x)}</li>`).join('');
       const stepsMarkup=steps.map(x=>`<li><code>${escapeHtml(x)}</code></li>`).join('');
       const exercisesMarkup=exercises.map((x,i)=>`<li><strong>${escapeHtml(x.title)}</strong><p>${escapeHtml(x.text)}</p></li>`).join('');
       const quizMarkup=quiz.map((q,qi)=>`<div class="q" data-q="${qi}"><p><strong>${qi+1}. ${escapeHtml(q.q||'')}</strong></p><div class="quiz-options">${(q.opts||[]).map((o,oi)=>`<button type="button" data-a="${oi}">${escapeHtml(o)}</button>`).join('')}</div><p class="quiz-feedback" aria-live="polite"></p></div>`).join('');
-      const prev=index>0?`<button type="button" data-nav="${index-1}">← Lezione precedente</button>`:'<button type="button" disabled>← Lezione precedente</button>';
-      const next=index<course.lessons.length-1?`<button type="button" data-nav="${index+1}">Lezione successiva →</button>`:'<button type="button" disabled>Corso completato</button>';
+      const prev=index>0?`<button type="button" data-nav="${index-1}">${T('course.prevText','Lezione precedente')}</button>`:'<button type="button" disabled>← Lezione precedente</button>';
+      const next=index<course.lessons.length-1?`<button type="button" data-nav="${index+1}">${T('course.nextText','Lezione successiva')}</button>`:'<button type="button" disabled>${T('course.completedCourse','Corso completato')}</button>';
 
       if(lesson.richHtml){
         const prev=index>0?'<button type="button" data-nav="'+(index-1)+'">← Lezione precedente</button>':'<button type="button" disabled>← Lezione precedente</button>';
         const next=index<course.lessons.length-1?'<button type="button" data-nav="'+(index+1)+'">Lezione successiva →</button>':'<button type="button" disabled>Corso completato</button>';
-        main.innerHTML='<div class="lesson-head"><div><span>Lezione '+(index+1)+' di '+course.lessons.length+'</span><strong>'+escapeHtml(groupFor(index,course.lessons.length))+'</strong></div><div class="progress"><i style="width:'+p+'%"></i></div></div><article class="lesson-card rich-lesson-card"><div class="lesson-status"><span class="lesson-badge">'+escapeHtml(lesson.difficulty||'Tkinter')+'</span><button type="button" class="complete-btn" '+(done?'disabled':'')+'>'+(done?T('course.completed','Lezione completata'):T('course.complete','Segna come completata'))+'</button></div><h2>'+escapeHtml(lesson.title)+'</h2><p class="lead">'+escapeHtml(lesson.lead||'')+'</p><div class="rich-course-content">'+lesson.richHtml+'</div>'+labMarkup(course,lesson,index)+'<section class="exercise"><div class="section-kicker">Appunti della lezione</div><h3>Le tue note</h3><textarea id="exerciseNotes" rows="7" placeholder="Scrivi qui codice, dubbi o appunti...">'+escapeHtml(notes[index]||'')+'</textarea><div class="exercise-actions"><button type="button" class="save-notes" data-i18n="course.save">Salva i miei appunti</button></div><p class="exercise-status" aria-live="polite"></p></section><div class="lesson-nav">'+prev+next+'</div></article>';
+        main.innerHTML='<div class="lesson-head"><div><span>Lezione '+(index+1)+' di '+course.lessons.length+'</span><strong>'+escapeHtml(groupFor(index,course.lessons.length))+'</strong></div><div class="progress"><i style="width:'+p+'%"></i></div></div><article class="lesson-card rich-lesson-card"><div class="lesson-status"><span class="lesson-badge">'+escapeHtml(lesson.difficulty||'Tkinter')+'</span><button type="button" class="complete-btn" '+(done?'disabled':'')+'>'+(done?T('course.completed','Lezione completata'):T('course.complete','Segna come completata'))+'</button></div><h2>'+escapeHtml(lesson.title)+'</h2><p class="lead">'+escapeHtml(lesson.lead||'')+'</p><div class="rich-course-content">'+lesson.richHtml+'</div>'+labMarkup(course,lesson,index)+'<section class="exercise"><div class="section-kicker">${T('course.lessonNotes','Appunti della lezione')}</div><h3>${T('course.notes','Le tue note')}</h3><textarea id="exerciseNotes" rows="7" placeholder="${T('course.notesPlaceholderShort','Scrivi qui codice, dubbi o appunti...')}">'+escapeHtml(notes[index]||'')+'</textarea><div class="exercise-actions"><button type="button" class="save-notes" data-i18n="course.save">Salva i miei appunti</button></div><p class="exercise-status" aria-live="polite"></p></section><div class="lesson-nav">'+prev+next+'</div></article>';
         const complete=main.querySelector('.complete-btn');
         if(complete) complete.addEventListener('click',markComplete);
         const saveNotes=main.querySelector('.save-notes');
@@ -163,33 +163,33 @@
         <h2>${escapeHtml(lesson.title)}</h2>
         <p class="lead">${escapeHtml(lesson.lead||'')}</p>
 
-        <section class="zero-box"><div class="section-kicker">Prima di iniziare</div><p>${escapeHtml(lesson.explain||'')}</p><p class="zero-note"><strong>Regola del corso:</strong> non devi sapere già programmare. Ogni esempio parte da una situazione semplice e viene costruito passo dopo passo.</p></section>
+        <section class="zero-box"><div class="section-kicker">${T('course.before','Prima di iniziare')}</div><p>${escapeHtml(lesson.explain||'')}</p><p class="zero-note"><strong>${T('course.ruleLabel','Regola del corso:')}</strong> non devi sapere già programmare. Ogni esempio parte da una situazione semplice e viene costruito passo dopo passo.</p></section>
 
-        <section class="learning-box"><h3>Cosa imparerai</h3><ul>${goals}</ul></section>
+        <section class="learning-box"><h3>${T('course.what','Cosa imparerai')}</h3><ul>${goals}</ul></section>
 
-        <section><div class="section-kicker">Come si scrive</div><h3>La regola fondamentale</h3><p>${escapeHtml(lesson.syntax||'')}</p></section>
+        <section><div class="section-kicker">${T('course.syntaxLabel','Come si scrive')}</div><h3>${T('course.syntaxTitle','La regola fondamentale')}</h3><p>${escapeHtml(lesson.syntax||'')}</p></section>
 
-        <section class="examples-section"><div class="section-kicker">Esempi pratici</div><h3>Guarda, esegui, modifica</h3><p>Non limitarti a leggere. Copia l’esempio, eseguilo, cambia un valore e guarda come cambia il risultato.</p><div class="example-stack">${exampleMarkup}</div></section>
+        <section class="examples-section"><div class="section-kicker">${T('course.examples','Esempi pratici')}</div><h3>${T('course.examplesTitle','Guarda, esegui, modifica')}</h3><p>${T('course.examplesText','Non limitarti a leggere. Copia l’esempio, eseguilo, cambia un valore e guarda come cambia il risultato.')}</p><div class="example-stack">${exampleMarkup}</div></section>
 
-        <section class="try-panel"><h3>Prova tu</h3><p>${escapeHtml(lesson.exercise||'')}</p><p><strong>Piccolo consiglio:</strong> se non sai da dove partire, copia l’Esempio 1 e modifica una sola riga.</p></section>
+        <section class="try-panel"><h3>${T('course.try','Prova tu')}</h3><p>${escapeHtml(lesson.exercise||'')}</p><p><strong>${T('course.tipLabel','Piccolo consiglio:')}</strong> se non sai da dove partire, copia l’Esempio 1 e modifica una sola riga.</p></section>
 
-        <section><div class="section-kicker">Spiegazione passo passo</div><h3>Che cosa succede nel codice?</h3><ol class="line-by-line">${stepsMarkup}</ol></section>
+        <section><div class="section-kicker">${T('course.steps','Spiegazione passo passo')}</div><h3>${T('course.stepsTitle','Che cosa succede nel codice?')}</h3><ol class="line-by-line">${stepsMarkup}</ol></section>
 
-        <section class="real-example"><div class="section-kicker">Esempio del mondo reale</div><h3>Perché ti serve?</h3><p>${escapeHtml(lesson.realExample||'')}</p></section>
+        <section class="real-example"><div class="section-kicker">${T('course.real','Esempio del mondo reale')}</div><h3>${T('course.realTitle','Perché ti serve?')}</h3><p>${escapeHtml(lesson.realExample||'')}</p></section>
 
-        <section class="exercise"><div class="section-kicker">Allenamento</div><h3>3 esercizi per imparare davvero</h3><ol>${exercisesMarkup}</ol><label for="exerciseNotes">Le mie prove e i miei appunti</label><textarea id="exerciseNotes" rows="8" placeholder="Scrivi qui il codice, i tuoi tentativi o cosa non hai capito...">${escapeHtml(notes[index]||'')}</textarea><div class="exercise-actions"><button type="button" class="save-notes" data-i18n="course.save">Salva i miei appunti</button><button type="button" class="primary complete-from-exercise">Completa la lezione</button></div><p class="exercise-status" aria-live="polite"></p></section>
+        <section class="exercise"><div class="section-kicker">${T('course.training','Allenamento')}</div><h3>${T('course.trainingTitle','3 esercizi per imparare davvero')}</h3><ol>${exercisesMarkup}</ol><label for="exerciseNotes">${T('course.notesLabel','Le mie prove e i miei appunti')}</label><textarea id="exerciseNotes" rows="8" placeholder="${T('course.notesPlaceholder','Scrivi qui il codice, i tuoi tentativi o cosa non hai capito...')}">${escapeHtml(notes[index]||'')}</textarea><div class="exercise-actions"><button type="button" class="save-notes" data-i18n="course.save">Salva i miei appunti</button><button type="button" class="primary complete-from-exercise">${T('course.complete','Completa la lezione')}</button></div><p class="exercise-status" aria-live="polite"></p></section>
 
-        <details class="solution"><summary>Mostra la soluzione guidata</summary><p>Prima prova da solo. Poi apri qui per confrontare il tuo lavoro.</p><pre class="code-block"><code>${escapeHtml(lesson.solution||lesson.code||'')}</code></pre></details>
+        <details class="solution"><summary>${T('course.solution','Mostra la soluzione guidata')}</summary><p>${T('course.solutionText','Prima prova da solo. Poi apri qui per confrontare il tuo lavoro.')}</p><pre class="code-block"><code>${escapeHtml(lesson.solution||lesson.code||'')}</code></pre></details>
 
-        <section class="mistakes"><div class="section-kicker">Attenzione</div><h3>Errori comuni</h3><ul>${(lesson.mistakes||[]).map(x=>`<li>${escapeHtml(x)}</li>`).join('')}</ul></section>
+        <section class="mistakes"><div class="section-kicker">${T('course.attention','Attenzione')}</div><h3>${T('course.mistakes','Errori comuni')}</h3><ul>${(lesson.mistakes||[]).map(x=>`<li>${escapeHtml(x)}</li>`).join('')}</ul></section>
 
-        <section class="challenge"><div class="section-kicker">Challenge</div><h3>Ora tocca a te</h3><p>${escapeHtml(lesson.challenge||'')}</p></section>
+        <section class="challenge"><div class="section-kicker">${T('course.challenge','Challenge')}</div><h3>${T('course.challengeTitle','Ora tocca a te')}</h3><p>${escapeHtml(lesson.challenge||'')}</p></section>
 
         ${labMarkup(course,lesson,index)}
 
-        <section class="quiz"><div class="section-kicker">Verifica finale</div><h3 data-i18n="course.quiz">Quiz della lezione</h3><p>Non è una gara. Se sbagli, leggi la spiegazione e riprova.</p>${quizMarkup}</section>
+        <section class="quiz"><div class="section-kicker">${T('course.finalCheck','Verifica finale')}</div><h3 data-i18n="course.quiz">Quiz della lezione</h3><p>${T('course.finalText','Non è una gara. Se sbagli, leggi la spiegazione e riprova.')}</p>${quizMarkup}</section>
 
-        <section class="reference-box"><div class="section-kicker">Riferimento</div><h3>${escapeHtml(lesson.reference||course.title)}</h3><p class="reference-note">Usa la documentazione come riferimento dopo aver capito l’esempio. Prima pratica, poi approfondimento.</p></section>
+        <section class="reference-box"><div class="section-kicker">${T('course.reference','Riferimento')}</div><h3>${escapeHtml(lesson.reference||course.title)}</h3><p class="reference-note">${T('course.referenceText','Usa la documentazione come riferimento dopo aver capito l’esempio. Prima pratica, poi approfondimento.')}</p></section>
 
         <div class="lesson-nav">${prev}${next}</div>
       </article>`;

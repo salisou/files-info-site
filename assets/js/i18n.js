@@ -172,5 +172,9 @@ de:{'course.pythonTerminal':'Python-Terminal','course.writeRun':'Schreiben, änd
     }
     apply(current);
   };
-  init();
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',init,{once:true});
+  }else{
+    init();
+  }
 })();

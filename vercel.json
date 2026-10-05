@@ -21,7 +21,7 @@
     {"source":"/corso_css","destination":"/corso_language.html"},
     {"source":"/corso_javascript","destination":"/corso_language.html"},
     {"source":"/corso_typescript","destination":"/corso_language.html"},
-    {"source":"/corso_python","destination":"/corso_language.html"},
+    {"source":"/corso_python","destination":"/corso_python.html"},
     {"source":"/corso_sql","destination":"/corso_language.html"},
     {"source":"/corso_c","destination":"/corso_language.html"},
     {"source":"/corso_cpp","destination":"/corso_language.html"},

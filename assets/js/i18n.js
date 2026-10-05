@@ -65,6 +65,15 @@
     'Controlla i corsi iscritti, il tuo progresso, i quiz completati e i certificati ottenuti.':{en:'Track enrolled courses, your progress, completed quizzes and earned certificates.',fr:'Suivez vos cours, votre progression, vos quiz terminés et vos certificats obtenus.',es:'Controla tus cursos, tu progreso, los cuestionarios completados y los certificados obtenidos.',de:'Verfolge deine Kurse, deinen Fortschritt, abgeschlossene Quizze und erworbene Zertifikate.'},
     'Corsi attivi':{en:'Active courses',fr:'Cours actifs',es:'Cursos activos',de:'Aktive Kurse'},
     'Corsi completati':{en:'Completed courses',fr:'Cours terminés',es:'Cursos completados',de:'Abgeschlossene Kurse'},
+    'PROGRAMMAZIONE':{en:'PROGRAMMING',fr:'PROGRAMMATION',es:'PROGRAMACIÓN',de:'PROGRAMMIERUNG'},
+    'Ecosistema Microsoft e Web':{en:'Microsoft and Web ecosystem',fr:'Écosystème Microsoft et Web',es:'Ecosistema Microsoft y Web',de:'Microsoft- und Web-Ökosystem'},
+    'Percorsi professionali':{en:'Professional learning paths',fr:'Parcours professionnels',es:'Rutas profesionales',de:'Professionelle Lernpfade'},
+    'lezioni':{en:'lessons',fr:'leçons',es:'lecciones',de:'Lektionen'},
+    'esercizi':{en:'exercises',fr:'exercices',es:'ejercicios',de:'Übungen'},
+    'quiz':{en:'quizzes',fr:'quiz',es:'cuestionarios',de:'Quizze'},
+    'Inizia il corso →':{en:'Start course →',fr:'Commencer le cours →',es:'Empezar el curso →',de:'Kurs starten →'},
+    'Vai al corso →':{en:'Go to course →',fr:'Accéder au cours →',es:'Ir al curso →',de:'Zum Kurs →'},
+    'Torna alla home':{en:'Back home',fr:'Retour à l’accueil',es:'Volver al inicio',de:'Zur Startseite'},
     'Quiz superati':{en:'Quizzes passed',fr:'Quiz réussis',es:'Cuestionarios aprobados',de:'Bestandene Quizze'},
     'Certificati ottenuti':{en:'Certificates earned',fr:'Certificats obtenus',es:'Certificados obtenidos',de:'Erworbene Zertifikate'}
   };

@@ -1,4 +1,5 @@
-(function(){
+(
+    if (typeof window.MOUSSA_APPLY_LANGUAGE === 'function') window.MOUSSA_APPLY_LANGUAGE(localStorage.getItem('site-language') || 'it');function(){
   'use strict';
 
   const languageCourses = window.MOUSSA_LANGUAGE_COURSES || {};

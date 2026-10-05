@@ -197,6 +197,7 @@ window.MOUSSA_COURSE_CONTENT = (() => {
       isFinal,
       meta: `Esempi: 3 · Spiegazione passo passo · Esercizio · Soluzione · Quiz · Challenge`
     };
+    return localizeLesson(lesson, localStorage.getItem('site-language')||'it', title);
   }
 
   function localizeLesson(lesson, lang, title) {

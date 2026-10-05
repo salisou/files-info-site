@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Python da zero – il corso</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Literata:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/course-platform.css">
+<link rel="stylesheet" href="/assets/css/modern.css">
+<link rel="stylesheet" href="/assets/css/site-navbar.css">
+<script src="/assets/js/site-navbar.js"></script>
+<script src="/assets/js/i18n.js"></script>
+<style>
+.python-course .app{display:grid;grid-template-columns:310px minmax(0,1fr);min-height:calc(100vh - 76px);background:#f6f8fb}
+.python-course .app>nav{position:sticky;top:76px;height:calc(100vh - 76px);overflow:auto;background:#fff;border-right:1px solid #e5e9f0;padding:18px 14px;font:inherit}
+.python-course .app .brand{font-family:Inter,system-ui,sans-serif;color:#173b63;font-size:1.35rem;font-weight:900;margin:0 0 4px}
+.python-course .app .brand span{background:#eef6f3;padding:2px 5px;color:#087a61}
+.python-course .app .sub{font:inherit;font-size:.82rem;color:#697386;margin:0 0 14px}
+.python-course .app .bar{height:6px;border:0;border-radius:99px;background:#e4e8ee}
+.python-course .app .bar i{background:#16856b}
+.python-course .app .pct{font-size:.78rem;color:#697386;margin:7px 0 14px}
+.python-course .app nav button.l{display:flex;gap:9px;width:100%;text-align:left;background:transparent;border:0;border-radius:8px;padding:9px 8px;font:inherit;font-size:.78rem;line-height:1.35;color:#445066;cursor:pointer}
+.python-course .app nav button.l:hover{background:#f0f8f5}
+.python-course .app nav button.l[aria-current="true"]{background:#eef6f3;color:#087a61;font-weight:800}
+.python-course .app nav .tick{flex:none;width:20px;height:20px;border:1px solid #ccd5e1;border-radius:50%;font-size:11px;display:grid;place-items:center;line-height:1;color:#fff}
+.python-course .app nav .done .tick{background:#16856b;border-color:#16856b}
+.python-course .app .tools{display:flex;gap:8px;margin-top:14px}
+.python-course .app .tools button{flex:1;font:inherit;font-size:.72rem;padding:8px;border:1px solid #d9dfe8;background:#fff;color:#173b63;border-radius:8px;cursor:pointer}
+.python-course .app main{padding:34px 4% 70px;max-width:none;margin:0;background:#f6f8fb}
+.python-course .app main:before{content:"Python da zero • Corso completo";display:block;max-width:1050px;margin:0 auto 16px;color:#687387;font-size:.86rem}
+.python-course .app main>h1,.python-course .app main>h2,.python-course .app main>p,.python-course .app main>.quiz,.python-course .app main>.nav2,.python-course .app main>.prof,.python-course .app main>pre,.python-course .app main>.out,.python-course .app main>ul{max-width:1050px;margin-left:auto;margin-right:auto}
+.python-course .app main>h1{background:#fff;border:1px solid #e5e9f0;border-bottom:0;border-radius:16px 16px 0 0;padding:36px 46px 12px;margin-top:0;margin-bottom:0;font-family:Inter,system-ui,sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);color:#172033}
+.python-course .app main>h1~p,.python-course .app main>h1~h2,.python-course .app main>h1~ul,.python-course .app main>h1~pre,.python-course .app main>h1~.out,.python-course .app main>h1~.prof{background:#fff;border-left:1px solid #e5e9f0;border-right:1px solid #e5e9f0;padding-left:46px;padding-right:46px;margin-top:0;margin-bottom:0}
+.python-course .app main>h1~p:first-of-type{padding-top:8px}
+.python-course .app main>h1~h2{padding-top:28px}
+.python-course .app main>h1~pre{padding-top:14px;padding-bottom:14px}
+.python-course .app main>h1~.prof{padding-top:18px;padding-bottom:18px}
+.python-course .app .quiz{margin-top:28px;padding:21px;background:#f0f8f5;border-left:4px solid #16856b;border-top:0;border-right:0;border-bottom:0;border-radius:8px}
+.python-course .app .quiz h2{margin:4px 0 10px;font-family:Inter,system-ui,sans-serif;color:#172033}
+.python-course .app .opt{display:block;width:100%;text-align:left;margin:8px 0;padding:11px 14px;font:inherit;font-size:.92rem;background:#fff;color:#445066;border:1px solid #d9dfe8;border-radius:9px;cursor:pointer}
+.python-course .app .opt.ok{border-color:#16856b;background:#eaf8f2}.python-course .app .opt.bad{border-color:#c95a5a;background:#fff1f1}
+.python-course .app .nav2{display:flex;justify-content:space-between;gap:12px;margin-top:28px;padding-top:22px;border-top:1px solid #edf0f4}
+.python-course .app .btn{font:800 .88rem Inter,system-ui,sans-serif;padding:12px 18px;border:0;background:#173b63;color:#fff;border-radius:9px;cursor:pointer;box-shadow:none}
+.python-course .app .btn.g{background:#fff;color:#173b63;border:1px solid #d9dfe8}
+.python-course .app code{font-family:Consolas,monospace;font-size:.88em;background:#eef2f7;color:#173b63;padding:2px 5px;border-radius:4px}
+.python-course .app pre{position:relative;margin-top:0;background:#101827;color:#e9eef7;border-radius:0;padding:18px 46px;overflow-x:auto;line-height:1.6;font-size:.88rem}
+.python-course .app pre code{background:transparent;color:inherit;padding:0}
+.python-course .app .out{padding:10px 46px;font:14px/1.5 Consolas,monospace;color:#687387;border-left:1px solid #e5e9f0;border-right:1px solid #e5e9f0;background:#fff}
+.python-course .app .prof{padding:18px 46px!important;border:0;border-left:4px solid #16856b!important;background:#f0f8f5!important;color:#435067;box-shadow:none;border-radius:0}
+.python-course .app .prof b{font-family:Inter,system-ui,sans-serif}
+.python-course .app .top{display:none}
+.python-course .python-course-title{display:none}
+@media(max-width:900px){.python-course .app{grid-template-columns:1fr}.python-course .app>nav{position:fixed;top:76px;left:0;bottom:0;width:min(310px,85vw);height:auto;z-index:50;transform:translateX(-105%);transition:transform .25s}.python-course .app>nav.open{transform:none}.python-course .app .top{display:flex;position:sticky;top:0;z-index:40;align-items:center;gap:12px;padding:10px 14px;background:#fff;border-bottom:1px solid #e5e9f0}.python-course .app main{padding:22px 4% 50px}.python-course .app main>h1{padding:24px 20px 10px;border-radius:11px 11px 0 0}.python-course .app main>h1~p,.python-course .app main>h1~h2,.python-course .app main>h1~ul,.python-course .app main>h1~pre,.python-course .app main>h1~.out,.python-course .app main>h1~.prof{padding-left:20px;padding-right:20px}.python-course .app pre{padding-left:20px;padding-right:20px}.python-course .app .out{padding-left:20px;padding-right:20px}.python-course .app .prof{padding-left:20px!important;padding-right:20px!important}}
+</style>
+</head>
+<body class="python-course">
+<div class="top"><button id="menu" aria-label="Apri indice">Indice</button><b class="brand" style="font-size:18px">Python da zero</b></div>
+<div class="app">
+<nav id="nav" aria-label="Indice delle lezioni">
+<p class="brand">Python <span>da zero</span></p>
+<p class="sub">Dal primo print() alle classi. Gratis, per tutti.</p>
+<div class="bar"><i id="fill"></i></div>
+<p class="pct" id="pct"></p>
+<div id="list"></div>
+<div class="tools"><button id="theme">Tema chiaro/scuro</button><button id="reset">Azzera</button></div>
+</nav>
+<main id="main" tabindex="-1"></main>
+</div>
+<script>
+const P=(s)=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const kw=/\b(def|return|if|elif|else|for|while|in|import|from|class|try|except|finally|with|as|and|or|not|True|False|None|break|continue|raise|pass|lambda|print|input|range|len)\b/g;
+function hl(code){return P(code).split("\n").map(l=>{const i=l.indexOf("#");let a=i<0?l:l.slice(0,i),c=i<0?"":'<span class="c">'+l.slice(i)+'</span>';a=a.replace(/(&quot;.*?&quot;|".*?"|'.*?')/g,'<span class="s">$1</span>').replace(kw,m=>'<span class="k">'+m+'</span>');return a+c}).join("\n")}
+const code=(c,o)=>`<pre><button class="cp">Copia</button><code>${hl(c)}</code></pre>${o?`<div class="out">${P(o)}</div>`:""}`;
+const prof=t=>`<div class="prof"><b>Parola del prof.</b> ${t}</div>`;
+const L=[
+{t:"Benvenuto e primo programma",b:`<p>Python è nato per essere letto da umani. Per questo è il linguaggio ideale per cominciare, e lo usano anche Google, la NASA e chi fa intelligenza artificiale. In trent'anni ho visto nascere e morire decine di linguaggi: Python resta.</p>
+<h2>Installare Python</h2><p>Scarica l'ultima versione da <code>python.org</code> e, su Windows, spunta <em>Add Python to PATH</em>. Come editor consiglio VS Code, oppure l'IDLE incluso. Per provare subito senza installare nulla, cerca "Python online" nel browser.</p>
+<h2>Il tuo primo programma</h2>${code(`print("Ciao, mondo!")`,"Ciao, mondo!")}
+<p><code>print()</code> mostra un testo a schermo. Il testo va tra virgolette. Tutto qui: sei già programmatore.</p>
+${prof("Non copiare e incollare: digita ogni esempio a mano. Gli errori di battitura sono la miglior palestra. Un errore non è un fallimento, è un messaggio che ti dice dove guardare.")}
+<h2>I commenti</h2>${code(`# Questo è un commento: Python lo ignora
+print("Si legge meglio così")  # anche a fine riga`)}`,
+q:["Quale istruzione mostra un testo a schermo?",["print()","show()","echo()"],0]},
+{t:"Variabili e tipi di dati",b:`<p>Una variabile è un'etichetta attaccata a un valore. Il segno <code>=</code> non significa "uguale" ma "assegna".</p>
+${code(`nome = "Giulia"
+eta = 29
+altezza = 1.68
+iscritta = True
+
+print(nome, eta)
+print(type(altezza))`,"Giulia 29\n<class 'float'>")}
+<h2>I quattro tipi base</h2><ul><li><code>str</code>: testo, "ciao"</li><li><code>int</code>: numeri interi, 42</li><li><code>float</code>: decimali, 3.14 (col punto, non la virgola)</li><li><code>bool</code>: <code>True</code> o <code>False</code></li></ul>
+<h2>Convertire</h2>${code(`n = int("15")      # da testo a intero
+s = str(15)        # da intero a testo
+f = float("2.5")`)}
+${prof("Dai nomi che raccontano: <code>prezzo_totale</code> vale più di <code>x</code>. Tra sei mesi il lettore sarai tu, e non ricorderai nulla. Per convenzione si usa minuscolo_con_trattino_basso.")}`,
+q:["Come si scrive correttamente un decimale in Python?",["3,14","3.14","\"3.14\" senza conversione"],1]},
+{t:"Operatori e input dell'utente",b:`<h2>Matematica</h2>${code(`print(7 + 2)    # 9
+print(7 / 2)    # 3.5  divisione normale
+print(7 // 2)   # 3    divisione intera
+print(7 % 2)    # 1    resto
+print(2 ** 10)  # 1024 potenza`)}
+<h2>Chiedere dati</h2>${code(`nome = input("Come ti chiami? ")
+anni = int(input("Quanti anni hai? "))
+print("Ciao", nome, "tra 10 anni ne avrai", anni + 10)`,"Come ti chiami? Marco\nQuanti anni hai? 30\nCiao Marco tra 10 anni ne avrai 40")}
+<p><code>input()</code> restituisce sempre testo. Se ti serve un numero, convertilo con <code>int()</code> o <code>float()</code>.</p>
+${prof("L'errore numero uno dei principianti: sommare \"5\" + \"5\" e ottenere \"55\". Se vedi numeri che si incollano, controlla di aver convertito.")}`,
+q:["Che tipo restituisce sempre input()?",["int","str","dipende da cosa scrivi"],1]},
+{t:"Le stringhe",b:`${code(`s = "Python è fantastico"
+print(len(s))          # lunghezza
+print(s.upper())       # MAIUSCOLO
+print(s[0])            # primo carattere: P
+print(s[-1])           # ultimo carattere
+print(s[0:6])          # fetta: Python
+print(s.replace("fantastico", "divertente"))`)}
+<h2>f-string: il modo moderno</h2>${code(`nome = "Luca"
+voto = 8.5
+print(f"{nome} ha preso {voto}")
+print(f"Doppio: {voto * 2:.1f}")`,"Luca ha preso 8.5\nDoppio: 17.0")}
+<p>Metti una <code>f</code> prima delle virgolette e scrivi le variabili tra graffe. Niente più concatenazioni infinite.</p>
+${prof("Si conta da zero. Il primo carattere è il numero 0. Ti confonderà per una settimana, poi diventerà naturale. Anche i professionisti ci inciampano ogni tanto.")}`,
+q:["Cosa stampa \"Ciao\"[1]?",["C","i","a"],2]},
+{t:"Decisioni con if",b:`${code(`eta = int(input("Età: "))
+
+if eta >= 18:
+    print("Maggiorenne")
+elif eta >= 14:
+    print("Adolescente")
+else:
+    print("Bambino")`)}
+<p>I due punti e il <strong>rientro</strong> (4 spazi) sono la sintassi di Python: ciò che è rientrato appartiene al blocco.</p>
+<h2>Confronti e logica</h2>${code(`# ==  !=  <  >  <=  >=
+if eta >= 18 and eta < 65:
+    print("In età lavorativa")
+if not eta < 0:
+    print("Valore valido")`)}
+${prof("<code>=</code> assegna, <code>==</code> confronta. Confonderli è il classico errore da primo mese. L'indentazione sbagliata è il secondo: tieni sempre lo stesso numero di spazi.")}`,
+q:["Quale operatore confronta due valori?",["=","==","=>"],1]},
+{t:"I cicli: for e while",b:`${code(`for i in range(5):
+    print("Giro", i)      # 0,1,2,3,4
+
+frutti = ["mela", "pera", "kiwi"]
+for f in frutti:
+    print(f)`)}
+<h2>while: finché la condizione è vera</h2>${code(`tentativi = 0
+while tentativi < 3:
+    print("Tentativo", tentativi + 1)
+    tentativi += 1`,"Tentativo 1\nTentativo 2\nTentativo 3")}
+<p><code>break</code> esce dal ciclo, <code>continue</code> salta al giro successivo.</p>
+${prof("Prima di scrivere un <code>while</code> chiediti: cosa lo fa fermare? Se la risposta è \"niente\", hai appena scritto un ciclo infinito. Si ferma con Ctrl+C.")}`,
+q:["Quanti giri fa range(5)?",["4","5","6"],1]},
+{t:"Liste e tuple",b:`${code(`voti = [7, 9, 6]
+voti.append(8)         # aggiunge
+voti.remove(6)         # toglie il valore 6
+voti[0] = 10           # modifica
+print(sorted(voti))    # ordinata
+print(sum(voti) / len(voti))   # media
+quadrati = [n * n for n in range(1, 6)]
+print(quadrati)`,"[7, 8, 9, 10]\n8.75\n[1, 4, 9, 16, 25]")}
+<p>L'ultima riga è una <em>list comprehension</em>: una lista costruita in una riga. Una tupla è come una lista che non si può modificare:</p>
+${code(`coordinate = (45.4, 9.2)`)}
+${prof("Lista per dati che cambiano, tupla per dati fissi come coordinate o date. Scegliere bene lo strumento è metà della programmazione.")}`,
+q:["Quale metodo aggiunge un elemento in fondo a una lista?",["add()","append()","push()"],1]},
+{t:"Dizionari e insiemi",b:`<p>Un dizionario associa una <strong>chiave</strong> a un <strong>valore</strong>, come una rubrica.</p>
+${code(`persona = {"nome": "Anna", "eta": 31}
+persona["citta"] = "Parma"
+print(persona["nome"])
+print(persona.get("lavoro", "non indicato"))
+for chiave, valore in persona.items():
+    print(chiave, "→", valore)`)}
+<h2>Gli insiemi (set)</h2>${code(`a = {1, 2, 3, 3, 3}
+print(a)          # {1, 2, 3}  niente duplicati
+print(a & {2, 3, 9})   # intersezione: {2, 3}`)}
+${prof("Con <code>.get()</code> eviti l'errore se la chiave non esiste. Usa i set per eliminare doppioni: <code>list(set(lista))</code>.")}`,
+q:["Come si legge il valore associato alla chiave \"nome\"?",["persona[\"nome\"]","persona.nome()","persona(\"nome\")"],0]},
+{t:"Funzioni",b:`<p>Una funzione è un pezzo di codice con un nome, scritto una volta e usato quante volte vuoi. Regola dei vecchi artigiani: ogni funzione fa <em>una</em> cosa.</p>
+${code(`def saluta(nome, saluto="Ciao"):
+    return f"{saluto}, {nome}!"
+
+print(saluta("Sara"))
+print(saluta("Paolo", saluto="Buongiorno"))
+
+def area_rettangolo(base, altezza):
+    """Calcola l'area di un rettangolo."""
+    return base * altezza`,"Ciao, Sara!\nBuongiorno, Paolo!")}
+<p><code>return</code> restituisce un risultato. Senza <code>return</code> la funzione restituisce <code>None</code>. Il testo tra tre virgolette è la documentazione.</p>
+${prof("Se copi lo stesso codice due volte, hai trovato una funzione che aspetta di nascere. È il principio DRY: Don't Repeat Yourself.")}`,
+q:["Quale parola chiave definisce una funzione?",["function","def","func"],1]},
+{t:"File ed errori",b:`${code(`with open("note.txt", "w", encoding="utf-8") as f:
+    f.write("Prima riga\\n")
+
+with open("note.txt", encoding="utf-8") as f:
+    for riga in f:
+        print(riga.strip())`)}
+<p><code>with</code> chiude il file da solo, anche se qualcosa va storto.</p>
+<h2>Gestire gli errori</h2>${code(`try:
+    n = int(input("Numero: "))
+    print(10 / n)
+except ValueError:
+    print("Non hai scritto un numero")
+except ZeroDivisionError:
+    print("Non si divide per zero")`)}
+${prof("Gli utenti sbagliano sempre, e hanno ragione loro. Un buon programma prevede l'errore e spiega cosa fare, senza mostrare messaggi criptici.")}`,
+q:["Quale blocco intercetta un errore?",["try / except","if / else","catch / throw"],0]},
+{t:"Classi e oggetti (OOP)",b:`<p>Una classe è lo stampo, un oggetto è il biscotto. Raggruppa dati e comportamenti.</p>
+${code(`class Conto:
+    def __init__(self, titolare, saldo=0):
+        self.titolare = titolare
+        self.saldo = saldo
+
+    def versa(self, importo):
+        self.saldo += importo
+
+    def __str__(self):
+        return f"{self.titolare}: {self.saldo} €"
+
+c = Conto("Elena", 100)
+c.versa(50)
+print(c)`,"Elena: 150 €")}
+<p><code>__init__</code> è il costruttore, <code>self</code> è l'oggetto stesso.</p>
+${prof("Non partire dalle classi: partono bene solo dopo che hai scritto molte funzioni. Usale quando hai dati e azioni che vivono insieme, come un conto e i suoi versamenti.")}`,
+q:["Come si chiama il metodo che inizializza un oggetto?",["__init__","__new__ obbligatorio","start()"],0]},
+{t:"Moduli e librerie",b:`${code(`import random, math, datetime
+
+print(random.randint(1, 6))
+print(math.sqrt(144))
+print(datetime.date.today())`)}
+<p>La libreria standard ha di tutto. Per quelle esterne si usa <code>pip</code>:</p>
+${code(`pip install requests`)}
+<p>Per iniziare: <code>requests</code> (web), <code>pandas</code> (dati), <code>matplotlib</code> (grafici), <code>flask</code> (siti web), <code>pygame</code> (giochi). Crea sempre un ambiente virtuale per progetto:</p>
+${code(`python -m venv .venv`)}
+${prof("Prima di scrivere una funzione complicata, cerca se esiste già. Il bravo programmatore è anche quello che sa cosa non deve scrivere.")}`,
+q:["Con quale comando si installa una libreria esterna?",["pip install nome","python get nome","import nome"],0]},
+{t:"Progetto finale: indovina il numero",b:`<p>Mettiamo insieme tutto: variabili, input, cicli, if, funzioni, moduli.</p>
+${code(`import random
+
+def gioca(massimo=100):
+    segreto = random.randint(1, massimo)
+    tentativi = 0
+    while True:
+        try:
+            n = int(input(f"Numero (1-{massimo}): "))
+        except ValueError:
+            print("Scrivi un numero intero.")
+            continue
+        tentativi += 1
+        if n < segreto:
+            print("Troppo basso")
+        elif n > segreto:
+            print("Troppo alto")
+        else:
+            print(f"Esatto in {tentativi} tentativi!")
+            break
+
+gioca()`)}
+<h2>Sfide per crescere</h2><ul><li>Limita i tentativi a 7</li><li>Salva il miglior punteggio su file</li><li>Aggiungi i livelli di difficoltà</li><li>Poi: una rubrica, una to-do list, un convertitore di valute</li></ul>
+${prof("Complimenti: sai le basi. Ora il segreto è uno solo: costruisci cose che ti interessano, ogni giorno, anche per venti minuti. Si impara programmando, non leggendo.")}`,
+q:["Quale istruzione esce da un ciclo while True?",["stop","break","exit_loop"],1]}
+];
+const $=s=>document.querySelector(s);
+let cur=0,done=new Set();
+try{done=new Set(JSON.parse(localStorage.getItem("py-done")||"[]"))}catch(e){}
+function save(){try{localStorage.setItem("py-done",JSON.stringify([...done]))}catch(e){}}
+function drawNav(){
+$("#list").innerHTML=L.map((l,i)=>`<button class="l ${done.has(i)?"done":""}" data-i="${i}" ${i===cur?'aria-current="true"':""}><span class="tick">${done.has(i)?"✓":""}</span><span>${l.t}</span></button>`).join("");
+const p=Math.round(done.size/L.length*100);$("#fill").style.width=p+"%";$("#pct").textContent=`${done.size} di ${L.length} lezioni completate (${p}%)`}
+function show(i){
+cur=i;const l=L[i];const [q,o,a]=l.q;
+$("#main").innerHTML=`<p class="kick">Lezione ${i+1} di ${L.length}</p><h1>${l.t}</h1>${l.b}
+<section class="quiz"><h2>Mettiti alla prova</h2><p>${q}</p>${o.map((t,k)=>`<button class="opt" data-k="${k}">${P(t)}</button>`).join("")}<p class="fb" role="status" aria-live="polite"></p></section>
+<div class="nav2"><button class="btn g" id="prev" ${i?"":"disabled"}>Indietro</button><button class="btn" id="next">${i<L.length-1?"Lezione successiva":"Ricomincia"}</button></div>`;
+$("#main").querySelectorAll(".opt").forEach(b=>b.onclick=()=>{
+const ok=+b.dataset.k===a;const fb=$(".fb");
+if(ok){b.classList.add("ok");fb.textContent="Esatto. Lezione completata!";done.add(i);save();drawNav();$("#main").querySelectorAll(".opt").forEach(x=>x.disabled=true)}
+else{b.classList.add("bad");fb.textContent="Non proprio. Rileggi l'esempio e riprova."}});
+$("#prev").onclick=()=>go(i-1);$("#next").onclick=()=>go(i<L.length-1?i+1:0);
+$("#main").querySelectorAll(".cp").forEach(b=>b.onclick=()=>{navigator.clipboard&&navigator.clipboard.writeText(b.nextElementSibling.textContent).then(()=>{b.textContent="Copiato";setTimeout(()=>b.textContent="Copia",1200)}).catch(()=>{})});
+drawNav();$("#nav").classList.remove("open")}
+function go(i){location.hash="l"+(i+1);show(i);window.scrollTo(0,0)}
+$("#list").onclick=e=>{const b=e.target.closest(".l");if(b)go(+b.dataset.i)};
+$("#menu").onclick=()=>$("#nav").classList.toggle("open");
+$("#theme").onclick=()=>{const r=document.documentElement,d=getComputedStyle(r).getPropertyValue("--bg").trim()==="#10172a";r.dataset.theme=d?"light":"dark"};
+$("#reset").onclick=()=>{if(confirm("Vuoi azzerare i progressi?")){done=new Set();save();drawNav();show(cur)}};
+const m=/^#l(\d+)$/.exec(location.hash);show(m&&L[m[1]-1]?m[1]-1:0);
+</script>
+</body>
+</html>

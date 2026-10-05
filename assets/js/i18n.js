@@ -30,6 +30,15 @@
     de:{'course.example':'Beispiel','course.copy':'Beispiel kopieren','course.prevText':'Vorherige Lektion','course.nextText':'Nächste Lektion','course.completedCourse':'Kurs abgeschlossen','course.before':'Vor dem Start','course.ruleLabel':'Kursregel:','course.syntaxLabel':'So wird es geschrieben','course.syntaxTitle':'Die grundlegende Regel','course.examplesTitle':'Ansehen, ausführen, ändern','course.examplesText':'Nicht nur lesen. Kopiere das Beispiel, führe es aus, ändere einen Wert und beobachte das Ergebnis.','course.tipLabel':'Tipp:','course.stepsTitle':'Was passiert im Code?','course.realTitle':'Warum brauchst du das?','course.trainingTitle':'3 Übungen zum echten Lernen','course.notesLabel':'Meine Versuche und Notizen','course.notesPlaceholder':'Schreibe hier deinen Code, deine Versuche oder Fragen...','course.solution':'Geführte Lösung anzeigen','course.solutionText':'Versuche es zuerst selbst. Öffne dann diesen Bereich, um deine Arbeit zu vergleichen.','course.attention':'Achtung','course.mistakes':'Häufige Fehler','course.challengeTitle':'Jetzt bist du dran','course.finalCheck':'Abschlussprüfung','course.finalText':'Es ist kein Wettbewerb. Wenn du einen Fehler machst, lies die Erklärung und versuche es erneut.','course.referenceText':'Nutze die Dokumentation als Referenz, nachdem du das Beispiel verstanden hast. Erst üben, dann vertiefen.','course.lessonNotes':'Lektionsnotizen','course.notesPlaceholderShort':'Schreibe hier Code, Fragen oder Notizen...','course.notesSaved':'Notizen auf deinem Gerät gespeichert.'}
   };
   Object.keys(courseExtra).forEach(l=>Object.assign(translations[l],courseExtra[l]));
+  const courseMore={
+    it:{'course.lessons':'lezioni','course.examplesShort':'esempi spiegati','course.exercises':'esercizi','course.quizShort':'quiz','course.onlineEditor':'editor online','course.localLab':'laboratorio locale'},
+    en:{'course.lessons':'lessons','course.examplesShort':'explained examples','course.exercises':'exercises','course.quizShort':'quizzes','course.onlineEditor':'online editor','course.localLab':'local lab'},
+    fr:{'course.lessons':'leçons','course.examplesShort':'exemples expliqués','course.exercises':'exercices','course.quizShort':'quiz','course.onlineEditor':'éditeur en ligne','course.localLab':'laboratoire local'},
+    es:{'course.lessons':'lecciones','course.examplesShort':'ejemplos explicados','course.exercises':'ejercicios','course.quizShort':'cuestionarios','course.onlineEditor':'editor online','course.localLab':'laboratorio local'},
+    de:{'course.lessons':'Lektionen','course.examplesShort':'erklärte Beispiele','course.exercises':'Übungen','course.quizShort':'Quizze','course.onlineEditor':'Online-Editor','course.localLab':'lokales Labor'}
+  };
+  Object.keys(courseMore).forEach(l=>Object.assign(translations[l],courseMore[l]));
+
   Object.keys(courseUi).forEach(l=>Object.assign(translations[l],courseUi[l]));
   window.MOUSSA_T = key => translations[current][key] ?? translations.it[key] ?? key;
 

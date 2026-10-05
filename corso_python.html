@@ -44,7 +44,7 @@
 .python-course .app .nav2{display:flex;justify-content:space-between;gap:12px;margin-top:28px;padding-top:22px;border-top:1px solid #edf0f4}
 .python-course .app .btn{font:800 .88rem Inter,system-ui,sans-serif;padding:12px 18px;border:0;background:#173b63;color:#fff;border-radius:9px;cursor:pointer;box-shadow:none}
 .python-course .app .btn.g{background:#fff;color:#173b63;border:1px solid #d9dfe8}
-.python-course .app code{font-family:Consolas,monospace;font-size:.88em;background:#eef2f7;color:#173b63;padding:2px 5px;border-radius:4px}
+.python-course .app .k{color:#7dd3fc}.python-course .app .s{color:#a7f3d0}.python-course .app .c{color:#64748b;font-style:italic}.python-course .app code{font-family:Consolas,monospace;font-size:.88em;background:#eef2f7;color:#173b63;padding:2px 5px;border-radius:4px}
 .python-course .app pre{position:relative;margin-top:0;background:#101827;color:#e9eef7;border-radius:0;padding:18px 46px;overflow-x:auto;line-height:1.6;font-size:.88rem}
 .python-course .app pre code{background:transparent;color:inherit;padding:0}
 .python-course .app .out{padding:10px 46px;font:14px/1.5 Consolas,monospace;color:#687387;border-left:1px solid #e5e9f0;border-right:1px solid #e5e9f0;background:#fff}
@@ -362,11 +362,13 @@ with contextlib.redirect_stdout(_stdout), contextlib.redirect_stderr(_stderr):
         traceback.print_exc()
 _output=_stdout.getvalue()
 _error=_stderr.getvalue()
-_output + ("\\n" if _output and _error else "") + _error
+("___PY_ERROR___" if _error else "") + _output + ("\\n" if _output and _error else "") + _error
 `);
-        const textResult=String(result||"").trimEnd();
+        const rawResult=String(result||"");
+        const hasError=rawResult.startsWith("___PY_ERROR___");
+        const textResult=(hasError?rawResult.slice("___PY_ERROR___".length):rawResult).trimEnd();
         out.textContent=textResult||"Programma eseguito senza output.";
-        if(_error){out.classList.add("error");status.textContent="Errore"}else{status.textContent="Completato"}
+        if(hasError){out.classList.add("error");status.textContent="Errore"}else{status.textContent="Completato"}
         editorStatus.textContent="Python pronto";
       }catch(err){
         out.textContent=String(err&&err.message?err.message:err);out.classList.add("error");status.textContent="Errore";editorStatus.textContent="Errore";

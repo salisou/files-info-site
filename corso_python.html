@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="/assets/css/site-navbar.css">
 <script src="/assets/js/site-navbar.js"></script>
 <script src="/assets/js/i18n.js"></script>
+<script src="https://cdn.jsdelivr.net/pyodide/v0.28.2/full/pyodide.js"></script>
 <style>
 .python-course .app{display:grid;grid-template-columns:310px minmax(0,1fr);min-height:calc(100vh - 76px);background:#f6f8fb}
 .python-course .app>nav{position:sticky;top:76px;height:calc(100vh - 76px);overflow:auto;background:#fff;border-right:1px solid #e5e9f0;padding:18px 14px;font:inherit}
@@ -52,6 +53,24 @@
 .python-course .app .top{display:none}
 .python-course .python-course-title{display:none}
 @media(max-width:900px){.python-course .app{grid-template-columns:1fr}.python-course .app>nav{position:fixed;top:76px;left:0;bottom:0;width:min(310px,85vw);height:auto;z-index:50;transform:translateX(-105%);transition:transform .25s}.python-course .app>nav.open{transform:none}.python-course .app .top{display:flex;position:sticky;top:0;z-index:40;align-items:center;gap:12px;padding:10px 14px;background:#fff;border-bottom:1px solid #e5e9f0}.python-course .app main{padding:22px 4% 50px}.python-course .app main>h1{padding:24px 20px 10px;border-radius:11px 11px 0 0}.python-course .app main>h1~p,.python-course .app main>h1~h2,.python-course .app main>h1~ul,.python-course .app main>h1~pre,.python-course .app main>h1~.out,.python-course .app main>h1~.prof{padding-left:20px;padding-right:20px}.python-course .app pre{padding-left:20px;padding-right:20px}.python-course .app .out{padding-left:20px;padding-right:20px}.python-course .app .prof{padding-left:20px!important;padding-right:20px!important}}
+
+.python-course .code-editor{max-width:1050px;margin:22px auto 0;border:1px solid #263348;border-radius:12px;overflow:hidden;background:#0b1220;color:#dbe5f4;box-shadow:0 14px 35px rgba(15,23,42,.16)}
+.python-course .code-editor-head{display:flex;align-items:center;gap:10px;padding:9px 12px;background:#111a2b;border-bottom:1px solid #263348}
+.python-course .code-editor-dots{display:flex;gap:5px}.python-course .code-editor-dots i{width:9px;height:9px;border-radius:50%;display:block;background:#475569}
+.python-course .code-editor-title{margin-left:4px;font:600 12px Inter,system-ui;color:#aab7cb;flex:1}
+.python-course .code-editor-status{font:500 11px Inter,system-ui;color:#7dd3fc}
+.python-course .code-editor-actions{display:flex;gap:7px}
+.python-course .code-editor-actions button{border:1px solid #334155;border-radius:7px;padding:6px 10px;background:#172235;color:#dbe5f4;font:700 11px Inter,system-ui;cursor:pointer}
+.python-course .code-editor-actions button.run{background:#16856b;border-color:#16856b;color:#fff}
+.python-course .code-editor-body{display:grid;grid-template-columns:48px 1fr;min-height:210px}
+.python-course .code-editor-lines{padding:13px 9px;text-align:right;background:#0f1727;color:#516078;font:13px/1.65 Consolas,monospace;user-select:none;overflow:hidden}
+.python-course .code-editor-input{width:100%;min-height:210px;resize:vertical;border:0;outline:0;padding:13px 15px;background:#0b1220;color:#dbe5f4;font:13px/1.65 Consolas,monospace;tab-size:4;white-space:pre;overflow:auto}
+.python-course .terminal{border-top:1px solid #263348;background:#070d18}
+.python-course .terminal-head{display:flex;justify-content:space-between;padding:8px 12px;color:#94a3b8;font:700 11px Inter,system-ui;letter-spacing:.04em;text-transform:uppercase}
+.python-course .terminal-output{min-height:58px;max-height:240px;overflow:auto;padding:0 13px 14px;color:#d1fae5;font:13px/1.55 Consolas,monospace;white-space:pre-wrap}
+.python-course .terminal-output.error{color:#fca5a5}
+.python-course .editor-note{max-width:1050px;margin:8px auto 24px;color:#687387;font-size:.78rem}
+@media(max-width:900px){.python-course .code-editor{margin-left:0;margin-right:0}.python-course .code-editor-body{grid-template-columns:38px 1fr}.python-course .code-editor-input{font-size:12px}.python-course .code-editor-actions button{padding:6px 8px}}
 </style>
 </head>
 <body class="python-course">
@@ -71,7 +90,8 @@
 const P=(s)=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
 const kw=/\b(def|return|if|elif|else|for|while|in|import|from|class|try|except|finally|with|as|and|or|not|True|False|None|break|continue|raise|pass|lambda|print|input|range|len)\b/g;
 function hl(code){return P(code).split("\n").map(l=>{const i=l.indexOf("#");let a=i<0?l:l.slice(0,i),c=i<0?"":'<span class="c">'+l.slice(i)+'</span>';a=a.replace(/(&quot;.*?&quot;|".*?"|'.*?')/g,'<span class="s">$1</span>').replace(kw,m=>'<span class="k">'+m+'</span>');return a+c}).join("\n")}
-const code=(c,o)=>`<pre><button class="cp">Copia</button><code>${hl(c)}</code></pre>${o?`<div class="out">${P(o)}</div>`:""}`;
+const editorId=()=>`pyed-${Math.random().toString(36).slice(2,9)}`;
+const code=(c,o)=>{const id=editorId();return `<pre><button class="cp">Copia</button><code>${hl(c)}</code></pre>${o?`<div class="out">${P(o)}</div>`:""}<div class="code-editor" data-editor="${id}"><div class="code-editor-head"><span class="code-editor-dots"><i></i><i></i><i></i></span><span class="code-editor-title">python.py</span><span class="code-editor-status">Python</span><div class="code-editor-actions"><button class="copy-editor">Copia</button><button class="reset-editor">Ripristina</button><button class="run">▶ Esegui</button></div></div><div class="code-editor-body"><div class="code-editor-lines">1</div><textarea class="code-editor-input" spellcheck="false">${P(c)}</textarea></div><div class="terminal"><div class="terminal-head"><span>Terminale</span><span class="terminal-status">Pronto</span></div><pre class="terminal-output">Premi “Esegui” per visualizzare l'output.</pre></div></div><p class="editor-note">Editor interattivo: modifica il codice, premi <b>Esegui</b> e guarda il risultato nel terminale.</p>`};
 const prof=t=>`<div class="prof"><b>Parola del prof.</b> ${t}</div>`;
 const L=[
 {t:"Benvenuto e primo programma",b:`<p>Python è nato per essere letto da umani. Per questo è il linguaggio ideale per cominciare, e lo usano anche Google, la NASA e chi fa intelligenza artificiale. In trent'anni ho visto nascere e morire decine di linguaggi: Python resta.</p>
@@ -260,7 +280,8 @@ q:["Quale istruzione esce da un ciclo while True?",["stop","break","exit_loop"],
 ];
 const DATA_ANALYSIS_TOPICS=[["Introduzione alla Data Analysis","Capire il ruolo della Data Analysis e trasformare una domanda di business in un'analisi misurabile."],["Ruolo del Data Analyst e workflow","Conoscere il workflow professionale: domanda, acquisizione, qualità, pulizia, analisi, visualizzazione e comunicazione."],["Ambiente Python per Data Analysis","Configurare Python, venv, pip e le librerie principali per lavorare sui dati."],["VS Code e Jupyter Notebook","Scegliere tra script Python e notebook e organizzare un ambiente di lavoro riproducibile."],["Python fondamentale per i dati","Usare variabili, funzioni, comprehension e strutture dati in problemi orientati ai dati."],["NumPy arrays","Lavorare con array numerici efficienti e operazioni vettoriali."],["Indexing e slicing NumPy","Selezionare elementi, righe, colonne e intervalli di un array."],["Operazioni vettoriali NumPy","Eseguire calcoli su interi array senza cicli manuali."],["Statistica con NumPy","Calcolare media, mediana, deviazione standard, minimo, massimo e percentili."],["Pandas Series","Rappresentare e analizzare una singola variabile con una Series."],["Pandas DataFrame","Gestire tabelle con righe, colonne, indici e tipi di dato."],["Importazione dati CSV","Caricare dataset CSV e controllarne rapidamente struttura e contenuto."],["Importazione dati Excel","Leggere fogli Excel e importarli in DataFrame."],["Importazione dati JSON","Importare dati JSON, tipici delle API e dei sistemi web."],["Esplorazione e ispezione dei dati","Usare shape, columns, dtypes, info, head e describe prima di trasformare i dati."],["Missing values","Individuare valori mancanti e scegliere strategie corrette di gestione."],["Pulizia e standardizzazione dei dati","Uniformare testi, numeri, categorie e formati per ottenere dati coerenti."],["Duplicati e tipi di dati","Individuare duplicati e convertire le colonne nei tipi appropriati."],["String operations con Pandas","Pulire e trasformare colonne testuali con l'accessor str."],["Filtering e condizioni","Selezionare righe tramite maschere booleane e condizioni multiple."],["Sorting e ranking","Ordinare record e costruire classifiche."],["GroupBy e aggregazioni","Raggruppare dati e calcolare somme, medie, conteggi e KPI."],["Merge, join e concat","Unire dataset tramite chiavi o concatenazione."],["Pivot e reshape","Cambiare la forma dei dati con pivot_table e melt."],["Date, time series e periodi","Convertire date ed estrarre anno, mese e altri periodi per analisi temporali."],["Exploratory Data Analysis (EDA)","Esplorare distribuzioni, relazioni e anomalie prima delle conclusioni."],["Statistiche descrittive","Interpretare media, mediana, quartili, deviazione standard, minimo e massimo."],["Distribuzioni e percentili","Leggere la distribuzione dei dati attraverso quantili e visualizzazioni."],["Correlazione e covarianza","Misurare associazioni tra variabili distinguendole dalla causalità."],["Outlier e anomalie","Individuare valori insoliti con IQR e controlli di contesto."],["Matplotlib: grafici fondamentali","Creare grafici a barre, linee, scatter e istogrammi."],["Matplotlib: grafici professionali","Migliorare titoli, etichette, legenda, dimensioni e salvataggio dei grafici."],["Seaborn e visualizzazione statistica","Creare boxplot, heatmap e grafici statistici più espressivi."],["Storytelling e reportistica","Trasformare risultati numerici in una storia chiara e verificabile."],["Export in CSV ed Excel","Esportare dataset puliti e report in formati condivisibili."],["SQL per Data Analyst con Python","Usare SQL insieme a Pandas per interrogare dati relazionali."],["Dashboard e KPI","Costruire indicatori utili per monitorare prestazioni e risultati."],["Tkinter per piccoli strumenti Data Analyst","Creare piccoli strumenti desktop per avviare analisi e mostrare risultati."],["AI per Data Analysis","Usare l'AI come assistente per codice, ipotesi, documentazione e controllo degli errori."],["Progetto finale: analisi completa di un dataset","Integrare Python, Pandas, NumPy, pulizia, EDA, grafici, SQL, KPI, export e report in un progetto completo."]];
 const dataLesson=(title,desc,index)=>{let code='';if(/NumPy|array|Statistiche|percentili|Correlazione|Outlier/.test(title))code='import numpy as np\n\nx = np.array([10, 20, 30, 40, 50])\nprint(x.mean())\nprint(x.std())';else if(/Pandas|CSV|Excel|JSON|Missing|Pulizia|Duplicati|String|Filtering|Sorting|GroupBy|Merge|Pivot|Date|EDA|Export/.test(title))code='import pandas as pd\n\ndf = pd.DataFrame({"categoria":["A","A","B"],"totale":[100,150,80]})\nprint(df.head())\nprint(df.describe())';else if(/Matplotlib|Seaborn|Storytelling|Dashboard/.test(title))code='import matplotlib.pyplot as plt\n\nplt.bar(["A","B","C"], [120, 180, 150])\nplt.title("KPI")\nplt.show()';else if(/SQL/.test(title))code='import sqlite3\n\ncon = sqlite3.connect("dati.db")\n# SELECT ... FROM ... WHERE ...\nprint("Query eseguita")';else if(/Tkinter/.test(title))code='import tkinter as tk\n\nroot = tk.Tk()\nroot.title("Data Analyst Tool")\ntk.Label(root, text="Analisi dati").pack(padx=20, pady=20)\nroot.mainloop()';else if(/AI/.test(title))code='prompt = "Spiega questo dataset, trova anomalie e proponi 5 domande EDA."\nprint(prompt)';else code='dati = [120, 135, 128, 150]\nmedia = sum(dati) / len(dati)\nprint("Media:", media)';return {t:title,b:`<p><strong>Cos'è?</strong> ${desc}</p><h2>A cosa serve?</h2><p>Serve a trasformare dati grezzi in informazioni utili e verificabili. Nel lavoro reale il concetto va applicato a un dataset concreto, controllando sempre qualità e significato dei risultati.</p><h2>Esempio pratico</h2>${codeBlock(code)}${prof("Non limitarti a eseguire l'esempio: modifica i dati, prova un caso diverso e spiega a parole il risultato.")}`,q:["Qual è il comportamento corretto in questo modulo?",["Comprendere, provare e verificare il risultato","Copiare senza controllare","Ignorare la qualità dei dati"],0]}};
-const codeBlock=(c,o)=>`<pre><button class="cp">Copia</button><code>${hl(c)}</code></pre>${o?`<div class="out">${P(o)}</div>`:""}`;
+const editorId=()=>`pyed-${Math.random().toString(36).slice(2,9)}`;
+const codeBlock=(c,o)=>{const id=editorId();return `<pre><button class="cp">Copia</button><code>${hl(c)}</code></pre>${o?`<div class="out">${P(o)}</div>`:""}<div class="code-editor" data-editor="${id}"><div class="code-editor-head"><span class="code-editor-dots"><i></i><i></i><i></i></span><span class="code-editor-title">python.py</span><span class="code-editor-status">Python</span><div class="code-editor-actions"><button class="copy-editor">Copia</button><button class="reset-editor">Ripristina</button><button class="run">▶ Esegui</button></div></div><div class="code-editor-body"><div class="code-editor-lines">1</div><textarea class="code-editor-input" spellcheck="false">${P(c)}</textarea></div><div class="terminal"><div class="terminal-head"><span>Terminale</span><span class="terminal-status">Pronto</span></div><pre class="terminal-output">Premi “Esegui” per visualizzare l'output.</pre></div></div><p class="editor-note">Editor interattivo: modifica il codice, premi <b>Esegui</b> e guarda il risultato nel terminale.</p>`};
 L.push(...DATA_ANALYSIS_TOPICS.map((x,i)=>dataLesson(x[0],x[1],i)));
 const $=s=>document.querySelector(s);
 let cur=0,done=new Set();
@@ -280,13 +301,83 @@ if(ok){b.classList.add("ok");fb.textContent="Esatto. Lezione completata!";done.a
 else{b.classList.add("bad");fb.textContent="Non proprio. Rileggi l'esempio e riprova."}});
 $("#prev").onclick=()=>go(i-1);$("#next").onclick=()=>go(i<L.length-1?i+1:0);
 $("#main").querySelectorAll(".cp").forEach(b=>b.onclick=()=>{navigator.clipboard&&navigator.clipboard.writeText(b.nextElementSibling.textContent).then(()=>{b.textContent="Copiato";setTimeout(()=>b.textContent="Copia",1200)}).catch(()=>{})});
-drawNav();$("#nav").classList.remove("open")}
+setupEditors();drawNav();$("#nav").classList.remove("open")}
 function go(i){location.hash="l"+(i+1);show(i);window.scrollTo(0,0)}
 $("#list").onclick=e=>{const b=e.target.closest(".l");if(b)go(+b.dataset.i)};
 $("#menu").onclick=()=>$("#nav").classList.toggle("open");
 $("#theme").onclick=()=>{const r=document.documentElement,d=getComputedStyle(r).getPropertyValue("--bg").trim()==="#10172a";r.dataset.theme=d?"light":"dark"};
 $("#reset").onclick=()=>{if(confirm("Vuoi azzerare i progressi del corso Python?")){done=new Set();save();drawNav();show(cur)}};
 const m=/^#l(\d+)$/.exec(location.hash);show(m&&L[m[1]-1]?m[1]-1:0);
+
+let pyodidePromise=null;
+async function getPyodide(){
+  if(!pyodidePromise){
+    pyodidePromise=loadPyodide();
+  }
+  return pyodidePromise;
+}
+function setupEditors(){
+  document.querySelectorAll(".code-editor").forEach(ed=>{
+    if(ed.dataset.ready) return;
+    ed.dataset.ready="1";
+    const input=ed.querySelector(".code-editor-input");
+    const lines=ed.querySelector(".code-editor-lines");
+    const out=ed.querySelector(".terminal-output");
+    const status=ed.querySelector(".terminal-status");
+    const editorStatus=ed.querySelector(".code-editor-status");
+    const updateLines=()=>{
+      const n=input.value.split("\n").length;
+      lines.textContent=Array.from({length:n},(_,i)=>i+1).join("\n");
+    };
+    input.addEventListener("input",updateLines);
+    input.addEventListener("scroll",()=>{lines.scrollTop=input.scrollTop});
+    input.addEventListener("keydown",e=>{
+      if(e.key==="Tab"){e.preventDefault();const a=input.selectionStart,b=input.selectionEnd;input.value=input.value.slice(0,a)+"    "+input.value.slice(b);input.selectionStart=input.selectionEnd=a+4;updateLines()}
+      if((e.ctrlKey||e.metaKey)&&e.key==="Enter"){e.preventDefault();ed.querySelector(".run").click()}
+    });
+    ed.querySelector(".copy-editor").onclick=async()=>{
+      try{await navigator.clipboard.writeText(input.value);status.textContent="Copiato";setTimeout(()=>status.textContent="Pronto",1000)}catch(e){}
+    };
+    ed.querySelector(".reset-editor").onclick=()=>{
+      input.value=input.defaultValue;out.textContent="Premi “Esegui” per visualizzare l'output.";out.classList.remove("error");status.textContent="Pronto";editorStatus.textContent="Python";updateLines();
+    };
+    ed.querySelector(".run").onclick=async()=>{
+      out.classList.remove("error");out.textContent="Avvio Python…";status.textContent="Esecuzione…";editorStatus.textContent="Caricamento";
+      try{
+        const py=await getPyodide();
+        const src=input.value;
+        const packages=[];
+        if(/(^|\n)\s*(import|from)\s+numpy\b/.test(src)) packages.push("numpy");
+        if(/(^|\n)\s*(import|from)\s+pandas\b/.test(src)) packages.push("pandas");
+        if(/(^|\n)\s*(import|from)\s+matplotlib\b/.test(src)) packages.push("matplotlib");
+        if(packages.length) await py.loadPackage(packages);
+        py.globals.set("___code",src);
+        const result=await py.runPythonAsync(`
+import sys, io, contextlib, traceback
+_stdout=io.StringIO()
+_stderr=io.StringIO()
+with contextlib.redirect_stdout(_stdout), contextlib.redirect_stderr(_stderr):
+    try:
+        exec(___code, globals())
+    except Exception:
+        traceback.print_exc()
+_output=_stdout.getvalue()
+_error=_stderr.getvalue()
+_output + ("\\n" if _output and _error else "") + _error
+`);
+        const textResult=String(result||"").trimEnd();
+        out.textContent=textResult||"Programma eseguito senza output.";
+        if(_error){out.classList.add("error");status.textContent="Errore"}else{status.textContent="Completato"}
+        editorStatus.textContent="Python pronto";
+      }catch(err){
+        out.textContent=String(err&&err.message?err.message:err);out.classList.add("error");status.textContent="Errore";editorStatus.textContent="Errore";
+      }
+    };
+    updateLines();
+  });
+}
+
+setupEditors();
 </script>
 </body>
 </html>

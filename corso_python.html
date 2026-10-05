@@ -13,8 +13,8 @@
 <script src="/assets/js/i18n.js"></script>
 <script src="https://cdn.jsdelivr.net/pyodide/v0.28.2/full/pyodide.js"></script>
 <style>
-.python-course .app{display:grid;grid-template-columns:310px minmax(0,1fr);min-height:calc(100vh - 76px);background:#f6f8fb}
-.python-course .app>nav{position:sticky;top:76px;height:calc(100vh - 76px);overflow:auto;background:#fff;border-right:1px solid #e5e9f0;padding:18px 14px;font:inherit}
+.python-course .app{display:block;min-height:calc(100vh - 76px);background:#f6f8fb}
+.python-course .app>nav{display:none;position:sticky;top:76px;height:calc(100vh - 76px);overflow:auto;background:#fff;border-right:1px solid #e5e9f0;padding:18px 14px;font:inherit}
 .python-course .app .brand{font-family:Inter,system-ui,sans-serif;color:#173b63;font-size:1.35rem;font-weight:900;margin:0 0 4px}
 .python-course .app .brand span{background:#eef6f3;padding:2px 5px;color:#087a61}
 .python-course .app .sub{font:inherit;font-size:.82rem;color:#697386;margin:0 0 14px}
@@ -74,7 +74,6 @@
 </style>
 </head>
 <body class="python-course">
-<div class="top"><button id="menu" aria-label="Apri indice">Indice</button><b class="brand" style="font-size:18px">Python Completo</b></div>
 <div class="app">
 <nav id="nav" aria-label="Indice delle lezioni">
 <p class="brand">Python <span>Completo</span></p>
@@ -82,7 +81,7 @@
 <div class="bar"><i id="fill"></i></div>
 <p class="pct" id="pct"></p>
 <div id="list"></div>
-<div class="tools"><button id="theme">Tema chiaro/scuro</button><button id="reset">Azzera</button></div>
+<div class="tools"><button id="reset">Azzera</button></div>
 </nav>
 <main id="main" tabindex="-1"></main>
 </div>
@@ -300,11 +299,9 @@ if(ok){b.classList.add("ok");fb.textContent="Esatto. Lezione completata!";done.a
 else{b.classList.add("bad");fb.textContent="Non proprio. Rileggi l'esempio e riprova."}});
 $("#prev").onclick=()=>go(i-1);$("#next").onclick=()=>go(i<L.length-1?i+1:0);
 $("#main").querySelectorAll(".cp").forEach(b=>b.onclick=()=>{navigator.clipboard&&navigator.clipboard.writeText(b.nextElementSibling.textContent).then(()=>{b.textContent="Copiato";setTimeout(()=>b.textContent="Copia",1200)}).catch(()=>{})});
-setupEditors();drawNav();$("#nav").classList.remove("open")}
+setupEditors();drawNav()}
 function go(i){location.hash="l"+(i+1);show(i);window.scrollTo(0,0)}
 $("#list").onclick=e=>{const b=e.target.closest(".l");if(b)go(+b.dataset.i)};
-$("#menu").onclick=()=>$("#nav").classList.toggle("open");
-$("#theme").onclick=()=>{const r=document.documentElement,d=getComputedStyle(r).getPropertyValue("--bg").trim()==="#10172a";r.dataset.theme=d?"light":"dark"};
 $("#reset").onclick=()=>{if(confirm("Vuoi azzerare i progressi del corso Python?")){done=new Set();save();drawNav();show(cur)}};
 const m=/^#l(\d+)$/.exec(location.hash);show(m&&L[m[1]-1]?m[1]-1:0);
 

@@ -224,5 +224,14 @@
     render();
   }
 
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',start); else start();
+  function boot(){
+    try {
+      start();
+    } catch(error) {
+      console.error('Errore avvio corso SQL Server:', error);
+      const title=(location.pathname.toLowerCase().includes('corso_sqlserver'))?'SQL Server Academy — Corso Completo':'Corso completo';
+      document.body.innerHTML='<main style="font-family:Inter,system-ui,sans-serif;max-width:1000px;margin:60px auto;padding:32px"><h1>'+escapeHtml(title)+'</h1><p>Il corso non è riuscito ad avviarsi correttamente. Ricarica la pagina. Se il problema continua, svuota la cache del browser.</p><details><summary>Dettaglio tecnico</summary><pre style="white-space:pre-wrap">'+escapeHtml(error&&error.stack?error.stack:String(error))+'</pre></details></main>';
+    }
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot); else boot();
 })();

@@ -145,31 +145,6 @@ de:{'course.pythonTerminal':'Python-Terminal','course.writeRun':'Schreiben, änd
   window.MOUSSA_I18N_LOADED = true;
   window.MOUSSA_APPLY_LANGUAGE = apply;
   const init=()=>{
-    // Usa la delegazione degli eventi: la navbar viene montata dinamicamente
-    // e quindi potrebbe non esistere quando i18n.js viene inizializzato.
-    if(!window.MOUSSA_LANGUAGE_EVENTS_BOUND){
-      document.addEventListener('click',event=>{
-        const langButton=event.target.closest('.language-current');
-        if(langButton){
-          const switcher=langButton.closest('.language-switcher');
-          if(switcher){
-            document.querySelectorAll('.language-switcher.open').forEach(x=>{if(x!==switcher)x.classList.remove('open');});
-            switcher.classList.toggle('open');
-          }
-          return;
-        }
-        const option=event.target.closest('.language-menu [data-lang]');
-        if(option){
-          apply(option.dataset.lang);
-          option.closest('.language-switcher')?.classList.remove('open');
-          return;
-        }
-        if(!event.target.closest('.language-switcher')){
-          document.querySelectorAll('.language-switcher.open').forEach(x=>x.classList.remove('open'));
-        }
-      });
-      window.MOUSSA_LANGUAGE_EVENTS_BOUND=true;
-    }
     apply(current);
   };
   if(document.readyState==='loading'){

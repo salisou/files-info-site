@@ -1,84 +1,43 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="it">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<link rel="icon" type="image/svg+xml" href="/assets/images/ms-icon.svg">
-<title>SQL Server Completo | Docente Moussa Salisou</title>
-<meta name="description" content="Corso SQL Server Completo: T-SQL da zero, SELECT, JOIN, GROUP BY, CTE, window functions, procedure, trigger, transazioni, sicurezza, backup e performance.">
-<link rel="stylesheet" href="/assets/css/modern.css">
-<link rel="stylesheet" href="/assets/css/course-platform.css">
-<link rel="stylesheet" href="/assets/css/course-professional-ui.css">
-<link rel="stylesheet" href="/assets/css/site-navbar.css">
-<script src="/assets/js/site-navbar.js"></script>
-<script src="/assets/js/i18n.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>SQL Server — Corso completo con editor</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/courses/sql-server/css/styles.css">
 </head>
+
 <body>
-<header class="modern-header site-global-header">
-<div class="container header-inner">
-<a class="modern-logo" href="/"><span class="logo-mark">M/S</span><span class="logo-text">Docente <span>Moussa</span></span></a>
-<nav class="modern-nav modern-menu site-global-menu" aria-label="Navigazione principale">
-<a href="/">Home</a><a href="/#servizi">Servizi</a><a class="active" href="/courses/">Corsi</a><a href="/monitoraggio">Progetti</a><a href="/#chi-sono">Chi sono</a><a href="/risorse">Risorse</a><a class="nav-cta" href="/contact">Contattami</a>
-</nav>
-<div class="language-switcher"><button type="button" class="language-current">IT</button><div class="language-menu"><button data-lang="it">Italiano</button><button data-lang="en">English</button><button data-lang="fr">Français</button><button data-lang="es">Español</button><button data-lang="de">Deutsch</button></div></div>
-</div>
-</header>
-<main class="site-course-page">
-<section class="modern-hero course-hero">
-<div class="hero-grid">
-<div class="hero-copy">
-<div class="section-kicker">MS SQL ACADEMY</div>
-<h1>SQL Server <span>Completo.</span></h1>
-<p>Un percorso completo da zero all'utilizzo professionale di SQL Server e T-SQL: teoria, esempi reali, esercizi, soluzioni, quiz e progetto finale.</p>
-<div style="display:flex;gap:12px;flex-wrap:wrap"><a class="btn btn-primary" href="https://github.com/salisou/corso-sql-server" target="_blank" rel="noopener">Apri il corso completo →</a><a class="btn" href="/courses/">Tutti i corsi</a></div>
-</div>
-<div class="hero-visual"><div class="course-summary"><div class="summary-number">15</div><div class="summary-title">moduli completi</div><div class="summary-stats"><div><strong>50+</strong><span>esempi T-SQL</span></div><div><strong>45+</strong><span>esercizi</span></div><div><strong>100%</strong><span>pratica guidata</span></div></div></div></div>
-</div>
-</section>
-<section class="section" id="moduli">
-<div class="section-head">
-<div class="section-kicker">Corso completo</div>
-<h2>Il contenuto completo è nel repository ufficiale</h2>
-<p>Per mantenere il corso ordinato, aggiornabile e completo, il materiale didattico, gli esempi, gli esercizi e le soluzioni sono gestiti nel repository privato dedicato a SQL Server.</p>
-</div>
-<div class="course-lesson">
-<div class="lesson-grid">
-<div><h3>Teoria</h3><p>Spiegazioni progressive da zero fino agli argomenti professionali di SQL Server e T-SQL.</p></div>
-<div><h3>Esempi</h3><p>Query ed esempi pratici organizzati direttamente nel corso.</p></div>
-<div><h3>Esercizi e soluzioni</h3><p>Gli esercizi e le relative correzioni sono mantenuti insieme al corso, senza duplicazioni nel sito.</p></div>
-</div>
-<div style="margin-top:24px">
-<a class="btn btn-primary" href="https://github.com/salisou/corso-sql-server" target="_blank" rel="noopener">Apri il corso SQL Server Completo →</a>
-</div>
-</div>
-</section>
-</main>
-<footer class="modern-footer"><div class="container footer-inner"><p>© 2025 – Tutti i diritti riservati – Docente Moussa Salisou</p></div></footer>
-<script src="/assets/js/sqlserver-academy-content.js"></script>
-<script>
-(function(){
-'use strict';
-const modules=Array.isArray(window.MOUSSA_SQLSERVER_ACADEMY)?window.MOUSSA_SQLSERVER_ACADEMY:[];
-const root=document.getElementById('sqlModules');
-const esc=v=>String(v??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-if(!modules.length){root.innerHTML='<div class="course-empty"><h2>Contenuto non disponibile</h2><p>Il contenuto del corso non è stato caricato.</p></div>';return;}
-root.innerHTML=modules.map((m,i)=>{
- const examples=(m.ex||[]).map(x=>'<div class="lesson-example"><h4>'+esc(x[0])+'</h4><pre class="code-block"><code>'+esc(x[1])+'</code></pre><button type="button" class="copy-sql" data-copy="'+esc(x[1])+'">Copia codice</button></div>').join('');
- const exercises=(m.es||[]).map((x,j)=>'<div class="exercise"><strong>Esercizio '+(j+1)+'</strong><p>'+esc(x[0])+'</p><details><summary>Mostra soluzione</summary><pre class="code-block"><code>'+esc(x[1])+'</code></pre></details></div>').join('');
- return '<article class="course-lesson" id="modulo-'+(i+1)+'">'+
- '<div class="section-kicker">'+esc(m.g)+' · Modulo '+(i+1)+'</div><h2>'+esc(m.t)+'</h2>'+
- '<div class="lesson-grid"><div><h3>Cos\'è</h3><p>'+esc(m.cos)+'</p></div><div><h3>A cosa serve</h3><p>'+esc(m.serve)+'</p></div><div><h3>Perché usarlo</h3><p>'+esc(m.perche)+'</p></div></div>'+
- '<h3>Esempi pratici</h3>'+examples+
- '<h3>Esercizi</h3>'+exercises+
- (m.nota?'<div class="course-note"><strong>Nota docente</strong><p>'+esc(m.nota)+'</p></div>':'')+
- '</article>';
-}).join('');
-root.querySelectorAll('.copy-sql').forEach(btn=>btn.addEventListener('click',async()=>{
- const code=btn.getAttribute('data-copy')||'';
- try{await navigator.clipboard.writeText(code);btn.textContent='Copiato';setTimeout(()=>btn.textContent='Copia codice',1200);}
- catch(e){btn.textContent='Copia manualmente';}
-}));
-})();
-</script>
+    <header><button id="mb">☰</button><b>Corso completo di <i>SQL Server</i></b><button id="th">🌓</button></header>
+    <div class="wrap">
+        <nav id="nav"><input id="q" placeholder="Cerca un argomento…"><small id="pt"></small>
+            <div class="pg"><i id="pb"></i></div>
+            <div id="ls"></div>
+        </nav>
+        <main id="main"></main>
+    </div>
+    <div id="dock" class="cl">
+        <div class="bar"><b>⌨️ Editor SQL <span class="nr" id="tm"></span></b><button class="pr" id="run">▶ Esegui
+                (Ctrl+Invio)</button><button id="chk" hidden>✔ Verifica esercizio</button><button id="rst">↺ Reset
+                DB</button><button id="tg">▲ Apri</button></div>
+        <div class="db">
+            <div class="ed">
+                <pre id="hl"></pre><textarea id="ta" spellcheck="false"></textarea>
+            </div>
+            <div id="rs">
+                <div id="msg" class="nr">Scrivi una query ed eseguila. Il database contiene 6 tabelle collegate.</div>
+                <div id="out"></div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/alasql@4.5.2/dist/alasql.min.js"></script>
+    <script src="/courses/sql-server/data/database.js"></script>
+    <script src="/courses/sql-server/js/app.js"></script>
+    <script src="/courses/sql-server/js/course.js"></script>
 </body>
+
 </html>

@@ -308,47 +308,6 @@ window.MOUSSA_COURSE_CONTENT = (() => {
   }
 
   function build(course) {
-    if (course.key === 'sqlserver' && Array.isArray(window.MOUSSA_SQLSERVER_ACADEMY)) {
-      return window.MOUSSA_SQLSERVER_ACADEMY.map((m, index) => {
-        const first = m.ex && m.ex[0] ? m.ex[0][1] : '';
-        const second = m.ex && m.ex[1] ? m.ex[1][1] : first;
-        const third = m.ex && m.ex[2] ? m.ex[2][1] : second;
-        const steps = makeSteps(first);
-        return {
-          title: m.t,
-          explain: m.cos,
-          lead: m.serve,
-          syntax: m.perche,
-          goals: [
-            'Capire che cos’è l’argomento e a cosa serve.',
-            'Leggere e comprendere gli esempi T-SQL.',
-            'Applicare il concetto con un esercizio pratico.',
-            'Saper riconoscere gli errori più comuni.'
-          ],
-          code: first,
-          second,
-          third,
-          steps,
-          realExample: m.serve + ' ' + m.perche,
-          exercise: (m.es && m.es.length) ? m.es.map(x => x[0] + '\\n' + x[1]).join('\\n\\n') : 'Ripeti gli esempi del modulo e modifica i dati usando un caso reale.',
-          solution: (m.es && m.es.length) ? m.es.map(x => x[1]).join('\\n\\n') : first,
-          mistakes: [
-            'Eseguire UPDATE o DELETE senza verificare prima il filtro con una SELECT.',
-            'Confondere NULL con una stringa vuota o con zero.',
-            'Copiare una query senza capire la relazione tra tabelle e colonne.'
-          ],
-          challenge: m.nota || 'Adatta uno degli esempi a un caso reale della tua scuola o azienda.',
-          quiz: [
-            {q:'Qual è lo scopo principale di questo argomento?',opts:['Capire e applicare il concetto','Memorizzare il codice senza eseguirlo','Evitare gli esercizi','Ignorare gli errori'],answer:0,explain:m.serve},
-            {q:'Perché è importante applicare questo concetto?',opts:[m.perche,'Per rendere il codice più difficile','Per evitare SQL Server','Solo per scrivere più righe'],answer:0,explain:m.perche}
-          ],
-          reference: 'SQL Server Academy: ' + m.t,
-          difficulty: index < 3 ? 'Principiante' : 'Intermedio',
-          isFinal: false,
-          meta: 'SQL Server Academy · Spiegazione · Esempi T-SQL · Esercizi · Soluzioni'
-        };
-      });
-    }
     return (course.topics || []).map((topic, index) => buildLesson(course, topic, index));
   }
 

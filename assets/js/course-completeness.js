@@ -17,13 +17,13 @@
     python:'Python', sql:'SQL', c:'C', cpp:'C++', csharp:'C#', java:'Java',
     php:'PHP', go:'Go', rust:'Rust', kotlin:'Kotlin', swift:'Swift',
     tkinter:'Tkinter', blazor:'Blazor', maui:'.NET MAUI', aspnet:'ASP.NET Core',
-    python_data:'Python Data Analyst', sqlserver:'SQL Server', php_web:'PHP Full Stack',
+    python_data:'Python Data Analyst', php_web:'PHP Full Stack',
     csharp_net:'C# / .NET'
   };
 
   const ext = {
     html:'html', css:'css', javascript:'js', typescript:'ts', python:'py', sql:'sql',
-    sqlserver:'sql', c:'c', cpp:'cpp', csharp:'cs', csharp_net:'cs', java:'java',
+    c:'c', cpp:'cpp', csharp:'cs', csharp_net:'cs', java:'java',
     php:'php', php_web:'php', go:'go', rust:'rs', kotlin:'kt', swift:'swift',
     tkinter:'py', blazor:'razor', maui:'xaml', aspnet:'cs', python_data:'py'
   };

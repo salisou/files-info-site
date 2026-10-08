@@ -4,8 +4,8 @@
             --pn: #fff;
             --tx: #161a2e;
             --mu: #667;
-            --ac: #5b5bf0;
-            --ac2: #ecebff;
+            --ac: #4b45d8;
+            --ac2: #f2f4ff;
             --bd: #e2e5f0;
             --cd: #0d1020;
             --ct: #e6e9ff;
@@ -66,7 +66,7 @@
             font-family: "JetBrains Mono", ui-monospace, Consolas, monospace
         }
 
-        header {
+        body > header:not(.site-global-header) {
             position: sticky;
             top: env(safe-area-inset-top, 0px);
             z-index: 6;
@@ -79,13 +79,13 @@
             border-bottom: 1px solid var(--bd)
         }
 
-        header b {
+        body > header:not(.site-global-header) b {
             font-weight: 800;
             font-size: 1.1rem;
             flex: 1
         }
 
-        header b i {
+        body > header:not(.site-global-header) b i {
             font-style: normal;
             background: linear-gradient(90deg, #5b5bf0, #d946ef);
             -webkit-background-clip: text;
@@ -93,7 +93,8 @@
             color: transparent
         }
 
-        button {
+        .wrap button,
+        #dock button {
             font: inherit;
             font-size: .9rem;
             cursor: pointer;
@@ -105,7 +106,8 @@
             transition: .15s
         }
 
-        button:hover {
+        .wrap button:hover,
+        #dock button:hover {
             border-color: var(--ac);
             color: var(--ac)
         }
@@ -121,7 +123,7 @@
             filter: brightness(1.1)
         }
 
-        #mb {
+        #lesson-menu-toggle {
             display: none
         }
 
@@ -132,16 +134,16 @@
             margin: 0 auto
         }
 
-        nav {
+        #nav {
             position: sticky;
-            top: 57px;
-            height: calc(100vh - 57px);
+            top: 76px;
+            height: calc(100vh - 76px);
             overflow: auto;
             padding: 16px;
             border-right: 1px solid var(--bd)
         }
 
-        nav input {
+        #nav input {
             width: 100%;
             padding: 9px 12px;
             border-radius: 10px;
@@ -168,11 +170,11 @@
             transition: .3s
         }
 
-        nav small {
+        #nav small {
             color: var(--mu)
         }
 
-        nav h4 {
+        #nav h4 {
             margin: 14px 0 4px;
             font-size: .7rem;
             letter-spacing: .1em;
@@ -180,7 +182,7 @@
             color: var(--mu)
         }
 
-        nav a {
+        #nav a {
             display: flex;
             gap: 8px;
             padding: 6px 10px;
@@ -190,13 +192,13 @@
             font-size: .92rem
         }
 
-        nav a:hover,
-        nav a.on {
+        #nav a:hover,
+        #nav a.on {
             background: var(--ac2);
             color: var(--ac)
         }
 
-        nav a.dn::after {
+        #nav a.dn::after {
             content: "✓";
             margin-left: auto;
             color: var(--ok)
@@ -211,7 +213,7 @@
             padding: 40px 32px;
             border-radius: 20px;
             color: #fff;
-            background: linear-gradient(135deg, #4338ca, #7c3aed 55%, #d946ef);
+            background: linear-gradient(135deg, #4b45d8, #6d63f5 60%, #8b5cf6);
             margin-bottom: 24px
         }
 
@@ -500,20 +502,20 @@
                 display: block
             }
 
-            #mb {
+            #lesson-menu-toggle {
                 display: inline-block
             }
 
-            nav {
+            #nav {
                 display: none;
                 position: fixed;
-                inset: 57px 0 0 0;
+                inset: 76px 0 0 0;
                 height: auto;
                 z-index: 5;
                 background: var(--bg)
             }
 
-            nav.op {
+            #nav.op {
                 display: block
             }
 

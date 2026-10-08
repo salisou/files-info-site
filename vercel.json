@@ -4,7 +4,7 @@
   "rewrites": [
     {
       "source": "/corso_sqlserver-completo",
-      "destination": "/sql-server-completo.html"
+      "destination": "/courses/sql-server/index.html"
     },
     {
       "source": "/courses",
@@ -48,7 +48,7 @@
     },
     {
       "source": "/corso_sqlserver",
-      "destination": "/sql-server-completo.html"
+      "destination": "/courses/sql-server/index.html"
     },
     {
       "source": "/corso_php",

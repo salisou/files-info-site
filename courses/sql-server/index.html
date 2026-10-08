@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>SQL Server — Corso completo con editor</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/courses/sql-server/css/styles.css">
+</head>
+
+<body>
+    <header><button id="mb">☰</button><b>Corso completo di <i>SQL Server</i></b><button id="th">🌓</button></header>
+    <div class="wrap">
+        <nav id="nav"><input id="q" placeholder="Cerca un argomento…"><small id="pt"></small>
+            <div class="pg"><i id="pb"></i></div>
+            <div id="ls"></div>
+        </nav>
+        <main id="main"></main>
+    </div>
+    <div id="dock" class="cl">
+        <div class="bar"><b>⌨️ Editor SQL <span class="nr" id="tm"></span></b><button class="pr" id="run">▶ Esegui
+                (Ctrl+Invio)</button><button id="chk" hidden>✔ Verifica esercizio</button><button id="rst">↺ Reset
+                DB</button><button id="tg">▲ Apri</button></div>
+        <div class="db">
+            <div class="ed">
+                <pre id="hl"></pre><textarea id="ta" spellcheck="false"></textarea>
+            </div>
+            <div id="rs">
+                <div id="msg" class="nr">Scrivi una query ed eseguila. Il database contiene 6 tabelle collegate.</div>
+                <div id="out"></div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/alasql@4.5.2/dist/alasql.min.js"></script>
+    <script src="/courses/sql-server/data/database.js"></script>
+    <script src="/courses/sql-server/js/app.js"></script>
+    <script src="/courses/sql-server/js/course.js"></script>
+</body>
+
+</html>

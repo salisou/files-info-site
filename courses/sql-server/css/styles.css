@@ -15,6 +15,8 @@
             --s: #86efac;
             --n: #7dd3fc;
             --cm: #7c85ad;
+            --font-body: "Instrument Sans", Inter, system-ui, sans-serif;
+            --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
             box-sizing: border-box;
             padding-top: env(safe-area-inset-top, 0px)
         }
@@ -56,7 +58,7 @@
             margin: 0;
             background: var(--bg);
             color: var(--tx);
-            font: 16px/1.7 Inter, system-ui, sans-serif
+            font: 16px/1.7 var(--font-body)
         }
 
         .mono,
@@ -207,6 +209,16 @@
         main {
             padding: 28px clamp(16px, 4vw, 52px) 60px;
             min-width: 0
+        }
+
+        main h1,
+        main h2,
+        main h3 {
+            font-family: var(--font-display)
+        }
+
+        main p {
+            line-height: 1.75
         }
 
         .hero {

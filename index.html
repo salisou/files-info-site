@@ -35,8 +35,111 @@
   <div class="language-switcher"><button type="button" class="language-current">IT</button><div class="language-menu"><button data-lang="it">Italiano</button><button data-lang="en">English</button><button data-lang="fr">Français</button><button data-lang="es">Español</button><button data-lang="de">Deutsch</button></div></div>
 </div></header>
 <main>
-<section id="home" class="modern-hero"><div class="container hero-grid"><div class="hero-copy reveal"><div class="eyebrow" data-i18n="home.eyebrow">DOCENTE · DEVELOPER · CREATOR</div><h1 data-i18n="home.title">Impara a programmare. <span>Costruisci il futuro.</span></h1><p data-i18n="home.subtitle">Creo Soluzioni Digitali &amp; Corsi di Programmazione. Un approccio pratico per imparare a sviluppare applicazioni, API, database e soluzioni web moderne.</p><div class="hero-actions"><a class="btn btn-primary" href="#corsi" data-i18n="home.ctaCourses">Esplora i corsi</a><a class="btn btn-outline" href="#servizi" data-i18n="home.ctaServices">Scopri cosa faccio</a></div><div class="hero-proof"><div class="proof-item"><strong>8+</strong><small data-i18n="home.proof1">aree tecnologiche</small></div><div class="proof-item"><strong>100%</strong><small data-i18n="home.proof2">approccio pratico</small></div><div class="proof-item"><strong>MS</strong><small>Docente Moussa Salisou</small></div></div></div><div class="hero-visual reveal"><div class="hero-photo-frame"><img src="assets/images/banner-right-image.png" alt="Sviluppo software e formazione con Moussa Salisou" width="900" height="900"></div><div class="hero-code"><div><span class="dot"></span><span class="dot"></span><span class="dot"></span></div><div><strong>class</strong> LearningJourney</div><div>{</div><div>&nbsp;&nbsp;buildSkills(<strong>"Python, C#, Web"</strong>);</div><div>&nbsp;&nbsp;createProjects();</div><div>&nbsp;&nbsp;shareKnowledge();</div><div>}</div></div></div></section>
-<section id="servizi" class="section section-soft"><div class="container"><div class="section-head reveal"><div class="section-kicker" data-i18n="home.servicesKicker">Cosa faccio</div><h2 data-i18n="home.servicesTitle">Competenze per costruire progetti reali</h2><p data-i18n="home.servicesText">Dalla prima riga di codice fino alla realizzazione di applicazioni complete, con tecnologie attuali e un metodo orientato alla pratica.</p></div><div class="services-grid"><article class="service-card reveal"><div class="service-icon">Py</div><h3>Python &amp; Data</h3><p>Python, analisi dati, pandas, matplotlib e automazione per imparare lavorando su casi concreti.</p></article><article class="service-card reveal"><div class="service-icon">Tk</div><h3>Tkinter &amp; CustomTkinter</h3><p>Applicazioni desktop moderne con interfacce grafiche, componenti riutilizzabili e progetti completi.</p></article><article class="service-card reveal"><div class="service-icon">&lt;/&gt;</div><h3>Web Development</h3><p>HTML, CSS, JavaScript e sviluppo web responsive con una struttura pulita e professionale.</p></article><article class="service-card reveal"><div class="service-icon">DB</div><h3>Database &amp; SQL</h3><p>SQL Server, SQLite e progettazione dati, query, relazioni, CRUD e applicazioni con database.</p></article><article class="service-card reveal"><div class="service-icon">C#</div><h3>C# &amp; .NET</h3><p>Fondamenti, OOP, API, applicazioni desktop e soluzioni professionali nell'ecosistema Microsoft.</p></article><article class="service-card reveal"><div class="service-icon">B</div><h3>Blazor</h3><p>Applicazioni web moderne con componenti riutilizzabili, servizi, API e architetture organizzate.</p></article><article class="service-card reveal"><div class="service-icon">MA</div><h3>.NET MAUI</h3><p>Applicazioni multipiattaforma per desktop e mobile con .NET e un'unica base di codice.</p></article><article class="service-card reveal"><div class="service-icon">PHP</div><h3>PHP &amp; Backend</h3><p>Backend, API e applicazioni web con PHP e strumenti moderni per costruire progetti completi.</p></article></div></div></section>
+<section id="home" class="modern-hero"><div class="container hero-grid"><div class="hero-copy reveal"><div class="eyebrow" data-i18n="home.eyebrow">DOCENTE · DEVELOPER · CREATOR</div><h1 data-i18n="home.title">Impara a programmare. <span>Costruisci il futuro.</span></h1><p data-i18n="home.subtitle">Creo Soluzioni Digitali &amp; Corsi di Programmazione. Un approccio pratico per imparare a sviluppare applicazioni, API, database e soluzioni web moderne.</p><div class="hero-actions"><a class="btn btn-primary" href="#corsi" data-i18n="home.ctaCourses">Esplora i corsi</a><a class="btn btn-outline" href="#servizi" data-i18n="home.ctaServices">Scopri cosa faccio</a></div><div class="hero-proof"><div class="proof-item"><strong>17+</strong><small data-i18n="home.proof1">aree tecnologiche</small></div><div class="proof-item"><strong>100%</strong><small data-i18n="home.proof2">approccio pratico</small></div><div class="proof-item"><strong>MS</strong><small>Docente Moussa Salisou</small></div></div></div><div class="hero-visual reveal"><div class="hero-photo-frame"><img src="assets/images/banner-right-image.png" alt="Sviluppo software e formazione con Moussa Salisou" width="900" height="900"></div><div class="hero-code"><div><span class="dot"></span><span class="dot"></span><span class="dot"></span></div><div><strong>class</strong> LearningJourney</div><div>{</div><div>&nbsp;&nbsp;buildSkills(<strong>"Python, C#, Web"</strong>);</div><div>&nbsp;&nbsp;createProjects();</div><div>&nbsp;&nbsp;shareKnowledge();</div><div>}</div></div></div></section>
+<section id="servizi" class="section section-soft">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-kicker" data-i18n="home.servicesKicker">Cosa faccio</div>
+      <h2 data-i18n="home.servicesTitle">Competenze per costruire progetti reali</h2>
+      <p data-i18n="home.servicesText">Dai linguaggi fondamentali ai framework moderni: percorsi pratici per sviluppare applicazioni, API, database e progetti reali.</p>
+    </div>
+    <div class="skills-showcase" id="skills-course-stream" aria-label="Linguaggi di programmazione e framework insegnati">
+      <div class="skills-stream" id="skills-stream">
+        <canvas class="skills-particles" aria-hidden="true"></canvas>
+        <div class="skills-scanner" aria-hidden="true"></div>
+        <div class="skills-track" id="skills-track">
+          <div class="skills-card-set">
+            <a class="skills-card skills-card--python" href="/corso_python">
+              <span class="skills-card-meta">01 / PYTHON · DATA</span>
+              <span class="skills-card-logo"><img src="/assets/images/languages/python-original.svg" alt="" width="54" height="54"></span>
+              <span class="skills-card-copy"><strong>Python &amp; Data</strong><span>Python, programmazione a oggetti, analisi dati con Pandas e progetti pratici.</span><span class="skills-card-link">Apri il corso <span aria-hidden="true">→</span></span></span>
+            </a>
+            <a class="skills-card skills-card--desktop" href="/corso_tkinter">
+              <span class="skills-card-meta">02 / PYTHON · DESKTOP</span>
+              <span class="skills-card-logo"><img src="/assets/images/languages/python-original.svg" alt="" width="54" height="54"></span>
+              <span class="skills-card-copy"><strong>Tkinter &amp; CustomTkinter</strong><span>Crea interfacce desktop, widget riutilizzabili e applicazioni complete con Python.</span><span class="skills-card-link">Apri il corso <span aria-hidden="true">→</span></span></span>
+            </a>
+            <a class="skills-card skills-card--web" href="/courses/">
+              <span class="skills-card-meta">03 / WEB · FRONTEND</span>
+              <span class="skills-card-logo skills-card-logos"><img src="/assets/images/languages/html5-original.svg" alt="" width="44" height="44"><img src="/assets/images/languages/css3-original.svg" alt="" width="44" height="44"><img src="/assets/images/languages/javascript-original.svg" alt="" width="44" height="44"></span>
+              <span class="skills-card-copy"><strong>HTML, CSS &amp; JavaScript</strong><span>Costruisci siti accessibili e responsive, dalle basi alle interfacce interattive.</span><span class="skills-card-link">Esplora i corsi <span aria-hidden="true">→</span></span></span>
+            </a>
+            <a class="skills-card skills-card--typescript" href="/courses/">
+              <span class="skills-card-meta">04 / WEB · TYPESCRIPT</span>
+              <span class="skills-card-logo"><img src="/assets/images/languages/typescript-original.svg" alt="" width="54" height="54"></span>
+              <span class="skills-card-copy"><strong>TypeScript</strong><span>Tipi, interfacce, generics e applicazioni web moderne con codice più affidabile.</span><span class="skills-card-link">Esplora i corsi <span aria-hidden="true">→</span></span></span>
+            </a>
+            <a class="skills-card skills-card--sql" href="/courses/sql-server/">
+              <span class="skills-card-meta">05 / DATABASE · T-SQL</span>
+              <span class="skills-card-logo"><img src="/assets/images/languages/microsoftsqlserver-plain.svg" alt="" width="54" height="54"></span>
+              <span class="skills-card-copy"><strong>SQL Server &amp; Database</strong><span>Query, JOIN, progettazione dati, procedure, sicurezza e prestazioni con T-SQL.</span><span class="skills-card-link">Apri il corso <span aria-hidden="true">→</span></span></span>
+            </a>
+            <a class="skills-card skills-card--dotnet" href="/courses/">
+              <span class="skills-card-meta">06 / C# · .NET</span>
+              <span class="skills-card-logo skills-card-logos"><img src="/assets/images/languages/csharp-original.svg" alt="" width="46" height="46"><img src="/assets/images/languages/dotnetcore-original.svg" alt="" width="50" height="50"></span>
+              <span class="skills-card-copy"><strong>C# &amp; .NET</strong><span>Programmazione a oggetti, LINQ, API e applicazioni nell'ecosistema Microsoft.</span><span class="skills-card-link">Esplora i corsi <span aria-hidden="true">→</span></span></span>
+            </a>
+            <a class="skills-card skills-card--aspnet" href="/courses/">
+              <span class="skills-card-meta">07 / BACKEND · API</span>
+              <span class="skills-card-logo"><img src="/assets/images/languages/dotnetcore-original.svg" alt="" width="54" height="54"></span>
+              <span class="skills-card-copy"><strong>ASP.NET Core</strong><span>Progetta API REST, servizi backend, autenticazione e applicazioni con .NET.</span><span class="skills-card-link">Esplora i corsi <span aria-hidden="true">→</span></span></span>
+            </a>
+            <a class="skills-card skills-card--blazor" href="/courses/">
+              <span class="skills-card-meta">08 / WEB · .NET</span>
+              <span class="skills-card-logo"><img src="/assets/images/languages/blazor-original.svg" alt="" width="54" height="54"></span>
+              <span class="skills-card-copy"><strong>Blazor</strong><span>Realizza applicazioni web con componenti riutilizzabili, servizi e C#.</span><span class="skills-card-link">Esplora i corsi <span aria-hidden="true">→</span></span></span>
+            </a>
+            <a class="skills-card skills-card--maui" href="/courses/">
+              <span class="skills-card-meta">09 / .NET · MULTIPIATTAFORMA</span>
+              <span class="skills-card-logo"><img src="/assets/images/languages/dotnetcore-original.svg" alt="" width="54" height="54"></span>
+              <span class="skills-card-copy"><strong>.NET MAUI</strong><span>Sviluppa applicazioni desktop e mobile multipiattaforma con C# e .NET.</span><span class="skills-card-link">Esplora i corsi <span aria-hidden="true">→</span></span></span>
+            </a>
+            <a class="skills-card skills-card--php" href="/courses/">
+              <span class="skills-card-meta">10 / PHP · FULL STACK</span>
+              <span class="skills-card-logo"><img src="/assets/images/languages/php-original.svg" alt="" width="54" height="54"></span>
+              <span class="skills-card-copy"><strong>PHP Full Stack</strong><span>Backend, database, API, autenticazione e applicazioni web complete.</span><span class="skills-card-link">Esplora i corsi <span aria-hidden="true">→</span></span></span>
+            </a>
+            <a class="skills-card skills-card--c" href="/courses/">
+              <span class="skills-card-meta">11 / PROGRAMMAZIONE · C</span>
+              <span class="skills-card-logo"><img src="/assets/images/languages/c-original.svg" alt="" width="54" height="54"></span>
+              <span class="skills-card-copy"><strong>Linguaggio C</strong><span>Fondamenti, puntatori, strutture dati e gestione della memoria.</span><span class="skills-card-link">Esplora i corsi <span aria-hidden="true">→</span></span></span>
+            </a>
+            <a class="skills-card skills-card--cpp" href="/courses/">
+              <span class="skills-card-meta">12 / PROGRAMMAZIONE · C++</span>
+              <span class="skills-card-logo"><img src="/assets/images/languages/cplusplus-original.svg" alt="" width="54" height="54"></span>
+              <span class="skills-card-copy"><strong>C++</strong><span>OOP, STL, template, gestione risorse e tecniche del C++ moderno.</span><span class="skills-card-link">Esplora i corsi <span aria-hidden="true">→</span></span></span>
+            </a>
+            <a class="skills-card skills-card--java" href="/courses/">
+              <span class="skills-card-meta">13 / PROGRAMMAZIONE · JAVA</span>
+              <span class="skills-card-logo"><img src="/assets/images/languages/java-original.svg" alt="" width="54" height="54"></span>
+              <span class="skills-card-copy"><strong>Java</strong><span>Classi, collections, eccezioni, concorrenza e sviluppo di applicazioni.</span><span class="skills-card-link">Esplora i corsi <span aria-hidden="true">→</span></span></span>
+            </a>
+            <a class="skills-card skills-card--go" href="/courses/">
+              <span class="skills-card-meta">14 / BACKEND · GO</span>
+              <span class="skills-card-logo"><img src="/assets/images/languages/go-original.svg" alt="" width="54" height="54"></span>
+              <span class="skills-card-copy"><strong>Go</strong><span>Servizi web, API, goroutine e concorrenza con un linguaggio essenziale.</span><span class="skills-card-link">Esplora i corsi <span aria-hidden="true">→</span></span></span>
+            </a>
+            <a class="skills-card skills-card--rust" href="/courses/">
+              <span class="skills-card-meta">15 / SISTEMI · RUST</span>
+              <span class="skills-card-logo"><img src="/assets/images/languages/rust-original.svg" alt="" width="54" height="54"></span>
+              <span class="skills-card-copy"><strong>Rust</strong><span>Ownership, borrowing, sicurezza della memoria e applicazioni efficienti.</span><span class="skills-card-link">Esplora i corsi <span aria-hidden="true">→</span></span></span>
+            </a>
+            <a class="skills-card skills-card--kotlin" href="/courses/">
+              <span class="skills-card-meta">16 / APP · KOTLIN</span>
+              <span class="skills-card-logo"><img src="/assets/images/languages/kotlin-original.svg" alt="" width="54" height="54"></span>
+              <span class="skills-card-copy"><strong>Kotlin</strong><span>Null safety, coroutines e sviluppo moderno con l'ecosistema JVM.</span><span class="skills-card-link">Esplora i corsi <span aria-hidden="true">→</span></span></span>
+            </a>
+            <a class="skills-card skills-card--swift" href="/courses/">
+              <span class="skills-card-meta">17 / APP · SWIFT</span>
+              <span class="skills-card-logo"><img src="/assets/images/languages/swift-original.svg" alt="" width="54" height="54"></span>
+              <span class="skills-card-copy"><strong>Swift</strong><span>Tipi, protocolli e programmazione asincrona per app nell'ecosistema Apple.</span><span class="skills-card-link">Esplora i corsi <span aria-hidden="true">→</span></span></span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 <section id="corsi" class="section course-section"><div class="container"><div class="section-head reveal"><div class="section-kicker" data-i18n="home.trainingKicker">Formazione</div><h2 data-i18n="home.trainingTitle">Corsi pratici, dal primo codice al progetto completo</h2><p data-i18n="home.trainingText">Materiale progressivo, esercizi e progetti per trasformare la teoria in competenze realmente utilizzabili.</p></div><div class="course-grid"><article class="course-card reveal"><span class="course-number">01</span><h3>Python Completo</h3><p>53 moduli da zero a Data Analysis: Python, OOP, NumPy, Pandas, grafici, SQL, KPI, AI e progetto finale.</p><a class="course-link" href="/corso_python">Scopri il corso →</a></article><article class="course-card reveal"><span class="course-number">02</span><h3>Tkinter &amp; CustomTkinter</h3><p>Impara a creare applicazioni desktop Python moderne partendo da zero.</p><a class="course-link" href="/corso_tkinter">Scopri il corso →</a></article><article class="course-card reveal"><span class="course-number">03</span><h3>SQL Server Completo</h3><p>Corso completo da zero a professionista: T-SQL, SELECT, JOIN, GROUP BY, CTE, procedure, funzioni, trigger, transazioni, sicurezza, performance ed esercizi.</p><a class="course-link" href="/courses/sql-server/">Scopri il corso →</a></article><article class="course-card reveal"><span class="course-number">04</span><h3>C# &amp; .NET</h3><p>Programmazione moderna con C#, OOP e framework .NET.</p><a class="course-link" href="/courses/">Vai ai corsi →</a></article><article class="course-card reveal"><span class="course-number">05</span><h3>ASP.NET &amp; API</h3><p>API professionali, servizi, database e architetture backend.</p><a class="course-link" href="/courses/">Vai ai corsi →</a></article><article class="course-card reveal"><span class="course-number">06</span><h3>Blazor &amp; MAUI</h3><p>Applicazioni web e multipiattaforma nell'ecosistema .NET.</p><a class="course-link" href="/courses/">Vai ai corsi →</a></article></div><div style="text-align:center;margin-top:34px"><a class="btn btn-outline" style="background:transparent;color:#fff;border-color:rgba(255,255,255,.18)" href="/risorse" data-i18n="home.resourcesCta">Esplora le risorse gratuite →</a></div></div></section>
 <section id="chi-sono" class="section"><div class="container about-grid"><div class="about-photo reveal"><img src="assets/images/moussa-salisou.jpg" alt="Moussa Salisou, docente e sviluppatore software" width="220" height="391"></div><div class="about-copy reveal"><div class="section-kicker" data-i18n="home.aboutKicker">Chi sono</div><h2 data-i18n="home.aboutTitle">Docente e sviluppatore, con la tecnologia come strumento.</h2><p data-i18n="home.aboutText1">Sono Moussa Salisou, sviluppatore backend e frontend e docente di programmazione. Lavoro con tecnologie Microsoft e web, database e sviluppo di applicazioni per desktop, mobile e web.</p><p data-i18n="home.aboutText2">Il mio obiettivo è trasformare concetti tecnici complessi in percorsi chiari, pratici e progressivi, costruendo insieme progetti che permettano di imparare facendo.</p><div class="tech-list"><span class="tech-chip">Python</span><span class="tech-chip">C# / .NET</span><span class="tech-chip">SQL Server</span><span class="tech-chip">Blazor</span><span class="tech-chip">Web</span><span class="tech-chip">PHP</span></div></div></div></section>
 <section class="contact-band"><div class="container contact-card reveal"><div><h2 data-i18n="home.contactTitle">Hai un progetto o vuoi imparare?</h2><p data-i18n="home.contactText">Parliamo del percorso più adatto alle tue esigenze.</p></div><a class="btn" href="/contact" data-i18n="nav.contact">Contattami</a></div></section>

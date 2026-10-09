@@ -9,20 +9,24 @@
   'use strict';
 
   const lessons = [];
-  const q = (title, lead, code, second, third, steps, exercise, solution, mistakes, challenge, quiz, reference) => ({
-    title, lead, explain: lead,
-    goals: ['Capire il concetto partendo da zero','Leggere la sintassi riga per riga','Copiare e provare l’esempio','Modificare il codice con una piccola variazione'],
-    syntax: code, code, second, third, steps,
-    realExample: reference,
-    exercises: [exercise, 'Modifica l’esempio usando una seconda colonna o condizione.', 'Scrivi una query simile usando una tabella del tuo progetto.', 'Spiega a parole che cosa restituisce la query.'],
-    solution,
-    mistakes,
-    challenge,
-    quiz,
-    reference,
-    difficulty:'base',
-    sourceAdaptation:'sql.sh'
-  });
+  const q = (title, lead, code, second, third, steps, exercise, solution, mistakes, challenge, quiz, reference) => {
+    const lesson = {
+      title, lead, explain: lead,
+      goals: ['Capire il concetto partendo da zero','Leggere la sintassi riga per riga','Copiare e provare l’esempio','Modificare il codice con una piccola variazione'],
+      syntax: code, code, second, third, steps,
+      realExample: reference,
+      exercises: [exercise, 'Modifica l’esempio usando una seconda colonna o condizione.', 'Scrivi una query simile usando una tabella del tuo progetto.', 'Spiega a parole che cosa restituisce la query.'],
+      solution,
+      mistakes,
+      challenge,
+      quiz,
+      reference,
+      difficulty:'base',
+      sourceAdaptation:'sql.sh'
+    };
+    lessons.push(lesson);
+    return lesson;
+  };
 
   const genericMistakes = ['Confondere SQL con il database che lo esegue.','Dimenticare il punto e virgola quando l’ambiente lo richiede.','Usare nomi di colonne che non esistono nella tabella.','Modificare dati senza controllare prima con SELECT.','Non verificare la sintassi specifica del proprio SGBD.'];
 
@@ -89,8 +93,23 @@
     ['DEFAULT','DEFAULT assegna un valore quando non viene specificato.',`CREATE TABLE Utenti (\n    Id INT PRIMARY KEY,\n    Attivo INT DEFAULT 1\n);`,`INSERT INTO Utenti (Id) VALUES (1);`,`-- Attivo riceve il valore predefinito.`,['DEFAULT è un valore di fallback.','Può semplificare gli INSERT.'],'Imposta 1 come valore predefinito per Attivo.',`Attivo INT DEFAULT 1`],
     ['INDEX','Un indice aiuta il database a trovare dati più rapidamente, ma occupa spazio e ha un costo sulle modifiche.',`CREATE INDEX IX_Studenti_Citta\nON Studenti(Citta);`,`SELECT * FROM Studenti WHERE Citta='Ferrara';`,`-- Un indice deve essere scelto in base alle query reali.`,['Gli indici accelerano alcune letture.','Troppi indici possono rallentare INSERT/UPDATE/DELETE.'],'Crea un indice sulla colonna Email.',`CREATE INDEX IX_Utenti_Email ON Utenti(Email);`],
     ['VIEW','Una VIEW è una query salvata che può essere interrogata come una tabella logica.',`CREATE VIEW StudentiFerrara AS\nSELECT Id, Nome, Cognome\nFROM Studenti\nWHERE Citta = 'Ferrara';`,`SELECT * FROM StudentiFerrara;`,`-- La sintassi di CREATE VIEW è supportata dai principali SGBD con differenze minori.`,['CREATE VIEW salva la definizione della query.','SELECT sulla view riusa quella definizione.'],'Crea una view degli studenti maggiorenni.',`CREATE VIEW StudentiMaggiorenni AS SELECT * FROM Studenti WHERE Eta >= 18;`],
-    ['Stored procedures','Una stored procedure contiene istruzioni SQL riutilizzabili; la sintassi cambia molto tra SGBD.',`-- Esempio SQL Server\nCREATE PROCEDURE TrovaStudente\n    @Id INT\nAS\nBEGIN\n    SELECT * FROM Studenti WHERE Id = @Id;\nEND;`,`-- MySQL usa una sintassi diversa con DELIMITER e parametri propri.`,`-- Scegli la sintassi in base al database che utilizzi.`,['Una procedura vive nel database.','Può ricevere parametri.','La sintassi non è portabile al 100%.'],'Qual è il vantaggio principale di una stored procedure?','Riutilizzare una logica SQL sul server.',genericMistakes,'Crea una procedura che restituisca gli studenti di una città.',
-    ['Una stored procedure è: una routine SQL / un file CSS','I parametri permettono di: riutilizzare la routine / cancellare il database'], 'sql.sh presenta CREATE PROCEDURE come comando avanzato; qui l’esempio è volutamente dichiarato SQL Server.');
+  ];
+
+  basic.forEach(([title, lead, code, second, third, steps, exercise, solution]) => {
+    q(title, lead, code, second, third, steps, exercise, solution, genericMistakes, exercise, [], 'Argomento adattato dal percorso di riferimento sql.sh.');
+  });
+
+  q('Stored procedures','Una stored procedure contiene istruzioni SQL riutilizzabili; la sintassi cambia molto tra SGBD.',
+`-- Esempio SQL Server\nCREATE PROCEDURE TrovaStudente\n    @Id INT\nAS\nBEGIN\n    SELECT * FROM Studenti WHERE Id = @Id;\nEND;`,
+`-- MySQL usa una sintassi diversa con DELIMITER e parametri propri.`,
+`-- Scegli la sintassi in base al database che utilizzi.`,
+['Una procedura vive nel database.','Può ricevere parametri.','La sintassi non è portabile al 100%.'],
+'Qual è il vantaggio principale di una stored procedure?',
+'Riutilizzare una logica SQL sul server.',
+genericMistakes,
+'Crea una procedura che restituisca gli studenti di una città.',
+['Una stored procedure è: una routine SQL / un file CSS','I parametri permettono di: riutilizzare la routine / cancellare il database'],
+'sql.sh presenta CREATE PROCEDURE come comando avanzato; qui l’esempio è volutamente dichiarato SQL Server.');
 
   q('Funzioni','Le funzioni SQL permettono di trasformare valori, eseguire calcoli o produrre risultati riutilizzabili. La disponibilità varia tra SGBD.',
 `SELECT UPPER(Nome) AS NomeMaiuscolo\nFROM Studenti;`,`SELECT LENGTH(Nome) AS Lunghezza\nFROM Studenti;`,`SELECT ROUND(Prezzo, 2) AS PrezzoArrotondato\nFROM Prodotti;`,['Le funzioni di testo, numeriche e date cambiano tra database.','Controlla la documentazione del tuo SGBD.'],'Converti un nome in maiuscolo.',`SELECT UPPER(Nome) FROM Studenti;`,genericMistakes,'Prova una funzione di testo e una numerica.',
@@ -133,7 +152,8 @@
 ['Un indice può migliorare: letture / solo colori','Troppi indici possono: avere un costo / eliminare SQL'], 'Tema ottimizzazione presente nel percorso sql.sh.');
 
   q('SQL injection e sicurezza','Le query non devono essere costruite concatenando direttamente input utente. Usa query parametrizzate o prepared statements.',
-`-- Da evitare\n-- SELECT * FROM Utenti WHERE Email = '` + "' + ` + email + ` + "'" + `;`,
+`-- Da evitare: concatenare direttamente l'input utente
+-- query = "SELECT * FROM Utenti WHERE Email = '" + email + "'";`,
 `-- Esempio concettuale con parametro\nSELECT *\nFROM Utenti\nWHERE Email = @Email;`,
 `-- Nelle applicazioni usa il meccanismo di parametri del driver/ORM.`,['L’input utente è potenzialmente non affidabile.','I parametri separano dati e codice SQL.','La sintassi del parametro dipende dal linguaggio e dal driver.'],'Perché non dovresti concatenare direttamente una email ricevuta da un form nella query?','Per ridurre il rischio di SQL injection e di query manipolate.',genericMistakes,'Scrivi una query parametrizzata nel linguaggio che usi per il backend.',
 ['I parametri aiutano contro: SQL injection / CSS','L’input utente va considerato: non affidabile / sempre sicuro'], 'Argomento sicurezza aggiunto in linea con la sezione di ottimizzazione e buone pratiche del percorso SQL.');

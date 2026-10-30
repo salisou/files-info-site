@@ -10,6 +10,7 @@
   const sqlsh = window.MOUSSA_SQLSH_REFERENCE;
   const sqlComplete = window.MOUSSA_SQL_COMPLETE;
   const sqlExtra = window.MOUSSA_SQL_EXTRA;
+  const javaComplete = window.MOUSSA_JAVA_COMPLETE;
   const blueprint = window.MOUSSA_TKINTER_BLUEPRINT;
   const content = window.MOUSSA_COURSE_CONTENT;
   if(!content || typeof content.build !== 'function') return;
@@ -24,6 +25,10 @@
     }
 
     const baseLessons = originalBuild(course, key) || [];
+
+    if(resolvedKey === 'java' && javaComplete && Array.isArray(javaComplete.lessons)){
+      return javaComplete.lessons;
+    }
 
     if(resolvedKey === 'sql' && sqlComplete && Array.isArray(sqlComplete.lessons)){
       const packs = [
